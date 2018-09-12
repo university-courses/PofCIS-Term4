@@ -2,7 +2,7 @@
 {
 	public interface IShape
 	{
-		double SquareCount();
-		double PerimeterCount();
+		double CalcSquare();
+		double CalcPerimeter();
 	}
 }
