@@ -5,6 +5,6 @@ namespace Task1CS.Interfaces
 	public interface IFileManager
 	{
 		void WriteToFile(ref StreamWriter streamWriter);
-		void ReadFromFile(ref StreamReader streamReader);
+		bool ReadFromFile(ref StreamReader streamReader);
 	}
 }

@@ -1,27 +1,16 @@
 ﻿using System;
-using System.IO;
 
 namespace Task1CS.Classes
 {
-    public struct Point
+    public class Point
     {
-        public double X { get; private set; }
-        public double Y { get; private set; }
-
-        public Point(string x, string y)
+        public double X { get; }
+        public double Y { get; }
+        
+        public Point(double x, double y)
         {
-            X = _stringToDouble(x);
-            Y = _stringToDouble(y);
-        }
-
-        private static double _stringToDouble(string strNum)
-        {
-            if (!double.TryParse(strNum, out var doubleNum))
-            {
-                throw new InvalidDataException("string contains non-number chars");
-            }
-
-            return doubleNum;
+            X = x;
+            Y = y;
         }
         
         public static double CalcDistance(Point first, Point second)

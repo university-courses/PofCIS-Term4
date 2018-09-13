@@ -11,31 +11,28 @@ namespace Task1CS
 	{
 		public static void Main(string[] args)
 		{
-            StreamReader streamReader = new StreamReader("../../ShapesData.txt");
-            var list = new List<IShape>();
+			var streamReader = new StreamReader("../../ShapesData.txt");
+			var list = new List<IShape>();
 
-            while (!streamReader.EndOfStream)
-            {
-                string shapeType = Convert.ToString(48 - streamReader.Read());
-                if (shapeType == "0")
-                {
-                    var triangle = new Triangle();
-                    triangle.ReadFromFile(ref streamReader);
-                    list.Add(triangle);
-                }
-                else
-                {
-                    //add circle and square.
-                }
-            }
+			while (!streamReader.EndOfStream)
+			{
+				var triangle = new Triangle();
+				if (triangle.ReadFromFile(ref streamReader))
+				{
+					list.Add(triangle);	
+				}
+				else
+				{
+					//add circle and square.
+				}
+			}
 
-            StreamWriter streamWriter = new StreamWriter("../../ResultData.txt");
-            foreach (var shape in list)
-            {
-               //write 
-               //TODO: fix it.
-            }
-            streamWriter.Close();
+			var streamWriter = new StreamWriter("../../ResultData.txt");
+			foreach (var shape in list)
+			{
+				shape.WriteToFile(ref streamWriter);
+			}
+			streamWriter.Close();
         }
 	}
 }
