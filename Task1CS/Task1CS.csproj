@@ -39,6 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Point.cs" />
+    <Compile Include="Classes\Triangle.cs" />
     <Compile Include="Interfaces\IFileManager.cs" />
     <Compile Include="Interfaces\IShape.cs" />
     <Compile Include="Program.cs" />
@@ -48,7 +50,7 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Classes\" />
+    <Content Include="ShapesData.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
