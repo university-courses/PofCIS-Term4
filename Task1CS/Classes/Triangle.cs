@@ -1,61 +1,63 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Task1CS.Interfaces;
 
 namespace Task1CS.Classes
 {
-    public class Triangle : IShape, IFileManager
+    public class Triangle : IShape
     {
-        Point pointA;
-        Point pointB;
-        Point pointC;
+        private Point _pointA;
+        private Point _pointB;
+        private Point _pointC;
         
         //TODO: change location of this function, as it will be necessary for other classes.
-        double getLineLength(Point firstPoint, Point lastPoint)
+        double getLineLength(Point startPoint, Point endPoint)
         {
-            return Math.Sqrt(Math.Pow(firstPoint.X - lastPoint.X, 2) + Math.Pow(firstPoint.Y - lastPoint.Y, 2));
+            return Math.Sqrt(Math.Pow(startPoint.X - endPoint.X, 2) + Math.Pow(startPoint.Y - endPoint.Y, 2));
         }
 
         public double CalcPerimeter()
         {
-            return getLineLength(pointA, pointB) + getLineLength(pointB, pointC) + getLineLength(pointC, pointA);
+            return getLineLength(_pointA, _pointB) + getLineLength(_pointB, _pointC) + getLineLength(_pointC, _pointA);
         }
 
         public double CalcSquare()
         {
             var halfPerimeter = CalcPerimeter() / 2;
-            return Math.Sqrt(halfPerimeter * (halfPerimeter - getLineLength(pointA, pointB))
-                                           * (halfPerimeter - getLineLength(pointB, pointC))
-                                           * (halfPerimeter - getLineLength(pointC, pointA)));
+            return Math.Sqrt(halfPerimeter * (halfPerimeter - getLineLength(_pointA, _pointB))
+                                           * (halfPerimeter - getLineLength(_pointB, _pointC))
+                                           * (halfPerimeter - getLineLength(_pointC, _pointA)));
         }
 
 
         public void ReadFromFile(ref StreamReader streamReader)
         {
             var line = streamReader.ReadLine();
-            string[] data = line.Split(' ');
 
-            pointA.X = Convert.ToDouble(data[1]);
-            pointA.Y = Convert.ToDouble(data[2]);
+            if (line == null)
+            {
+                throw new Exception("can't read data from stream");
+                // TODO: implement StreamReaderException
+            }
+            
+            var data = line.Split(' ');
 
-            pointB.X = Convert.ToDouble(data[3]);
-            pointB.Y = Convert.ToDouble(data[4]);
+            _pointA.X = Convert.ToDouble(data[1]);
+            _pointA.Y = Convert.ToDouble(data[2]);
 
-            pointC.X = Convert.ToDouble(data[5]);
-            pointC.Y = Convert.ToDouble(data[6]);
+            _pointB.X = Convert.ToDouble(data[3]);
+            _pointB.Y = Convert.ToDouble(data[4]);
 
+            _pointC.X = Convert.ToDouble(data[5]);
+            _pointC.Y = Convert.ToDouble(data[6]);
         }
 
         public void WriteToFile(ref StreamWriter streamWriter)
         {
             streamWriter.WriteLine("Triangle :");
-            streamWriter.WriteLine($"A({pointA.X}, {pointA.Y})");
-            streamWriter.WriteLine($"B({pointB.X}, {pointB.Y})");
-            streamWriter.WriteLine($"C({pointC.X}, {pointC.Y})");
+            streamWriter.WriteLine($"A({_pointA.X}, {_pointA.Y})");
+            streamWriter.WriteLine($"B({_pointB.X}, {_pointB.Y})");
+            streamWriter.WriteLine($"C({_pointC.X}, {_pointC.Y})");
         }
     }
 }
