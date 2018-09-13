@@ -9,7 +9,7 @@ namespace Task1CS.Interfaces
 {
     public interface IFileManager
     {
-        void WriteFile(string fileName);
-        void ReadFile(string fileName);
+        void WriteFile(StreamWriter streamWriter);
+        void ReadFile(StreamReader streamReader);
     }
 }
