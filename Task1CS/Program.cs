@@ -20,7 +20,7 @@ namespace Task1CS
                 if (shapeType == "0")
                 {
                     var triangle = new Triangle();
-                    triangle.ReadFile(streamReader);
+                    triangle.ReadFromFile(ref streamReader);
                     list.Add(triangle);
                 }
                 else

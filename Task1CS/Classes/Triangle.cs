@@ -13,31 +13,28 @@ namespace Task1CS.Classes
         Point pointA;
         Point pointB;
         Point pointC;
-
-
-
-
+        
         //TODO: change location of this function, as it will be necessary for other classes.
         double getLineLength(Point firstPoint, Point lastPoint)
         {
             return Math.Sqrt(Math.Pow(firstPoint.X - lastPoint.X, 2) + Math.Pow(firstPoint.Y - lastPoint.Y, 2));
         }
 
-        public double PerimeterCount()
+        public double CalcPerimeter()
         {
             return getLineLength(pointA, pointB) + getLineLength(pointB, pointC) + getLineLength(pointC, pointA);
         }
 
-        public double SquareCount()
+        public double CalcSquare()
         {
-            var halfPerimeter = PerimeterCount() / 2;
+            var halfPerimeter = CalcPerimeter() / 2;
             return Math.Sqrt(halfPerimeter * (halfPerimeter - getLineLength(pointA, pointB))
                                            * (halfPerimeter - getLineLength(pointB, pointC))
                                            * (halfPerimeter - getLineLength(pointC, pointA)));
         }
 
 
-        public void ReadFile(StreamReader streamReader)
+        public void ReadFromFile(ref StreamReader streamReader)
         {
             var line = streamReader.ReadLine();
             string[] data = line.Split(' ');
@@ -53,7 +50,7 @@ namespace Task1CS.Classes
 
         }
 
-        public void WriteFile(StreamWriter streamWriter)
+        public void WriteToFile(ref StreamWriter streamWriter)
         {
             streamWriter.WriteLine("Triangle :");
             streamWriter.WriteLine($"A({pointA.X}, {pointA.Y})");
