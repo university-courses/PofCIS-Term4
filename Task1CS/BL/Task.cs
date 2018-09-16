@@ -44,6 +44,11 @@ namespace Task1CS.BL
 		
 		public static List<IShape> ReadFromFile(string fileName)
 		{
+			if (!File.Exists(fileName))
+			{
+				throw new IOException("file does not exist");
+			}
+
 			var reader = new StreamReader(fileName);
 			var list = new List<IShape>();
 

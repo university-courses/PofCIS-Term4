@@ -9,12 +9,12 @@ namespace Task1CS.Classes
 	{
 		public void WriteToStream(ref StreamWriter streamWriter)
 		{
-			throw new System.NotImplementedException();
+			
 		}
 
 		public bool ReadFromStream(ref StreamReader streamReader)
 		{
-			throw new System.NotImplementedException();
+			return false;
 		}
 
 		public double CalcSquare()

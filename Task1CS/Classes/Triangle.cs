@@ -22,7 +22,7 @@ namespace Task1CS.Classes
 		
 		public Triangle(Point[] points)
 		{
-			if (_points == null)
+			if (points == null)
 			{
 				throw new NullReferenceException("points is null");
 			}
@@ -87,7 +87,7 @@ namespace Task1CS.Classes
 
 		public bool ReadFromStream(ref StreamReader streamReader)
 		{
-			var line = streamReader.ReadLine();
+			var line = streamReader?.ReadLine();
 			if (line == null)
 			{
 				throw new IOException("can't read data from stream");
