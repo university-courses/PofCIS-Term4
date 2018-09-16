@@ -29,7 +29,7 @@ namespace Task1CS.BL
 			var shapesFromThirdQuarter = new List<IShape>();
 			foreach (var shape in shapes)
 			{
-				if (IsInForthQuarter(shape))
+				if (IsInThirdQuarter(shape))
 				{
 					shapesFromThirdQuarter.Add(shape);
 				} 
@@ -85,7 +85,7 @@ namespace Task1CS.BL
 			writer.Close();
 		}
 
-		public static bool IsInForthQuarter(IShape shape)
+		public static bool IsInThirdQuarter(IShape shape)
 		{
 			return shape.GetPoints().All(point => !(point.X > 0) && !(point.Y > 0));
 		}
