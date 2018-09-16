@@ -10,7 +10,7 @@ namespace Task1CS.Classes
 {
 	public class Triangle : IShape
 	{
-		private readonly Point[] _points;
+		private Point[] _points;
 
 		private const int PointsCount = 3;
 		private const int CoordinatesPerPoint = 2;
@@ -22,12 +22,17 @@ namespace Task1CS.Classes
 		
 		public Triangle(Point[] points)
 		{
+			if (_points == null)
+			{
+				throw new NullReferenceException("points is null");
+			}
+			
 			if (points.Length != PointsCount)
 			{
 				throw new InvalidDataException("invalid triangle points count");
 			}
 
-			if (!TriangleIsValid(points))
+			if (!PointsAreValid(points))
 			{
 				throw new InvalidDataException("invalid triangle");
 			}
@@ -35,21 +40,42 @@ namespace Task1CS.Classes
 			_points = points;
 		}
 
-		private static bool TriangleIsValid(IReadOnlyList<Point> points)
+		public static bool PointsAreValid(IReadOnlyList<Point> points)
 		{
+			if (points == null)
+			{
+				throw new NullReferenceException("points is null");
+			}
 			var a = Point.CalcDistance(points[0], points[1]); 
 			var b = Point.CalcDistance(points[1], points[2]); 
 			var c = Point.CalcDistance(points[2], points[0]);
-			return a >= b + c || b >= a + c || c >= b + a;
+			return a < b + c && b < a + c && c < b + a;
 		}
 		
 		public double CalcPerimeter()
 		{
+			if (_points == null)
+			{
+				throw new NullReferenceException("points not set");
+			}
 			return _points.Select((current, i) => Point.CalcDistance(current, _points[(i + 1) % _points.Length])).Sum();
 		}
-		
+
+		public IEnumerable<Point> GetPoints()
+		{
+			if (_points == null)
+			{
+				throw new NullReferenceException("points not set");
+			}
+			return _points;
+		}
+
 		public double CalcSquare()
 		{
+			if (_points == null)
+			{
+				throw new NullReferenceException("points not set");
+			}
 			var halfPerimeter = CalcPerimeter() / 2;
 			var expression = halfPerimeter;
 			for (var i = 0; i < _points.Length; i++)
@@ -67,7 +93,7 @@ namespace Task1CS.Classes
 				throw new IOException("can't read data from stream");
 			}
 
-			var result = Regex.Match(line, @"Triangle\{\s*((\d+\s+){5}(\d+){1})\s*\}");
+			var result = Regex.Match(line, @"Triangle\{\s*((-?\d+\s+){5}(-?\d+){1})\s*\}");
 			if (!result.Success)
 			{
 				return false;
@@ -78,11 +104,20 @@ namespace Task1CS.Classes
 			{
 				throw new InvalidDataException("invalid triangle points count");
 			}
+			
+			var points = new List<Point>();  
 
-			for (var i = 0; i < PointsCount; i += CoordinatesPerPoint)
+			for (var i = 0; i < PointsCount * CoordinatesPerPoint; i += CoordinatesPerPoint)
 			{
-				_points[i / CoordinatesPerPoint] = new Point(Helpers.StringToDouble(data[i]), Helpers.StringToDouble(data[i + 1]));
+				points.Add(new Point(Helpers.StringToDouble(data[i]), Helpers.StringToDouble(data[i + 1])));
 			}
+
+			if (!PointsAreValid(points))
+			{
+				return false;
+			}
+
+			_points = points.ToArray();
 
 			return true;
 		}
@@ -94,7 +129,11 @@ namespace Task1CS.Classes
 		
 		public override string ToString()
 		{
-			var result = "Triangle :";
+			if (_points == null)
+			{
+				throw new NullReferenceException("points not set");
+			}
+			var result = "Triangle:";
 			for (var i = 0; i < _points.Length; i++)
 			{
 				result += $"\n  Point {i}: x={_points[i].X}, y={_points[i].Y}";

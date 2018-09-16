@@ -1,0 +1,4 @@
+Triangle:
+  Point 0: x=-2, y=-1
+  Point 1: x=-5, y=-1
+  Point 2: x=-2, y=-5

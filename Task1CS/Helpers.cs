@@ -13,5 +13,12 @@ namespace Task1CS
 
 			return doubleNum;
 		}
+		
+		public struct Const
+		{
+			private const string DataRoot = "../../Data/";
+			public const string InputDataRoot = DataRoot + "Input/";
+			public const string OutputDataRoot = DataRoot + "Output/";
+		}
 	}
 }
