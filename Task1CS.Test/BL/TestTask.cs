@@ -139,5 +139,90 @@ Triangle{2 3 0 0 8 8}");
 				},
 			};
 		}
+		
+		[Theory]
+		[MemberData(nameof(WriteToFileData.SuccessData), MemberType = typeof(WriteToFileData))]
+		public void TestWriteToFileSuccess(string inputFile, List<IShape> inputShapes, string expected)
+		{
+			// creating test directory
+			Directory.CreateDirectory(TestDataDir);
+			
+			// testing
+			Task.WriteToFile(inputFile, inputShapes);
+			
+            Assert.True(File.Exists(inputFile));
+			
+			var fileData = File.ReadAllText(inputFile);
+			
+			Assert.Equal(expected, fileData);
+			
+			// removing garbage
+			File.Delete(inputFile);
+			Directory.Delete(TestDataDir);
+			
+		}
+		
+		private class WriteToFileData
+		{
+			public static IEnumerable<object[]> SuccessData => new List<object[]>
+			{
+				new object[]
+				{
+					TestDataDir + "TestResult.txt",
+					new List<IShape>
+					{
+						new Triangle(new []
+						{
+							new Point(2, 3), 
+							new Point(0, 0), 
+							new Point(8, 8), 
+						}),
+						new Triangle(new []
+						{
+							new Point(4, 2), 
+							new Point(1, 3), 
+							new Point(0, 0), 
+						}),
+						new Triangle(new []
+						{
+							new Point(-2, -1), 
+							new Point(-5, -1), 
+							new Point(-2, -5), 
+						})
+					},
+					@"Triangle:
+  Point 0: x=2, y=3
+  Point 1: x=0, y=0
+  Point 2: x=8, y=8
+Triangle:
+  Point 0: x=4, y=2
+  Point 1: x=1, y=3
+  Point 2: x=0, y=0
+Triangle:
+  Point 0: x=-2, y=-1
+  Point 1: x=-5, y=-1
+  Point 2: x=-2, y=-5
+"
+				},
+				new object[]
+				{
+					TestDataDir + "TestResult.txt",
+					new List<IShape>
+					{
+						new Triangle(new []
+						{
+							new Point(-2, -1), 
+							new Point(-5, -1), 
+							new Point(-2, -5), 
+						})
+					},
+					@"Triangle:
+  Point 0: x=-2, y=-1
+  Point 1: x=-5, y=-1
+  Point 2: x=-2, y=-5
+"
+				}
+			};
+		}
 	}
 }
