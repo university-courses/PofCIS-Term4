@@ -1,9 +1,7 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using Task1CS.Interfaces;
 using Task1CS.Classes;
 using System.Collections.Generic;
-
 
 namespace Task1CS
 {
@@ -11,13 +9,13 @@ namespace Task1CS
 	{
 		public static void Main(string[] args)
 		{
-			var streamReader = new StreamReader("../../ShapesData.txt");
+			var streamReader = new StreamReader("../../Data/ShapesData.txt");
 			var list = new List<IShape>();
 
 			while (!streamReader.EndOfStream)
 			{
 				var triangle = new Triangle();
-				if (triangle.ReadFromFile(ref streamReader))
+				if (triangle.ReadFromStream(ref streamReader))
 				{
 					list.Add(triangle);	
 				}
@@ -27,10 +25,10 @@ namespace Task1CS
 				}
 			}
 
-			var streamWriter = new StreamWriter("../../ResultData.txt");
+			var streamWriter = new StreamWriter("../../Data/ResultData.txt");
 			foreach (var shape in list)
 			{
-				shape.WriteToFile(ref streamWriter);
+				shape.WriteToStream(ref streamWriter);
 			}
 			streamWriter.Close();
         }

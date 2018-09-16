@@ -59,7 +59,7 @@ namespace Task1CS.Classes
 			return Math.Sqrt(expression);
 		}
 
-		public bool ReadFromFile(ref StreamReader streamReader)
+		public bool ReadFromStream(ref StreamReader streamReader)
 		{
 			var line = streamReader.ReadLine();
 			if (line == null)
@@ -87,7 +87,7 @@ namespace Task1CS.Classes
 			return true;
 		}
 
-		public void WriteToFile(ref StreamWriter streamWriter)
+		public void WriteToStream(ref StreamWriter streamWriter)
 		{
 			streamWriter.WriteLine(this);
 		}
