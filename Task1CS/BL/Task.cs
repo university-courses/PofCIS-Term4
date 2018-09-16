@@ -5,7 +5,7 @@ using System.Linq;
 using Task1CS.Classes;
 using Task1CS.Interfaces;
 
-namespace Task1CS
+namespace Task1CS.BL
 {
 	public static class Task
 	{
@@ -50,13 +50,19 @@ namespace Task1CS
 			while (!reader.EndOfStream)
 			{
 				var triangle = new Triangle();
+				var square = new Square();
+				var circle = new Circle();
 				if (triangle.ReadFromStream(ref reader))
 				{
 					list.Add(triangle);	
 				}
-				else
+				else if (square.ReadFromStream(ref reader))
 				{
-					//add circle and square.
+					list.Add(square);
+				}
+				else if (circle.ReadFromStream(ref reader))
+				{
+					list.Add(circle);
 				}
 			}
 
