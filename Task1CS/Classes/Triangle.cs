@@ -87,29 +87,13 @@ namespace Task1CS.Classes
 
 		public bool ReadFromStream(ref StreamReader streamReader)
 		{
-			var line = streamReader?.ReadLine();
-			if (line == null)
-			{
-				throw new IOException("can't read data from stream");
-			}
-
-			var result = Regex.Match(line, @"Triangle\{\s*((-?\d+\s+){5}-?\d+)\s*\}");
-			if (!result.Success)
+			var points = Helpers.ReadPointsFromStream(
+				ref streamReader, @"Triangle\{\s*((-?\d+\s+){5}-?\d+)\s*\}", CoordinatesPerPoint, PointsCount
+			);
+			
+			if (points == null)
 			{
 				return false;
-			}
-
-			var data = result.Groups[1].ToString().Split(' ');
-			if (data.Length != PointsCount * CoordinatesPerPoint)
-			{
-				throw new InvalidDataException("invalid triangle points count");
-			}
-			
-			var points = new List<Point>();  
-
-			for (var i = 0; i < PointsCount * CoordinatesPerPoint; i += CoordinatesPerPoint)
-			{
-				points.Add(new Point(Helpers.StringToDouble(data[i]), Helpers.StringToDouble(data[i + 1])));
 			}
 
 			if (!PointsAreValid(points))

@@ -53,29 +53,13 @@ namespace Task1CS.Classes
 
 		public bool ReadFromStream(ref StreamReader streamReader)
 		{
-			var line = streamReader?.ReadLine();
-			if (line == null)
-			{
-				throw new IOException("can't read data from stream");
-			}
+			var points = Helpers.ReadPointsFromStream(
+				ref streamReader,@"Circle\{\s*((-?\d+\s+){3}-?\d+)\s*\}", CoordinatesPerPoint, PointsCount
+			);
 
-			var result = Regex.Match(line, @"Circle\{\s*((-?\d+\s+){3}-?\d+)\s*\}");
-			if (!result.Success)
+			if (points == null)
 			{
 				return false;
-			}
-
-			var data = result.Groups[1].ToString().Split(' ');
-			if (data.Length != PointsCount * CoordinatesPerPoint)
-			{
-				throw new InvalidDataException("invalid circle points count");
-			}
-			
-			var points = new List<Point>();  
-
-			for (var i = 0; i < PointsCount * CoordinatesPerPoint; i += CoordinatesPerPoint)
-			{
-				points.Add(new Point(Helpers.StringToDouble(data[i]), Helpers.StringToDouble(data[i + 1])));
 			}
 
 			if (points[0] == points[1])
@@ -83,7 +67,7 @@ namespace Task1CS.Classes
 				return false;
 			}
 
-			_points = points.ToArray();
+			_points = points;
 			_radius = CalcRadius();
 
 			return true;
