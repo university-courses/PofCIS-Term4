@@ -1,12 +1,15 @@
-using System.Collections.Generic;
 using System.IO;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
+
 using Task1CS.Classes;
 
 namespace Task1CS
 {
 	/// <summary>
-	/// Contains helper method 'StringToDouble(string)'.
+	/// Contains helper methods:
+	///  - StringToDouble
+	///  - ReadPointsFromStream
 	/// </summary>
 	public static class Helpers
 	{
@@ -36,7 +39,7 @@ namespace Task1CS
 		/// <returns>If shape is matched returns an array of points, otherwise returns null.</returns>
 		/// <exception cref="IOException">Throws if can not read from stream.</exception>
 		/// <exception cref="InvalidDataException">Throws if points count is invalid.</exception>
-		public static Point[] ReadPointsFromStream(ref StreamReader reader, string regexStr, int coordsPerP, int pCount)
+		public static Point[] ReadShapePoints(ref StreamReader reader, string regexStr, int coordsPerP, int pCount)
 		{
 			var line = reader?.ReadLine();
 			if (line == null)

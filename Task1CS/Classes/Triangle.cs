@@ -2,7 +2,6 @@
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 
 using Task1CS.Interfaces;
 
@@ -87,7 +86,7 @@ namespace Task1CS.Classes
 
 		public bool ReadFromStream(ref StreamReader streamReader)
 		{
-			var points = Helpers.ReadPointsFromStream(
+			var points = Helpers.ReadShapePoints(
 				ref streamReader, @"Triangle\{\s*((-?\d+\s+){5}-?\d+)\s*\}", CoordinatesPerPoint, PointsCount
 			);
 			

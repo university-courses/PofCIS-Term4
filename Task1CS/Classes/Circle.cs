@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text.RegularExpressions;
 
 using Task1CS.Interfaces;
 
@@ -53,8 +52,8 @@ namespace Task1CS.Classes
 
 		public bool ReadFromStream(ref StreamReader streamReader)
 		{
-			var points = Helpers.ReadPointsFromStream(
-				ref streamReader,@"Circle\{\s*((-?\d+\s+){3}-?\d+)\s*\}", CoordinatesPerPoint, PointsCount
+			var points = Helpers.ReadShapePoints(
+				ref streamReader, @"Circle\{\s*((-?\d+\s+){3}-?\d+)\s*\}", CoordinatesPerPoint, PointsCount
 			);
 
 			if (points == null)
