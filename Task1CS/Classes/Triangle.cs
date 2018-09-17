@@ -93,7 +93,7 @@ namespace Task1CS.Classes
 				throw new IOException("can't read data from stream");
 			}
 
-			var result = Regex.Match(line, @"Triangle\{\s*((-?\d+\s+){5}(-?\d+){1})\s*\}");
+			var result = Regex.Match(line, @"Triangle\{\s*((-?\d+\s+){5}-?\d+)\s*\}");
 			if (!result.Success)
 			{
 				return false;

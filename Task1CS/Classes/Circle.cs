@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
+
 using Task1CS.Interfaces;
 
 namespace Task1CS.Classes
@@ -17,7 +18,6 @@ namespace Task1CS.Classes
 		public Circle()
 		{
 			_points = new Point[PointsCount];
-			_radius = CalcRadius();
 		}
 		
 		public Circle(Point[] points)
@@ -36,8 +36,13 @@ namespace Task1CS.Classes
 			_radius = CalcRadius();
 		}
 
-		private double CalcRadius()
+		public double CalcRadius()
 		{
+			if (_points == null)
+			{
+				throw new NullReferenceException("points not set");
+			}
+
 			return Point.CalcDistance(_points[0], _points[1]);
 		}
 		
@@ -54,7 +59,7 @@ namespace Task1CS.Classes
 				throw new IOException("can't read data from stream");
 			}
 
-			var result = Regex.Match(line, @"Circle\{\s*((-?\d+\s+){3}(-?\d+){1})\s*\}");
+			var result = Regex.Match(line, @"Circle\{\s*((-?\d+\s+){3}-?\d+)\s*\}");
 			if (!result.Success)
 			{
 				return false;
@@ -73,12 +78,13 @@ namespace Task1CS.Classes
 				points.Add(new Point(Helpers.StringToDouble(data[i]), Helpers.StringToDouble(data[i + 1])));
 			}
 
-			if (points[0]==points[1])
+			if (points[0] == points[1])
 			{
 				return false;
 			}
 
 			_points = points.ToArray();
+			_radius = CalcRadius();
 
 			return true;
 		}
@@ -108,6 +114,21 @@ namespace Task1CS.Classes
 				throw new NullReferenceException("points not set");
 			}
 			return _points;
+		}
+		
+		public override string ToString()
+		{
+			if (_points == null)
+			{
+				throw new NullReferenceException("points not set");
+			}
+			var result = $"Circle:\n  Radius: {_radius}\n  Points:";
+			for (var i = 0; i < _points.Length; i++)
+			{
+				result += $"\n    Point {i}: x={_points[i].X}, y={_points[i].Y}";
+			}
+
+			return result;
 		}
 	}
 }

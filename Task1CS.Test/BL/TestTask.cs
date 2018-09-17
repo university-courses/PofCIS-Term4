@@ -20,14 +20,15 @@ namespace Task1CS.Test.BL
 		{
 			// creating test data file
 			Directory.CreateDirectory(TestDataDir);
-			File.WriteAllText(TestDataDir + "TestShapes.txt", @"
-Triangle{4 2 1 3 0 0}
+			File.WriteAllText(TestDataDir + "TestShapes.txt", @"Triangle{4 2 1 3 0 0}
 Triangle{-2 -1 -5 -1 -2 -5}
-Triangle{2 3 0 0 8 8}");
+Triangle{2 3 0 0 8 8}
+Circle{0 0 2 2}
+Circle{-5 -5 -2 -2}");
 			
 			// testing
 			var actual = Task.ReadFromFile(input);
-			Assert.Equal(actual.Count, expected.Count);
+			Assert.Equal(expected.Count, actual.Count);
 			
 			for (var i = 0; i < actual.Count; i++)
 			{
@@ -39,8 +40,8 @@ Triangle{2 3 0 0 8 8}");
 				
 				for (var j = 0; j < actualPoints.Length; j++)
 				{
-					Assert.Equal(actualPoints[j].X, expectedPoints[j].X);
-					Assert.Equal(actualPoints[j].Y, expectedPoints[j].Y);
+					Assert.Equal(expectedPoints[j].X, actualPoints[j].X);
+					Assert.Equal(expectedPoints[j].Y, actualPoints[j].Y);
 				}	
 			}
 			
@@ -83,8 +84,18 @@ Triangle{2 3 0 0 8 8}");
 							new Point(2, 3), 
 							new Point(0, 0), 
 							new Point(8, 8), 
+						}),
+						new Circle(new []
+						{
+							new Point(0, 0), 
+							new Point(2, 2), 
+						}),
+						new Circle(new []
+						{
+							new Point(-5, -5), 
+							new Point(-2, -2), 
 						})
-					}, 
+					} 
 				}
 			};
 			
@@ -188,6 +199,11 @@ Triangle{2 3 0 0 8 8}");
 							new Point(-2, -1), 
 							new Point(-5, -1), 
 							new Point(-2, -5), 
+						}),
+						new Circle(new []
+						{
+							new Point(-5, -5), 	
+							new Point(-2, -2), 	
 						})
 					},
 					@"Triangle:
@@ -202,6 +218,11 @@ Triangle:
   Point 0: x=-2, y=-1
   Point 1: x=-5, y=-1
   Point 2: x=-2, y=-5
+Circle:
+  Radius: 4.24264068711928
+  Points:
+    Point 0: x=-5, y=-5
+    Point 1: x=-2, y=-2
 "
 				},
 				new object[]
