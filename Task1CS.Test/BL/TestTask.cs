@@ -150,7 +150,7 @@ Triangle{2 3 0 0 8 8}");
 			// testing
 			Task.WriteToFile(inputFile, inputShapes);
 			
-            Assert.True(File.Exists(inputFile));
+			Assert.True(File.Exists(inputFile));
 			
 			var fileData = File.ReadAllText(inputFile);
 			
@@ -168,7 +168,7 @@ Triangle{2 3 0 0 8 8}");
 			{
 				new object[]
 				{
-					TestDataDir + "TestResult.txt",
+					TestDataDir + "TestResult1.txt",
 					new List<IShape>
 					{
 						new Triangle(new []
@@ -206,7 +206,7 @@ Triangle:
 				},
 				new object[]
 				{
-					TestDataDir + "TestResult.txt",
+					TestDataDir + "TestResult2.txt",
 					new List<IShape>
 					{
 						new Triangle(new []

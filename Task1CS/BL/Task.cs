@@ -9,6 +9,15 @@ namespace Task1CS.BL
 {
 	public static class Task
 	{
+		/// <summary>
+		/// Solve the main task:
+		///  - reads shapes from file to List;
+		///  - sorts the collection by their squares in ascending order;
+		///  - outputs the result to a 'SortedBySquares.txt' file;
+		///  - finds shapes which are located in the third quarter of coordinate system;
+		///  - sorts found shapes by their perimeters in descending order;
+		///  - outputs sorted shapes to a 'SortedByPerimeters.txt' file.
+		/// </summary>
 		public static void Execute()
 		{
 			if (!Directory.Exists(Helpers.Const.OutputDataRoot))
@@ -16,16 +25,12 @@ namespace Task1CS.BL
 				Directory.CreateDirectory(Helpers.Const.OutputDataRoot);
 			}
 			
-			// read shapes from file to List collection
 			var shapes = ReadFromFile(Helpers.Const.InputDataRoot + "Shapes.txt");
 
-			// sort by squares in ascending order
 			var sortedBySquares = shapes.OrderBy(shape => shape.CalcSquare());
 
-			// write sorted data to file1
 			WriteToFile(Helpers.Const.OutputDataRoot + "SortedBySquares.txt", sortedBySquares);
 
-			// find shapes which are located in the third quarter of coordinate system
 			var shapesFromThirdQuarter = new List<IShape>();
 			foreach (var shape in shapes)
 			{
@@ -35,13 +40,17 @@ namespace Task1CS.BL
 				} 
 			}
 
-			// sort this collection by their perimeters in descending order
 			var sortedByPerimeters = shapesFromThirdQuarter.OrderByDescending(shape => shape.CalcPerimeter());
 
-			// write sorted data to a file2
 			WriteToFile(Helpers.Const.OutputDataRoot + "SortedByPerimeters.txt", sortedByPerimeters);
 		}
 		
+		/// <summary>
+		/// Reads a list of shapes from file.
+		/// </summary>
+		/// <param name="fileName">Path to file with shapes data.</param>
+		/// <returns>List of shapes</returns>
+		/// <exception cref="IOException">Throws if given file does not exist.</exception>
 		public static List<IShape> ReadFromFile(string fileName)
 		{
 			if (!File.Exists(fileName))
@@ -74,6 +83,11 @@ namespace Task1CS.BL
 			return list;
 		}
 
+		/// <summary>
+		/// Writes a list of shapes to file.
+		/// </summary>
+		/// <param name="fileName">Path to file.</param>
+		/// <param name="shapes">A list of shapes.</param>
 		public static void WriteToFile(string fileName, IEnumerable<IShape> shapes)
 		{
 			var writer = new StreamWriter(fileName);
@@ -85,6 +99,11 @@ namespace Task1CS.BL
 			writer.Close();
 		}
 
+		/// <summary>
+		/// Checks if shape is located in the third quarter of coordinate system.
+		/// </summary>
+		/// <param name="shape">Shape to check</param>
+		/// <returns>True if shape is located in the third quarter, otherwise returns false.</returns>
 		public static bool IsInThirdQuarter(IShape shape)
 		{
 			return shape.GetPoints().All(point => !(point.X > 0) && !(point.Y > 0));
