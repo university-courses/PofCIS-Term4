@@ -7,6 +7,9 @@ using Task1CS.Interfaces;
 
 namespace Task1CS.BL
 {
+	/// <summary>
+	/// Static class for BL. 
+	/// </summary>
 	public static class Task
 	{
 		/// <summary>
