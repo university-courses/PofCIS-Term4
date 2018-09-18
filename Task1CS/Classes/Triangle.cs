@@ -84,10 +84,10 @@ namespace Task1CS.Classes
 			return Math.Sqrt(expression);
 		}
 
-		public bool ReadFromStream(ref StreamReader streamReader)
+		public bool Parse(string line)
 		{
-			var points = Helpers.ReadShapePoints(
-				ref streamReader, @"Triangle\{\s*((-?\d+\s+){5}-?\d+)\s*\}", CoordinatesPerPoint, PointsCount
+			var points = Helpers.ParseShapePoints(
+				line, @"Triangle\{\s*((-?\d+\s+){5}-?\d+)\s*\}", CoordinatesPerPoint, PointsCount
 			);
 			
 			if (points == null)
@@ -103,11 +103,6 @@ namespace Task1CS.Classes
 			_points = points.ToArray();
 
 			return true;
-		}
-
-		public void WriteToStream(ref StreamWriter streamWriter)
-		{
-			streamWriter.WriteLine(this);
 		}
 		
 		public override string ToString()

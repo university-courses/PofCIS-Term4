@@ -69,15 +69,16 @@ namespace Task1CS.BL
 				var triangle = new Triangle();
 				var square = new Square();
 				var circle = new Circle();
-				if (triangle.ReadFromStream(ref reader))
+				var line = reader.ReadLine();
+				if (triangle.Parse(line))
 				{
 					list.Add(triangle);	
 				}
-				else if (square.ReadFromStream(ref reader))
+				else if (square.Parse(line))
 				{
 					list.Add(square);
 				}
-				else if (circle.ReadFromStream(ref reader))
+				else if (circle.Parse(line))
 				{
 					list.Add(circle);
 				}
@@ -96,7 +97,7 @@ namespace Task1CS.BL
 			var writer = new StreamWriter(fileName);
 			foreach (var shape in shapes)
 			{
-				shape.WriteToStream(ref writer);
+				writer.WriteLine(shape);
 			}
 
 			writer.Close();

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.IO;
 
 using Task1CS.Interfaces;
 
@@ -7,12 +6,7 @@ namespace Task1CS.Classes
 {
 	public class Square : IShape
 	{
-		public void WriteToStream(ref StreamWriter streamWriter)
-		{
-			
-		}
-
-		public bool ReadFromStream(ref StreamReader streamReader)
+		public bool Parse(string line)
 		{
 			return false;
 		}

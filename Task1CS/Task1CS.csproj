@@ -45,7 +45,7 @@
     <Compile Include="Classes\Square.cs" />
     <Compile Include="Classes\Triangle.cs" />
     <Compile Include="Helpers.cs" />
-    <Compile Include="Interfaces\IFileManager.cs" />
+    <Compile Include="Interfaces\IParsable.cs" />
     <Compile Include="Interfaces\IShape.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

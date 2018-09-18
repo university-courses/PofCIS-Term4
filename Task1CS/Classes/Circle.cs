@@ -12,7 +12,6 @@ namespace Task1CS.Classes
 		private double _radius;
 		
 		private const int PointsCount = 2;
-		private const int CoordinatesPerPoint = 2;
 
 		public Circle()
 		{
@@ -44,16 +43,11 @@ namespace Task1CS.Classes
 
 			return Point.CalcDistance(_points[0], _points[1]);
 		}
-		
-		public void WriteToStream(ref StreamWriter streamWriter)
-		{
-			streamWriter.WriteLine(this);
-		}
 
-		public bool ReadFromStream(ref StreamReader streamReader)
+		public bool Parse(string line)
 		{
-			var points = Helpers.ReadShapePoints(
-				ref streamReader, @"Circle\{\s*((-?\d+\s+){3}-?\d+)\s*\}", CoordinatesPerPoint, PointsCount
+			var points = Helpers.ParseShapePoints(
+				line, @"Circle\{\s*((-?\d+\s+){3}-?\d+)\s*\}", Helpers.Const.CoordinatesPerPoint, PointsCount
 			);
 
 			if (points == null)

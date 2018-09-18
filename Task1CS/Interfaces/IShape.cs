@@ -4,7 +4,7 @@ using Task1CS.Classes;
 
 namespace Task1CS.Interfaces
 {
-	public interface IShape : IFileManager
+	public interface IShape : IParsable
 	{
 		double CalcSquare();
 		double CalcPerimeter();

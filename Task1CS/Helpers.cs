@@ -32,16 +32,15 @@ namespace Task1CS
 		/// <summary>
 		/// Reads points from stream using specific parameters.
 		/// </summary>
-		/// <param name="reader">Reference to a stream reader.</param>
+		/// <param name="line">String which contains shape data.</param>
 		/// <param name="regexStr">Regular expression for matching shape's points.</param>
 		/// <param name="coordsPerP">Coordinates per point, e.g. (x, y)</param>
 		/// <param name="pCount">Amount of shape's points.</param>
 		/// <returns>If shape is matched returns an array of points, otherwise returns null.</returns>
 		/// <exception cref="IOException">Throws if can not read from stream.</exception>
 		/// <exception cref="InvalidDataException">Throws if points count is invalid.</exception>
-		public static Point[] ReadShapePoints(ref StreamReader reader, string regexStr, int coordsPerP, int pCount)
+		public static Point[] ParseShapePoints(string line, string regexStr, int coordsPerP, int pCount)
 		{
-			var line = reader?.ReadLine();
 			if (line == null)
 			{
 				throw new IOException("can't read data from stream");
@@ -88,6 +87,11 @@ namespace Task1CS
 			/// Path to output files directory.
 			/// </summary>
 			public const string OutputDataRoot = DataRoot + "Output/";
+
+			/// <summary>
+			/// Determines the dimension of space. 
+			/// </summary>
+			public const int CoordinatesPerPoint = 2;
 		}
 	}
 }
