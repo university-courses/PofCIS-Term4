@@ -99,7 +99,7 @@ namespace Task1CS.Classes
         {
             const int CoordinatesPerPoint = 2;
             var points = Helpers.ParseShapePoints(
-                line, @"Square\{\s*((-?\d+\s+){5}-?\d+)\s*\}", CoordinatesPerPoint, PointsCount
+                line, @"Square\{\s*((-?\d+\s+){6}-?\d+)\s*\}", CoordinatesPerPoint, PointsCount
             );
 
             if (points == null)
