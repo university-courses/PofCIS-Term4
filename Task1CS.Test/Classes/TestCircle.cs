@@ -9,46 +9,51 @@ namespace Task1CS.Test.Classes
 	{
 		[Theory]
 		[MemberData(nameof(CircleData.CalcRadiusData), MemberType = typeof(CircleData))]
-		public void TestCalcRadius( Circle actual, double expected)
+		public void TestCalcRadius( Circle circle, double expected)
 		{
-			
-			Assert.Equal(expected, actual.CalcRadius());
+			var actual = circle.CalcRadius();
+			Assert.Equal(expected, actual);
 		}
 		
 		[Theory]
 		[MemberData(nameof(CircleData.ParseData), MemberType = typeof(CircleData))]
 		public void TestParse( string line, bool expected)
 		{
-			var actual = new Circle();
-			Assert.Equal(expected, actual.Parse(line));
+			var circle = new Circle();
+			var actual = circle.Parse(line);
+			Assert.Equal(expected, actual);
 		}
 		
 		[Theory]
 		[MemberData(nameof(CircleData.CalcSquareData), MemberType = typeof(CircleData))]
-		public void TestCalcSquare( Circle actual, double expected)
+		public void TestCalcSquare( Circle circle, double expected)
 		{
-			Assert.Equal(expected, actual.CalcSquare());
+			var actual = circle.CalcSquare();
+			Assert.Equal(expected, actual);
 		}
 		
 		[Theory]
 		[MemberData(nameof(CircleData.CalcPerimeterData), MemberType = typeof(CircleData))]
-		public void TestCalcPerimeter( Circle actual, double expected)
+		public void TestCalcPerimeter( Circle circle, double expected)
 		{
-			Assert.Equal(expected, actual.CalcPerimeter());
+			var actual = circle.CalcPerimeter();
+			Assert.Equal(expected, actual);
 		}
 		
 		[Theory]
 		[MemberData(nameof(CircleData.GetPointsData), MemberType = typeof(CircleData))]
-		public void TestGetPoints( Circle actual, Point[] expected)
+		public void TestGetPoints( Circle circle, Point[] expected)
 		{
-			Assert.Equal(expected, actual.GetPoints());
+			var actual = circle.GetPoints();
+			Assert.Equal(expected, actual);
 		}
 		
 		[Theory]
 		[MemberData(nameof(CircleData.ToStringData), MemberType = typeof(CircleData))]
-		public void TestToString( Circle actual, string expected)
+		public void TestToString( Circle circle, string expected)
 		{
-			Assert.Equal(expected, actual.ToString());
+			var actual = circle.ToString();
+			Assert.Equal(expected, actual);
 		}
 		
 		
