@@ -55,7 +55,7 @@ namespace Task1CS.Classes
 				return false;
 			}
 
-			if (points[0] == points[1])
+			if (points[0].Equals(points[1]))
 			{
 				return false;
 			}
