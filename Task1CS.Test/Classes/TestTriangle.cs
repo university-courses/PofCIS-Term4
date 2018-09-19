@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Task1CS.Classes;
+
 using Xunit;
+
+using Task1CS.Classes;
 
 namespace Task1CS.Test.Classes
 {

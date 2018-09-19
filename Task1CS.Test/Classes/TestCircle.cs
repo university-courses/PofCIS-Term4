@@ -303,7 +303,7 @@ namespace Task1CS.Test.Classes
 					{
 						new Point(0, 0), new Point(0, 1)
 					}),
-					$"Circle:\n  Radius: 1\n  Points:\n    Point 0: x=0, y=0\n    Point 1: x=0, y=1"
+					"Circle:\n  Radius: 1\n  Points:\n    Point 0: x=0, y=0\n    Point 1: x=0, y=1"
 				},
 				new object[]
 				{
@@ -330,7 +330,7 @@ namespace Task1CS.Test.Classes
 					{
 						new Point(0, 0), new Point(5, 0)
 					}),
-					$"Circle:\n  Radius: 5\n  Points:\n    Point 0: x=0, y=0\n    Point 1: x=5, y=0"
+					"Circle:\n  Radius: 5\n  Points:\n    Point 0: x=0, y=0\n    Point 1: x=5, y=0"
 
 				},
 				new object[]
