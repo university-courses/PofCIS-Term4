@@ -8,8 +8,8 @@ namespace Task1CS.Test.Classes
     public class TestTriangle
     {
         [Theory]
-        [MemberData(nameof(TriangleData.CalcPerimetrData), MemberType = typeof(TriangleData))]
-        public void TestCalcPerimetr(Triangle actual, double expected)
+        [MemberData(nameof(TriangleData.CalcPerimeterData), MemberType = typeof(TriangleData))]
+        public void TestCalcPerimeter(Triangle actual, double expected)
         {
             Assert.Equal(expected, actual.CalcPerimeter());
         }
@@ -24,11 +24,11 @@ namespace Task1CS.Test.Classes
 
         private class TriangleData
         {
-            public static IEnumerable<object[]> CalcPerimetrData => new List<object[]>
+            public static IEnumerable<object[]> CalcPerimeterData => new List<object[]>
             {
                 new object[]
                 {
-                    new Triangle(new Point[]
+                    new Triangle(new[]
                     {
                         new Point(0, 0), new Point(1, 1),new Point(3, 0)
                     }),
@@ -44,11 +44,11 @@ namespace Task1CS.Test.Classes
                 },
                 new object[]
                 {
-                    new Triangle(new Point[]
+                    new Triangle(new[]
                     {
                         new Point(0, 0), new Point(0, 3), new Point(4,0)
                     }),
-                    6
+                    12
                 },
             };
 
@@ -56,27 +56,19 @@ namespace Task1CS.Test.Classes
             {
                 new object[]
                 {
-                    new Triangle(new Point[]
-                    {
-                        new Point(0, 0), new Point(0, 2),new Point(2, 0)
-                    }),
-                    2
-                },
-                new object[]
-                {
-                    new Triangle(new Point[]
+                    new Triangle(new[]
                     {
                         new Point(0, 0), new Point(0, 2), new Point(10, 0)
                     }),
-                    10
+                    10.0
                 },
                 new object[]
                 {
-                    new Triangle(new Point[]
+                    new Triangle(new[]
                     {
                         new Point(0, 0), new Point(0, 3), new Point(4,0)
                     }),
-                    12
+                    6.0
                 },
             };
 
