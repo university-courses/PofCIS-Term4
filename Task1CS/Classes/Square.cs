@@ -15,7 +15,6 @@ namespace Task1CS.Classes
 
         public Square()
         {
-            _points = new Point[PointsCount];
         }
 
         public Square(Point[] points)
@@ -38,18 +37,23 @@ namespace Task1CS.Classes
             _points = points;
         }
 
-
         public static bool PointsAreValid(IReadOnlyList<Point> points)
         {
             if (points == null)
             {
                 throw new NullReferenceException("points is null");
             }
+
+            if (points.Count != PointsCount)
+            {
+                return false;
+            }
+
             var a = Point.CalcDistance(points[0], points[1]);
             var b = Point.CalcDistance(points[1], points[2]);
             var c = Point.CalcDistance(points[2], points[3]);
             var d = Point.CalcDistance(points[3], points[0]);
-            return a == b && b == c && c == d && d == a;
+            return a.Equals(b) && b.Equals(c) && c.Equals(d) && d.Equals(a);
         }
 
         public double CalcPerimeter()
@@ -58,7 +62,8 @@ namespace Task1CS.Classes
             {
                 throw new NullReferenceException("points not set");
             }
-            return _points.Select((current, i) => Point.CalcDistance(current, _points[(i + 1) % _points.Length])).Sum();
+
+            return Point.CalcDistance(_points[0], _points[1]) * 4;
         }
 
         public IEnumerable<Point> GetPoints()
@@ -76,10 +81,9 @@ namespace Task1CS.Classes
             {
                 throw new NullReferenceException("points not set");
             }
-            var square = Math.Pow(Point.CalcDistance(_points[0], _points[1]), 2);
-            return square;
-        }
 
+            return Math.Pow(Point.CalcDistance(_points[0], _points[1]), 2);
+        }
 
         public override string ToString()
         {
@@ -95,11 +99,11 @@ namespace Task1CS.Classes
 
             return result;
         }
+        
         public bool Parse(string line)
         {
-            const int CoordinatesPerPoint = 2;
             var points = Helpers.ParseShapePoints(
-                line, @"Square\{\s*((-?\d+\s+){5}-?\d+)\s*\}", CoordinatesPerPoint, PointsCount
+                line, @"Square\{\s*((-?\d+\s+){7}-?\d+)\s*\}", Helpers.Const.CoordinatesPerPoint, PointsCount
             );
 
             if (points == null)
