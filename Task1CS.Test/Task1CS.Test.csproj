@@ -56,6 +56,7 @@
     <Compile Include="Classes\TestCircle.cs" />
     <Compile Include="Classes\TestPoint.cs" />
     <Compile Include="Classes\TestSquare.cs" />
+    <Compile Include="Classes\TestTriangle.cs" />
     <Compile Include="TestHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

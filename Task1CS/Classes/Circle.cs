@@ -6,6 +6,9 @@ using Task1CS.Interfaces;
 
 namespace Task1CS.Classes
 {
+	/// <summary>
+	/// Class of circle shape.
+	/// </summary>
 	public class Circle : IShape
 	{
 		private Point[] _points;
@@ -13,11 +16,22 @@ namespace Task1CS.Classes
 		
 		private const int PointsCount = 2;
 
+		/// <summary>
+		/// Default constructor for circle.
+		/// </summary>
 		public Circle()
 		{
 			_points = new Point[PointsCount];
 		}
 		
+		/// <summary>
+		/// Constructor with parameter.
+		/// </summary>
+		/// <param name="points">Array of points.
+		/// First point mut be center,
+		/// second point from the circumference.</param>
+		/// <exception cref="NullReferenceException">Throws if array of points is null.</exception>
+		/// <exception cref="InvalidDataException">Trows if both points are the same.</exception>
 		public Circle(Point[] points)
 		{
 			if (points == null)
@@ -34,6 +48,11 @@ namespace Task1CS.Classes
 			_radius = CalcRadius();
 		}
 
+		/// <summary>
+		/// Function to calculate radius of the circle. 
+		/// </summary>
+		/// <returns>Radius.</returns>
+		/// <exception cref="NullReferenceException">Throws if array of points is null.</exception>
 		public double CalcRadius()
 		{
 			if (_points == null)
@@ -44,6 +63,12 @@ namespace Task1CS.Classes
 			return Point.CalcDistance(_points[0], _points[1]);
 		}
 
+		/// <summary>
+		/// Function to parse string of data into the element of circle class.
+		/// </summary>
+		/// <param name="line">Line to parse.</param>
+		/// <returns>True if line was parsed,
+		/// false if line was not parsed, or if parsed points are the same.</returns>
 		public bool Parse(string line)
 		{
 			var points = Helpers.ParseShapePoints(
@@ -66,6 +91,11 @@ namespace Task1CS.Classes
 			return true;
 		}
 
+		/// <summary>
+		/// Function that calculates square of the circle.
+		/// </summary>
+		/// <returns>Square.</returns>
+		/// <exception cref="NullReferenceException">Throws if array of points is null.</exception>
 		public double CalcSquare()
 		{
 			if (_points == null)
@@ -75,6 +105,11 @@ namespace Task1CS.Classes
 			return Math.PI * Math.Pow(_radius, 2);
 		}
 
+		/// <summary>
+		/// Function that calculates perimeter of the circle.
+		/// </summary>
+		/// <returns>Perimeter.</returns>
+		/// <exception cref="NullReferenceException">Throws if array of points is null.</exception>
 		public double CalcPerimeter()
 		{
 			if (_points == null)
@@ -84,6 +119,11 @@ namespace Task1CS.Classes
 			return 2 * Math.PI * _radius;
 		}
 
+		/// <summary>
+		/// Function to get points of center and from the circumference.
+		/// </summary>
+		/// <returns>Array of points.</returns>
+		/// <exception cref="NullReferenceException">Throws if array of points is null.</exception>
 		public IEnumerable<Point> GetPoints()
 		{
 			if (_points == null)
@@ -93,6 +133,11 @@ namespace Task1CS.Classes
 			return _points;
 		}
 		
+		/// <summary>
+		/// Function to convert element of circle class to string.
+		/// </summary>
+		/// <returns>Text interpretation of the element of circle class.</returns>
+		/// <exception cref="NullReferenceException">Throws if array of points is null.</exception>
 		public override string ToString()
 		{
 			if (_points == null)
