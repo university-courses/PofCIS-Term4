@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Task1CS.Classes;
 using Xunit;
 
@@ -45,7 +46,11 @@ namespace Task1CS.Test.Classes
 		public void TestGetPoints( Circle circle, Point[] expected)
 		{
 			var actual = circle.GetPoints();
-			Assert.Equal(expected, actual);
+			var enumerable = actual as Point[] ?? actual.ToArray();
+			Assert.Equal(expected[0].X, enumerable[0].X);
+			Assert.Equal(expected[0].Y, enumerable[0].Y);
+			Assert.Equal(expected[1].X, enumerable[1].X);
+			Assert.Equal(expected[1].Y, enumerable[1].Y);
 		}
 		
 		[Theory]
