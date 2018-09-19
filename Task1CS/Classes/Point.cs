@@ -20,7 +20,7 @@ namespace Task1CS.Classes
 
         public bool Equals(Point point)
         {
-            return (Math.Abs(this.X - point.X) < 0) && (Math.Abs(this.Y - point.Y) < 0);
+            return (Math.Abs(this.X - point.X) < 0.01) && (Math.Abs(this.Y - point.Y) < 0.01);
         }
     }
 }
