@@ -17,5 +17,10 @@ namespace Task1CS.Classes
         {
             return Math.Sqrt(Math.Pow(first.X - second.X, 2) + Math.Pow(first.Y - second.Y, 2));
         }
+
+        public bool Equals(Point point)
+        {
+            return (Math.Abs(this.X - point.X) < 0) && (Math.Abs(this.Y - point.Y) < 0);
+        }
     }
 }
