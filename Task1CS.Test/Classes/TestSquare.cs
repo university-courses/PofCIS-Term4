@@ -229,7 +229,7 @@ namespace Task1CS.Test.Classes
 		{
 			var square = new Square(points);
 			var actual = square.GetPoints().ToArray();
-			Assert.Equal(actual.Count(), expected.Length);
+			Assert.Equal(actual.Length, expected.Length);
 			for (var i = 0; i < expected.Length; i++)
 			{
 				Assert.Equal(expected[i].X, actual[i].X);
