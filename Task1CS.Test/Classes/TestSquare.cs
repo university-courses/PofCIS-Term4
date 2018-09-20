@@ -104,7 +104,6 @@ namespace Task1CS.Test.Classes
 			};
 		}
 
-		
 		[Theory]
 		[MemberData(nameof(PointsAreValidData.Success), MemberType = typeof(PointsAreValidData))]
 		public void TestPointsAreValid(Point[] points, bool expected)
@@ -171,7 +170,6 @@ namespace Task1CS.Test.Classes
 			};
 		}
 		
-		
 		[Theory]
 		[MemberData(nameof(CalcPerimeterData.Success), MemberType = typeof(CalcPerimeterData))]
 		public void TestCalcPerimeter(Square square, double expected)
@@ -214,7 +212,6 @@ namespace Task1CS.Test.Classes
 				}
 			};
 		}
-		
 		
 		[Fact]
 		public void TestGetPointsThrowsNullReferenceException()
@@ -260,7 +257,6 @@ namespace Task1CS.Test.Classes
 			};
 		}
 		
-		
 		[Theory]
 		[MemberData(nameof(CalcSquareData.Success), MemberType = typeof(CalcSquareData))]
 		public void TestCalcSquare(Square square, double expected)
@@ -303,8 +299,7 @@ namespace Task1CS.Test.Classes
 				}
 			};
 		}
-
-
+        
 		[Theory]
 		[MemberData(nameof(ToStringData.Success), MemberType = typeof(ToStringData))]
 		public void TestToString(Square square, string expected)
@@ -347,8 +342,7 @@ namespace Task1CS.Test.Classes
 				}
 			};
 		}
-
-
+        
 		[Theory]
 		[MemberData(nameof(ParseData.Success), MemberType = typeof(ParseData))]
 		public void TestParseSuccess(string input, Square expected)
@@ -379,7 +373,7 @@ namespace Task1CS.Test.Classes
 				new object[]
 				{
 					"Square{1 1 2 1 2 2 1 2}",
-					new Square(new []
+					new Square(new[]
 					{
 						new Point(1, 1), 
 						new Point(2, 1), 
@@ -390,7 +384,7 @@ namespace Task1CS.Test.Classes
 				new object[]
 				{
 					"Square{-2 -2 3 -2 3 3 -2 3}",
-					new Square(new []
+					new Square(new[]
 					{
 						new Point(-2, -2),
 						new Point(3, -2),  

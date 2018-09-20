@@ -11,7 +11,7 @@ namespace Task1CS.Test.BL
 {
 	public class TestTask
 	{
-		private const string TestDataDir = "TestData\\";
+		private const string TestDataDir = "TestData";
 		
 		[Theory]
 		[MemberData(nameof(ReadFromFileData.SuccessData), MemberType = typeof(ReadFromFileData))]
@@ -19,11 +19,13 @@ namespace Task1CS.Test.BL
 		{
 			// creating test data file
 			Directory.CreateDirectory(TestDataDir);
-			File.WriteAllText(TestDataDir + "TestShapes.txt", @"Triangle{4 2 1 3 0 0}
+            var data = @"Triangle{4 2 1 3 0 0}
 Triangle{-2 -1 -5 -1 -2 -5}
 Triangle{2 3 0 0 8 8}
 Circle{0 0 2 2}
-Circle{-5 -5 -2 -2}");
+Circle{-5 -5 -2 -2}
+Square{0 0 5 0 5 5 0 5}";
+            File.WriteAllText(input, data);
 			
 			// testing
 			var actual = Task.ReadFromFile(input);
@@ -45,9 +47,8 @@ Circle{-5 -5 -2 -2}");
 			}
 			
 			// removing garbage
-			File.Delete(TestDataDir + "TestShapes.txt");
+			File.Delete(input);
 			Directory.Delete(TestDataDir);
-			
 		}
 		
 		[Theory]
@@ -63,46 +64,53 @@ Circle{-5 -5 -2 -2}");
 			{
 				new object[]
 				{
-					TestDataDir + "TestShapes.txt",
+					TestDataDir + "\\TestShapes.txt",
 					new List<IShape>
 					{
-						new Triangle(new []
+						new Triangle(new[]
 						{
 							new Point(4, 2), 
 							new Point(1, 3), 
 							new Point(0, 0), 
 						}),
-						new Triangle(new []
+						new Triangle(new[]
 						{
 							new Point(-2, -1), 
 							new Point(-5, -1), 
 							new Point(-2, -5), 
 						}),
-						new Triangle(new []
+						new Triangle(new[]
 						{
 							new Point(2, 3), 
 							new Point(0, 0), 
 							new Point(8, 8), 
 						}),
-						new Circle(new []
+						new Circle(new[]
 						{
 							new Point(0, 0), 
 							new Point(2, 2), 
 						}),
-						new Circle(new []
+						new Circle(new[]
 						{
 							new Point(-5, -5), 
 							new Point(-2, -2), 
-						})
-					} 
+						}),
+                        new Square(new[]
+                        {
+                            new Point(0, 0),
+                            new Point(5, 0),
+                            new Point(5, 5),
+                            new Point(0, 5),
+                        })
+                    } 
 				}
 			};
 			
 			public static IEnumerable<object[]> ThrowsIoExceptionData => new List<object[]>
 			{
-				new object[] {"file.txt"},
-				new object[] {"file.xml"},
-				new object[] {"some-other-file.json"}
+				new object[] { "file.txt" },
+				new object[] { "file.xml" },
+				new object[] { "some-other-file.json" }
 			};
 		}
 		
@@ -119,7 +127,7 @@ Circle{-5 -5 -2 -2}");
 			{
 				new object[]
 				{
-					new Triangle(new []
+					new Triangle(new[]
 					{
 						new Point(4, 2), 
 						new Point(1, 3), 
@@ -129,7 +137,7 @@ Circle{-5 -5 -2 -2}");
 				},
 				new object[]
 				{
-					new Triangle(new []
+					new Triangle(new[]
 					{
 						new Point(-2, -1), 
 						new Point(-5, -1), 
@@ -137,9 +145,18 @@ Circle{-5 -5 -2 -2}");
 					}),
 					true
 				},
-				new object[]
+                new object[]
+                {
+                    new Circle(new[]
+                    {
+                        new Point(-5, -5),
+                        new Point(-1, -1)
+                    }),
+                    true
+                },
+                new object[]
 				{
-					new Triangle(new []
+					new Triangle(new[]
 					{
 						new Point(-2, -3), 
 						new Point(0, 0), 
@@ -152,10 +169,10 @@ Circle{-5 -5 -2 -2}");
 		
 		[Theory]
 		[MemberData(nameof(WriteToFileData.SuccessData), MemberType = typeof(WriteToFileData))]
-		public void TestWriteToFileSuccess(string inputFile, List<IShape> inputShapes, string expected)
+		public void TestWriteToFileSuccess(string inputFile, string dir, List<IShape> inputShapes, string expected)
 		{
 			// creating test directory
-			Directory.CreateDirectory(TestDataDir);
+			Directory.CreateDirectory(dir);
 			
 			// testing
 			Task.WriteToFile(inputFile, inputShapes);
@@ -168,38 +185,38 @@ Circle{-5 -5 -2 -2}");
 			
 			// removing garbage
 			File.Delete(inputFile);
-			Directory.Delete(TestDataDir);
-			
+			Directory.Delete(dir);	
 		}
-		
+
 		private class WriteToFileData
 		{
 			public static IEnumerable<object[]> SuccessData => new List<object[]>
 			{
 				new object[]
 				{
-					TestDataDir + "TestResult1.txt",
+					TestDataDir + "1\\TestResult.txt",
+					TestDataDir + "1",
 					new List<IShape>
 					{
-						new Triangle(new []
+						new Triangle(new[]
 						{
 							new Point(2, 3), 
 							new Point(0, 0), 
 							new Point(8, 8), 
 						}),
-						new Triangle(new []
+						new Triangle(new[]
 						{
 							new Point(4, 2), 
 							new Point(1, 3), 
 							new Point(0, 0), 
 						}),
-						new Triangle(new []
+						new Triangle(new[]
 						{
 							new Point(-2, -1), 
 							new Point(-5, -1), 
 							new Point(-2, -5), 
 						}),
-						new Circle(new []
+						new Circle(new[]
 						{
 							new Point(-5, -5), 	
 							new Point(-2, -2), 	
@@ -209,14 +226,17 @@ Circle{-5 -5 -2 -2}");
   Point 0: x=2, y=3
   Point 1: x=0, y=0
   Point 2: x=8, y=8
+
 Triangle:
   Point 0: x=4, y=2
   Point 1: x=1, y=3
   Point 2: x=0, y=0
+
 Triangle:
   Point 0: x=-2, y=-1
   Point 1: x=-5, y=-1
   Point 2: x=-2, y=-5
+
 Circle:
   Radius: 4.24264068711928
   Points:
@@ -226,10 +246,11 @@ Circle:
 				},
 				new object[]
 				{
-					TestDataDir + "TestResult2.txt",
+					TestDataDir + "2\\TestResult.txt",
+					TestDataDir + "2",
 					new List<IShape>
 					{
-						new Triangle(new []
+						new Triangle(new[]
 						{
 							new Point(-2, -1), 
 							new Point(-5, -1), 

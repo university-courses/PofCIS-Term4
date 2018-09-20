@@ -30,7 +30,7 @@ namespace Task1CS.BL
 			
 			var shapes = ReadFromFile(Helpers.Const.InputDataRoot + "Shapes.txt");
 
-			var sortedBySquares = shapes.OrderBy(shape => shape.CalcSquare());
+			var sortedBySquares = shapes.OrderBy(shape => shape.CalcSquare()).ToList();
 
 			WriteToFile(Helpers.Const.OutputDataRoot + "SortedBySquares.txt", sortedBySquares);
 
@@ -43,7 +43,7 @@ namespace Task1CS.BL
 				} 
 			}
 
-			var sortedByPerimeters = shapesFromThirdQuarter.OrderByDescending(shape => shape.CalcPerimeter());
+			var sortedByPerimeters = shapesFromThirdQuarter.OrderByDescending(shape => shape.CalcPerimeter()).ToList();
 
 			WriteToFile(Helpers.Const.OutputDataRoot + "SortedByPerimeters.txt", sortedByPerimeters);
 		}
@@ -84,6 +84,7 @@ namespace Task1CS.BL
 				}
 			}
 
+			reader.Close();
 			return list;
 		}
 
@@ -92,12 +93,16 @@ namespace Task1CS.BL
 		/// </summary>
 		/// <param name="fileName">Path to file.</param>
 		/// <param name="shapes">A list of shapes.</param>
-		public static void WriteToFile(string fileName, IEnumerable<IShape> shapes)
+		public static void WriteToFile(string fileName, List<IShape> shapes)
 		{
 			var writer = new StreamWriter(fileName);
-			foreach (var shape in shapes)
+			for (var i = 0; i < shapes.Count; i++)
 			{
-				writer.WriteLine(shape);
+				writer.Write(shapes[i] + "\n");
+				if (i != shapes.Count - 1)
+				{
+					writer.Write("\n");
+				}
 			}
 
 			writer.Close();
@@ -110,7 +115,18 @@ namespace Task1CS.BL
 		/// <returns>True if shape is located in the third quarter, otherwise returns false.</returns>
 		public static bool IsInThirdQuarter(IShape shape)
 		{
-			return shape.GetPoints().All(point => !(point.X > 0) && !(point.Y > 0));
+			if (typeof(IShape) != typeof(Circle))
+			{
+				return shape.GetPoints().All(point => !(point.X > 0) && !(point.Y > 0));
+			}
+
+			var circle = (Circle)shape;
+			var center = circle.GetPoints().ToArray()[0];
+			var radius = circle.CalcRadius();
+			return center.X < 0 &&
+			       center.Y < 0 &&
+			       Point.CalcDistance(center, new Point(center.X, 0)) >= radius &&
+			       Point.CalcDistance(center, new Point(0, center.Y)) >= radius;
 		}
 	}
 }

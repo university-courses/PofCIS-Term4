@@ -12,7 +12,7 @@ namespace Task1CS.Test.Classes
 	{
 		[Theory]
 		[MemberData(nameof(CircleData.CalcRadiusData), MemberType = typeof(CircleData))]
-		public void TestCalcRadius( Circle circle, double expected)
+		public void TestCalcRadius(Circle circle, double expected)
 		{
 			var actual = circle.CalcRadius();
 			Assert.Equal(expected, actual);
@@ -20,7 +20,7 @@ namespace Task1CS.Test.Classes
 		
 		[Theory]
 		[MemberData(nameof(CircleData.ParseData), MemberType = typeof(CircleData))]
-		public void TestParse( string line, bool expected)
+		public void TestParse(string line, bool expected)
 		{
 			var circle = new Circle();
 			var actual = circle.Parse(line);
@@ -29,7 +29,7 @@ namespace Task1CS.Test.Classes
 		
 		[Theory]
 		[MemberData(nameof(CircleData.CalcSquareData), MemberType = typeof(CircleData))]
-		public void TestCalcSquare( Circle circle, double expected)
+		public void TestCalcSquare(Circle circle, double expected)
 		{
 			var actual = circle.CalcSquare();
 			Assert.Equal(expected, actual);
@@ -37,7 +37,7 @@ namespace Task1CS.Test.Classes
 		
 		[Theory]
 		[MemberData(nameof(CircleData.CalcPerimeterData), MemberType = typeof(CircleData))]
-		public void TestCalcPerimeter( Circle circle, double expected)
+		public void TestCalcPerimeter(Circle circle, double expected)
 		{
 			var actual = circle.CalcPerimeter();
 			Assert.Equal(expected, actual);
@@ -45,7 +45,7 @@ namespace Task1CS.Test.Classes
 		
 		[Theory]
 		[MemberData(nameof(CircleData.GetPointsData), MemberType = typeof(CircleData))]
-		public void TestGetPoints( Circle circle, Point[] expected)
+		public void TestGetPoints(Circle circle, Point[] expected)
 		{
 			var actual = circle.GetPoints();
 			var enumerable = actual as Point[] ?? actual.ToArray();
@@ -57,7 +57,7 @@ namespace Task1CS.Test.Classes
 		
 		[Theory]
 		[MemberData(nameof(CircleData.ToStringData), MemberType = typeof(CircleData))]
-		public void TestToString( Circle circle, string expected)
+		public void TestToString(Circle circle, string expected)
 		{
 			var actual = circle.ToString();
 			Assert.Equal(expected, actual);
@@ -72,7 +72,7 @@ namespace Task1CS.Test.Classes
 		[Fact]
 		public void TestConstructorThrowsInvalidDataException()
 		{
-			Assert.Throws<InvalidDataException>(() => new Circle(new []{new Point(0, 0), new Point(0, 0)}));
+			Assert.Throws<InvalidDataException>(() => new Circle(new[] { new Point(0, 0), new Point(0, 0) }));
 		}
 		
 		[Fact]
@@ -104,8 +104,6 @@ namespace Task1CS.Test.Classes
 		{
 			Assert.Throws<NullReferenceException>(() => new Circle().ToString());
 		}
-		
-		
 		
 		private class CircleData
 		{
@@ -190,7 +188,7 @@ namespace Task1CS.Test.Classes
 				},
 				new object[]
 				{
-					"", false	
+					string.Empty, false	
 				},
 				new object[]
 				{
@@ -219,7 +217,7 @@ namespace Task1CS.Test.Classes
 					{
 						new Point(0, 0),
 						new Point(0, 4) 
-					}), Math.PI*16
+					}), Math.PI * 16
 				},
 				
 				new object[]
@@ -228,7 +226,7 @@ namespace Task1CS.Test.Classes
 					{
 						new Point(0, 0),
 						new Point(0, 10) 
-					}), Math.PI*100
+					}), Math.PI * 100
 				},
 				
 				new object[]
@@ -237,7 +235,7 @@ namespace Task1CS.Test.Classes
 					{
 						new Point(0, 0),
 						new Point(0, 5) 
-					}), Math.PI*25
+					}), Math.PI * 25
 				}
 			};
 
@@ -249,7 +247,7 @@ namespace Task1CS.Test.Classes
 					{
 						new Point(0, 0),
 						new Point(0, 1) 
-					}), Math.PI*2
+					}), Math.PI * 2
 				},
 				
 				new object[]
@@ -258,7 +256,7 @@ namespace Task1CS.Test.Classes
 					{
 						new Point(0, 0),
 						new Point(0, 4) 
-					}), Math.PI*8
+					}), Math.PI * 8
 				},
 				
 				new object[]
@@ -267,7 +265,7 @@ namespace Task1CS.Test.Classes
 					{
 						new Point(0, 0),
 						new Point(0, 10) 
-					}), Math.PI*20
+					}), Math.PI * 20
 				},
 				
 				new object[]
@@ -276,7 +274,7 @@ namespace Task1CS.Test.Classes
 					{
 						new Point(0, 0),
 						new Point(0, 5) 
-					}), Math.PI*10
+					}), Math.PI * 10
 				}
 			};
 
@@ -289,7 +287,7 @@ namespace Task1CS.Test.Classes
 						new Point(0, 0),
 						new Point(0, 1)
 					}),
-					new []
+					new[]
 					{
 						new Point(0, 0),
 						new Point(0, 1)
@@ -303,7 +301,7 @@ namespace Task1CS.Test.Classes
 						new Point(0, 0),
 						new Point(0, 4)
 					}),
-					new []
+					new[]
 					{
 						new Point(0, 0),
 						new Point(0, 4)
@@ -317,7 +315,7 @@ namespace Task1CS.Test.Classes
 						new Point(0, 0),
 						new Point(0, 10)
 					}),
-					new []
+					new[]
 					{
 						new Point(0, 0),
 						new Point(0, 10)
@@ -331,7 +329,7 @@ namespace Task1CS.Test.Classes
 						new Point(0, 0),
 						new Point(0, 5)
 					}),
-					new []
+					new[]
 					{
 						new Point(0, 0),
 						new Point(0, 5)
@@ -356,7 +354,6 @@ namespace Task1CS.Test.Classes
 						new Point(0, 0), new Point(1, 1)
 					}),
 						$"Circle:\n  Radius: {Math.Sqrt(2)}\n  Points:\n    Point 0: x=0, y=0\n    Point 1: x=1, y=1"
-
 				},
 				new object[]
 				{
@@ -366,7 +363,6 @@ namespace Task1CS.Test.Classes
 					}),
 					
 						$"Circle:\n  Radius: {Math.Sqrt(32)}\n  Points:\n    Point 0: x=0, y=0\n    Point 1: x=4, y=4"
-
 				},
 				new object[]
 				{
@@ -375,7 +371,6 @@ namespace Task1CS.Test.Classes
 						new Point(0, 0), new Point(5, 0)
 					}),
 					"Circle:\n  Radius: 5\n  Points:\n    Point 0: x=0, y=0\n    Point 1: x=5, y=0"
-
 				},
 				new object[]
 				{
@@ -384,12 +379,8 @@ namespace Task1CS.Test.Classes
 						new Point(1, 0), new Point(0, 1)
 					}),
 					$"Circle:\n  Radius: {Math.Sqrt(2)}\n  Points:\n    Point 0: x=1, y=0\n    Point 1: x=0, y=1"
-
 				},
-
 			};
-
 		}
-		
 	}
 }

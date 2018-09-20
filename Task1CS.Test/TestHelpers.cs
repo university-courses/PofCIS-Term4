@@ -26,22 +26,22 @@ namespace Task1CS.Test
 		{
 			public static IEnumerable<object[]> SuccessData => new List<object[]>
 			{
-				new object[] {"10", 10.0},
-				new object[] {"0.1", 0.1},
-				new object[] {"0", 0.0},
-				new object[] {"-10", -10.0},
-				new object[] {"1", 1.0},
-				new object[] {"-1.0757", -1.0757},
-				new object[] {"10987654.977", 10987654.977},
+				new object[] { "10", 10.0 },
+				new object[] { "0.1", 0.1 },
+				new object[] { "0", 0.0 },
+				new object[] { "-10", -10.0 },
+				new object[] { "1", 1.0 },
+				new object[] { "-1.0757", -1.0757 },
+				new object[] { "10987654.977", 10987654.977 },
 			};
 			
 			public static IEnumerable<object[]> ThrowsData => new List<object[]>
 			{
-				new object[] {" "},
-				new object[] {"a"},
-				new object[] {"10.0f"},
-				new object[] {"-"},
-				new object[] {"-f"},
+				new object[] { " " },
+				new object[] { "a" },
+				new object[] { "10.0f" },
+				new object[] { "-" },
+				new object[] { "-f" },
 			};
 		}
 		
@@ -61,7 +61,7 @@ namespace Task1CS.Test
 		[Fact]
 		public void TestParseShapePointsThrowsIoException()
 		{
-			Assert.Throws<IOException>(() => Helpers.ParseShapePoints(null, "", 0, 0));
+			Assert.Throws<IOException>(() => Helpers.ParseShapePoints(null, string.Empty, 0, 0));
 		}
 		
 		[Fact]

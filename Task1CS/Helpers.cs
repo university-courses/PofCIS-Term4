@@ -29,17 +29,17 @@ namespace Task1CS
 			return doubleNum;
 		}
 
-		/// <summary>
-		/// Reads points from stream using specific parameters.
-		/// </summary>
-		/// <param name="line">String which contains shape data.</param>
-		/// <param name="regexStr">Regular expression for matching shape's points.</param>
-		/// <param name="coordsPerP">Coordinates per point, e.g. (x, y)</param>
-		/// <param name="pCount">Amount of shape's points.</param>
-		/// <returns>If shape is matched returns an array of points, otherwise returns null.</returns>
-		/// <exception cref="IOException">Throws if can not read from stream.</exception>
-		/// <exception cref="InvalidDataException">Throws if points count is invalid.</exception>
-		public static Point[] ParseShapePoints(string line, string regexStr, int coordsPerP, int pCount)
+        /// <summary>
+        /// Reads points from stream using specific parameters.
+        /// </summary>
+        /// <param name="line">String which contains shape data.</param>
+        /// <param name="regexStr">Regular expression for matching shape's points.</param>
+        /// <param name="coordsPerP">Coordinates per point, e.g. (x, y)</param>
+        /// <param name="pointsCount">Amount of shape's points.</param>
+        /// <returns>If shape is matched returns an array of points, otherwise returns null.</returns>
+        /// <exception cref="IOException">Throws if can not read from stream.</exception>
+        /// <exception cref="InvalidDataException">Throws if points count is invalid.</exception>
+        public static Point[] ParseShapePoints(string line, string regexStr, int coordsPerP, int pointsCount)
 		{
 			if (line == null)
 			{
@@ -53,14 +53,14 @@ namespace Task1CS
 			}
 
 			var data = result.Groups[1].ToString().Split(' ');
-			if (data.Length != pCount * coordsPerP)
+			if (data.Length != pointsCount * coordsPerP)
 			{
 				throw new InvalidDataException("invalid triangle points count");
 			}
 			
 			var points = new List<Point>();  
 
-			for (var i = 0; i < pCount * coordsPerP; i += coordsPerP)
+			for (var i = 0; i < pointsCount * coordsPerP; i += coordsPerP)
 			{
 				points.Add(new Point(StringToDouble(data[i]), StringToDouble(data[i + 1])));
 			}
