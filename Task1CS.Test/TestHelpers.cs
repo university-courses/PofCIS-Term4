@@ -28,12 +28,12 @@ namespace Task1CS.Test
 			public static IEnumerable<object[]> SuccessData => new List<object[]>
 			{
 				new object[] {"10", 10.0},
-				new object[] {"0.1", 0.1},
+				new object[] {"0,1", 0.1},
 				new object[] {"0", 0.0},
 				new object[] {"-10", -10.0},
 				new object[] {"1", 1.0},
-				new object[] {"-1.0757", -1.0757},
-				new object[] {"10987654.977", 10987654.977},
+				new object[] {"-1,0757", -1.0757},
+				new object[] {"10987654,977", 10987654.977},
 			};
 			
 			public static IEnumerable<object[]> ThrowsData => new List<object[]>

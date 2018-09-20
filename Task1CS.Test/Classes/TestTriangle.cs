@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Xunit;
 
@@ -74,6 +75,55 @@ namespace Task1CS.Test.Classes
 			var actual = circle.Parse(line);
 			Assert.Equal(expected, actual);
 		}
+		
+		[Fact]
+		public void TestConstructorThrowsNullReferenceException()
+		{
+			Assert.Throws<NullReferenceException>(() => new Triangle(null));
+		}
+		
+		[Fact]
+		public void TestConstructorThrowsInvalidDataException()
+		{
+			Assert.Throws<InvalidDataException>(() => new Triangle(new []{new Point(0, 0), new Point(0, 0)}));
+		}
+		
+		[Fact]
+		public void TestCalcConstructorThrowsInvalidDataException()
+		{
+			Assert.Throws<InvalidDataException>(() => new Triangle(new []{new Point(0, 0), new Point(0, 0), new Point(0, 0)}));
+		}
+		
+		[Fact]
+		public void TestCalcSquareThrowsNullReferenceException()
+		{
+			Assert.Throws<NullReferenceException>(() => new Triangle().CalcSquare());
+		}
+		
+		[Fact]
+		public void TestPointsAreValidThrowsNullReferenceException()
+		{
+			Assert.Throws<NullReferenceException>(() => Triangle.PointsAreValid(null));
+		}
+		
+		[Fact]
+		public void TestGetPointsThrowsNullReferenceException()
+		{
+			Assert.Throws<NullReferenceException>(() => new Triangle().GetPoints());
+		}
+		
+		[Fact]
+		public void TestCalcPerimeterThrowsNullReferenceException()
+		{
+			Assert.Throws<NullReferenceException>(() => new Triangle().CalcPerimeter());
+		}
+		
+		[Fact]
+		public void TestToStringThrowsNullReferenceException()
+		{
+			Assert.Throws<NullReferenceException>(() => new Triangle().ToString());
+		}
+		
 		
 		private class TriangleData
 		{
@@ -281,6 +331,10 @@ namespace Task1CS.Test.Classes
 				{
 					"Triangle{0, 0, 1, 1, 2, 0}", false
 				},
+				new object[]
+				{
+					"Triangle{0 0 1 1 2 2}", false
+				}
 			};
 
 			public static IEnumerable<object[]>  ConstructorData=> new List<object[]>

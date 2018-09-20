@@ -273,7 +273,7 @@ namespace Task1CS.Test.Classes
 		[Fact]
 		public void TestCalcSquareThrowsNullReferenceException()
 		{
-			Assert.Throws<NullReferenceException>(() => new Square().CalcPerimeter());
+			Assert.Throws<NullReferenceException>(() => new Square().CalcSquare());
 		}
 		
 		private class CalcSquareData

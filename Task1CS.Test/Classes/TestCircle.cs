@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Task1CS.Classes;
 using Xunit;
@@ -59,6 +60,48 @@ namespace Task1CS.Test.Classes
 		{
 			var actual = circle.ToString();
 			Assert.Equal(expected, actual);
+		}
+		
+		[Fact]
+		public void TestConstructorThrowsNullReferenceException()
+		{
+			Assert.Throws<NullReferenceException>(() => new Circle(null));
+		}
+		
+		[Fact]
+		public void TestConstructorThrowsInvalidDataException()
+		{
+			Assert.Throws<InvalidDataException>(() => new Circle(new []{new Point(0, 0), new Point(0, 0)}));
+		}
+		
+		[Fact]
+		public void TestCalcRadiusThrowsNullReferenceException()
+		{
+			Assert.Throws<NullReferenceException>(() => new Circle().CalcRadius());
+		}
+		
+		[Fact]
+		public void TestCalcSquareThrowsNullReferenceException()
+		{
+			Assert.Throws<NullReferenceException>(() => new Circle().CalcSquare());
+		}
+		
+		[Fact]
+		public void TestGetPointsThrowsNullReferenceException()
+		{
+			Assert.Throws<NullReferenceException>(() => new Circle().GetPoints());
+		}
+		
+		[Fact]
+		public void TestCalcPerimeterThrowsNullReferenceException()
+		{
+			Assert.Throws<NullReferenceException>(() => new Circle().CalcPerimeter());
+		}
+		
+		[Fact]
+		public void TestToStringThrowsNullReferenceException()
+		{
+			Assert.Throws<NullReferenceException>(() => new Circle().ToString());
 		}
 		
 		
