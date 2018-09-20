@@ -15,9 +15,7 @@ namespace Task1CS.Classes
 		private const int CoordinatesPerPoint = 2;
 
 		public Triangle()
-		{
-			_points = new Point[PointsCount];
-		}
+		{}
 		
 		public Triangle(Point[] points)
 		{
