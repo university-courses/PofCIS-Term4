@@ -19,7 +19,7 @@ namespace Task1CS.Classes
         private Point[] points;
 
         /// <summary>
-        /// Value of points, required to set a circle. 
+        /// Value of points, required to set a triangle. 
         /// </summary>
         private const int PointsCount = 3;
 
@@ -55,11 +55,11 @@ namespace Task1CS.Classes
         }
 
         /// <summary>
-        /// Function to check whether given coordinates will set a triangle
+        /// Function to check whether given coordinates will set a triangle.
         /// </summary>
         /// <param name="points">Array of points to set the square.</param>
         /// <returns>True if square can be set with given points
-        /// false if array of points is null, of if the amount of points does not equal the amount required</returns>
+        /// false if array of points is null, of if the amount of points does not equal the amount required.</returns>
         public static bool PointsAreValid(IReadOnlyList<Point> points)
         {
             if (points == null)
@@ -75,7 +75,7 @@ namespace Task1CS.Classes
 
         /// <inheritdoc />
         /// <summary>
-        /// Function to calculate the perimeter of the triangle
+        /// Function to calculate the perimeter of the triangle.
         /// </summary>
         /// <returns>Perimeter of the shape.</returns>
         public double CalcPerimeter()

@@ -40,7 +40,7 @@ namespace Task1CS.Classes
         }
 
         /// <summary>
-        /// Function that compares coordinates of two points to check if they are the same
+        /// Function that compares coordinates of two points to check if they are the same.
         /// </summary>
         /// <param name="point">Point to compare with.</param>
         /// <returns>True if both coordinates are the same.</returns>

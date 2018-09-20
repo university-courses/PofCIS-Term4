@@ -55,11 +55,11 @@ namespace Task1CS.Classes
 		}
 
         /// <summary>
-        /// Function to check whether given coordinates will set a square
+        /// Function to check whether given coordinates will set a square.
         /// </summary>
         /// <param name="points">Array of points to set the square.</param>
         /// <returns>True if square can be set with given points
-        /// false if array of points is null, of if the amount of points does not equal the amount required</returns>
+        /// false if array of points is null, of if the amount of points does not equal the amount required.</returns>
         public static bool PointsAreValid(IReadOnlyList<Point> points)
 		{
 			if (points == null)

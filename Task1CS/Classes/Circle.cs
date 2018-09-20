@@ -37,7 +37,7 @@ namespace Task1CS.Classes
         /// Initializes a new instance of the <see cref = "Circle"/> class.
         /// </summary>
         /// <param name="points">Array of points.
-        /// First point mut be center,
+        /// First point must be center,
         /// second point from the circumference.</param>
         /// <exception cref="NullReferenceException">Throws if array of points is null.</exception>
         /// <exception cref="InvalidDataException">Trows if both points are the same.</exception>

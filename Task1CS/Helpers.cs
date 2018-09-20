@@ -17,7 +17,7 @@ namespace Task1CS
 		/// Converts string number to double.
 		/// </summary>
 		/// <param name="strNum">String which contains floating point number.</param>
-		/// <returns></returns>
+		/// <returns>Converted string</returns>
 		/// <exception cref="InvalidDataException">Throws if string contains non-numeric symbol(s).</exception>
 		public static double StringToDouble(string strNum)
 		{
