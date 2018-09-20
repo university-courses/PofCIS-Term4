@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
@@ -23,29 +24,44 @@ namespace Task1CS.BL
 		/// </summary>
 		public static void Execute()
 		{
-			if (!Directory.Exists(Helpers.Const.OutputDataRoot))
+			try
 			{
-				Directory.CreateDirectory(Helpers.Const.OutputDataRoot);
-			}
-			
-			var shapes = ReadFromFile(Helpers.Const.InputDataRoot + "Shapes.txt");
-
-			var sortedBySquares = shapes.OrderBy(shape => shape.CalcSquare()).ToList();
-
-			WriteToFile(Helpers.Const.OutputDataRoot + "SortedBySquares.txt", sortedBySquares);
-
-			var shapesFromThirdQuarter = new List<IShape>();
-			foreach (var shape in shapes)
-			{
-				if (IsInThirdQuarter(shape))
+				if (!Directory.Exists(Helpers.Const.OutputDataRoot))
 				{
-					shapesFromThirdQuarter.Add(shape);
-				} 
+					Directory.CreateDirectory(Helpers.Const.OutputDataRoot);
+				}
+
+				var shapes = ReadFromFile(Helpers.Const.InputDataRoot + "Shapes.txt");
+
+				var sortedBySquares = shapes.OrderBy(shape => shape.CalcSquare()).ToList();
+
+				WriteToFile(Helpers.Const.OutputDataRoot + "SortedBySquares.txt", sortedBySquares);
+
+				var shapesFromThirdQuarter = new List<IShape>();
+				foreach (var shape in shapes)
+				{
+					if (IsInThirdQuarter(shape))
+					{
+						shapesFromThirdQuarter.Add(shape);
+					}
+				}
+
+				var sortedByPerimeters = shapesFromThirdQuarter.OrderByDescending(shape => shape.CalcPerimeter()).ToList();
+
+				WriteToFile(Helpers.Const.OutputDataRoot + "SortedByPerimeters.txt", sortedByPerimeters);
 			}
-
-			var sortedByPerimeters = shapesFromThirdQuarter.OrderByDescending(shape => shape.CalcPerimeter()).ToList();
-
-			WriteToFile(Helpers.Const.OutputDataRoot + "SortedByPerimeters.txt", sortedByPerimeters);
+			catch (NullReferenceException ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
+			catch (InvalidDataException ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
 		}
 		
 		/// <summary>
@@ -119,7 +135,7 @@ namespace Task1CS.BL
 			{
 				return shape.GetPoints().All(point => !(point.X > 0) && !(point.Y > 0));
 			}
-
+			
 			var circle = (Circle)shape;
 			var center = circle.GetPoints().ToArray()[0];
 			var radius = circle.CalcRadius();
