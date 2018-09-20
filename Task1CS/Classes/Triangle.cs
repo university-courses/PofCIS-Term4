@@ -169,7 +169,7 @@ namespace Task1CS.Classes
 			var result = "Triangle:";
 			for (var i = 0; i < _points.Length; i++)
 			{
-				result += $"\n  Point {i}: x={_points[i].X}, y={_points[i].Y}";
+				result += $"{Environment.NewLine}  Point {i}: x={_points[i].X}, y={_points[i].Y}";
 			}
 
 			return result;

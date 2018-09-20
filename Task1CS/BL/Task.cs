@@ -114,10 +114,10 @@ namespace Task1CS.BL
 			var writer = new StreamWriter(fileName);
 			for (var i = 0; i < shapes.Count; i++)
 			{
-				writer.Write(shapes[i] + "\n");
+				writer.Write(shapes[i] + Environment.NewLine);
 				if (i != shapes.Count - 1)
 				{
-					writer.Write("\n");
+					writer.Write(Environment.NewLine);
 				}
 			}
 
