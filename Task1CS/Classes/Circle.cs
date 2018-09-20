@@ -6,6 +6,7 @@ using Task1CS.Interfaces;
 
 namespace Task1CS.Classes
 {
+	/// <inheritdoc />
 	/// <summary>
 	/// Class of circle shape.
 	/// </summary>
@@ -20,9 +21,7 @@ namespace Task1CS.Classes
 		/// Default constructor for circle.
 		/// </summary>
 		public Circle()
-		{
-			_points = new Point[PointsCount];
-		}
+		{}
 		
 		/// <summary>
 		/// Constructor with parameter.
@@ -39,7 +38,7 @@ namespace Task1CS.Classes
 				throw new NullReferenceException("points is null");
 			}
 			
-			if (points[0] == points[1])
+			if (points[0].Equals(points[1]))
 			{
 				throw new InvalidDataException("no circle entered");
 			}
@@ -63,6 +62,7 @@ namespace Task1CS.Classes
 			return Point.CalcDistance(_points[0], _points[1]);
 		}
 
+		/// <inheritdoc />
 		/// <summary>
 		/// Function to parse string of data into the element of circle class.
 		/// </summary>
@@ -91,11 +91,12 @@ namespace Task1CS.Classes
 			return true;
 		}
 
+		/// <inheritdoc />
 		/// <summary>
 		/// Function that calculates square of the circle.
 		/// </summary>
 		/// <returns>Square.</returns>
-		/// <exception cref="NullReferenceException">Throws if array of points is null.</exception>
+		/// <exception cref="T:System.NullReferenceException">Throws if array of points is null.</exception>
 		public double CalcSquare()
 		{
 			if (_points == null)
@@ -105,11 +106,12 @@ namespace Task1CS.Classes
 			return Math.PI * Math.Pow(_radius, 2);
 		}
 
+		/// <inheritdoc />
 		/// <summary>
 		/// Function that calculates perimeter of the circle.
 		/// </summary>
 		/// <returns>Perimeter.</returns>
-		/// <exception cref="NullReferenceException">Throws if array of points is null.</exception>
+		/// <exception cref="T:System.NullReferenceException">Throws if array of points is null.</exception>
 		public double CalcPerimeter()
 		{
 			if (_points == null)
@@ -119,11 +121,13 @@ namespace Task1CS.Classes
 			return 2 * Math.PI * _radius;
 		}
 
+	
+		/// <inheritdoc />
 		/// <summary>
 		/// Function to get points of center and from the circumference.
 		/// </summary>
 		/// <returns>Array of points.</returns>
-		/// <exception cref="NullReferenceException">Throws if array of points is null.</exception>
+		/// <exception cref="T:System.NullReferenceException">Throws if array of points is null.</exception>
 		public IEnumerable<Point> GetPoints()
 		{
 			if (_points == null)
