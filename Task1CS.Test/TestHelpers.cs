@@ -59,6 +59,18 @@ namespace Task1CS.Test
 			}
 		}
 		
+		[Fact]
+		public void TestParseShapePointsThrowsIOException()
+		{
+			Assert.Throws<IOException>(() => Helpers.ParseShapePoints(null, "", 0, 0));
+		}
+		
+		[Fact]
+		public void TestParseShapePointsThrowsInvalidDataException()
+		{
+			Assert.Throws<InvalidDataException>(() => Helpers.ParseShapePoints("Triangle{4 2 1 3 0 0}", @"Triangle\{\s*((-?\d+\s+){5}-?\d+)\s*\}", 1, 1));
+		}
+		
 		private class ReadPointsFromFileData
 		{
 			public static IEnumerable<object[]> SuccessData => new List<object[]>
