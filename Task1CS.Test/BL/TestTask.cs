@@ -1,12 +1,11 @@
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Collections.Generic;
 
 using Xunit;
-
+using Task1CS.BL;
 using Task1CS.Classes;
 using Task1CS.Interfaces;
-using Task1CS.BL;
 
 namespace Task1CS.Test.BL
 {
@@ -221,8 +220,8 @@ Triangle:
 Circle:
   Radius: 4.24264068711928
   Points:
-    Point 0: x=-5, y=-5
-    Point 1: x=-2, y=-2
+	Point 0: x=-5, y=-5
+	Point 1: x=-2, y=-2
 "
 				},
 				new object[]

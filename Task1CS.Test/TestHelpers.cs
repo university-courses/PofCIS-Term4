@@ -2,7 +2,6 @@ using System.IO;
 using System.Collections.Generic;
 
 using Xunit;
-
 using Task1CS.Classes;
 
 namespace Task1CS.Test
@@ -60,7 +59,7 @@ namespace Task1CS.Test
 		}
 		
 		[Fact]
-		public void TestParseShapePointsThrowsIOException()
+		public void TestParseShapePointsThrowsIoException()
 		{
 			Assert.Throws<IOException>(() => Helpers.ParseShapePoints(null, "", 0, 0));
 		}

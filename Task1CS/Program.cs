@@ -7,6 +7,6 @@ namespace Task1CS
 		public static void Main()
 		{
 			Task.Execute();
-        }
+		}
 	}
 }

@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Xunit;
+using System.Collections.Generic;
 
+using Xunit;
 using Task1CS.Classes;
 
 namespace Task1CS.Test.Classes
@@ -258,7 +258,7 @@ namespace Task1CS.Test.Classes
 					{
 						new Point(0, 0), new Point(1, 1), new Point(5, 1)
 					}),
-					$"Triangle:\n  Point 0: x=0, y=0\n  Point 1: x=1, y=1\n  Point 2: x=5, y=1"
+					"Triangle:\n  Point 0: x=0, y=0\n  Point 1: x=1, y=1\n  Point 2: x=5, y=1"
 
 				},
 				new object[]
@@ -268,7 +268,7 @@ namespace Task1CS.Test.Classes
 						new Point(0, 0), new Point(4, 4), new Point(5, 1)
 					}),
 					
-					$"Triangle:\n  Point 0: x=0, y=0\n  Point 1: x=4, y=4\n  Point 2: x=5, y=1"
+					"Triangle:\n  Point 0: x=0, y=0\n  Point 1: x=4, y=4\n  Point 2: x=5, y=1"
 
 				},
 				new object[]
@@ -286,7 +286,7 @@ namespace Task1CS.Test.Classes
 					{
 						new Point(1, 0), new Point(0, 1), new Point(5, 1)
 					}),
-					$"Triangle:\n  Point 0: x=1, y=0\n  Point 1: x=0, y=1\n  Point 2: x=5, y=1"
+					"Triangle:\n  Point 0: x=1, y=0\n  Point 1: x=0, y=1\n  Point 2: x=5, y=1"
 
 				},
 

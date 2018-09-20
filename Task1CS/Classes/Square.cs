@@ -7,34 +7,34 @@ using Task1CS.Interfaces;
 
 namespace Task1CS.Classes
 {
-    /// <inheritdoc />
-    /// <summary>
-    /// Class to represent square shape.
-    /// </summary>
-    public class Square : IShape
+	/// <inheritdoc />
+	/// <summary>
+	/// Class to represent square shape.
+	/// </summary>
+	public class Square : IShape
 	{
 		/// <summary>
 		/// Array of points to set a square.
 		/// </summary>
-        private Point[] points;
+		private Point[] _points;
 
 		/// <summary>
 		/// Value of points, required to set a circle. 
 		/// </summary>
-        private const int PointsCount = 4;
+		private const int PointsCount = 4;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref = "Square"/> class.
-        /// </summary>
-        public Square()
+		/// <summary>
+		/// Initializes a new instance of the <see cref = "Square"/> class.
+		/// </summary>
+		public Square()
 		{
 		}
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref = "Square"/> class.
-        /// </summary>
-        /// <param name="points">Array of points to set the square.</param>
-        public Square(Point[] points)
+		/// <summary>
+		/// Initializes a new instance of the <see cref = "Square"/> class.
+		/// </summary>
+		/// <param name="points">Array of points to set the square.</param>
+		public Square(Point[] points)
 		{
 			if (points == null)
 			{
@@ -51,16 +51,16 @@ namespace Task1CS.Classes
 				throw new InvalidDataException("invalid square");
 			}
 
-			this.points = points;
+			_points = points;
 		}
 
-        /// <summary>
-        /// Function to check whether given coordinates will set a square.
-        /// </summary>
-        /// <param name="points">Array of points to set the square.</param>
-        /// <returns>True if square can be set with given points
-        /// false if array of points is null, of if the amount of points does not equal the amount required.</returns>
-        public static bool PointsAreValid(IReadOnlyList<Point> points)
+		/// <summary>
+		/// Function to check whether given coordinates will set a square.
+		/// </summary>
+		/// <param name="points">Array of points to set the square.</param>
+		/// <returns>True if square can be set with given points
+		/// false if array of points is null, of if the amount of points does not equal the amount required.</returns>
+		public static bool PointsAreValid(IReadOnlyList<Point> points)
 		{
 			if (points == null)
 			{
@@ -84,14 +84,14 @@ namespace Task1CS.Classes
 		/// Function to calculate the perimeter of the square.
 		/// </summary>
 		/// <returns>Perimeter of the shape.</returns>
-        public double CalcPerimeter()
+		public double CalcPerimeter()
 		{
-			if (this.points == null)
+			if (_points == null)
 			{
 				throw new NullReferenceException("points not set");
 			}
 
-			return Point.CalcDistance(this.points[0], this.points[1]) * 4;
+			return Point.CalcDistance(_points[0], _points[1]) * 4;
 		}
 		
 		/// <inheritdoc />
@@ -100,14 +100,14 @@ namespace Task1CS.Classes
 		/// </summary>
 		/// <returns>Array of points.</returns>
 		/// <exception cref="T:System.NullReferenceException">Throws if array of points is null.</exception>
-        public IEnumerable<Point> GetPoints()
+		public IEnumerable<Point> GetPoints()
 		{
-			if (this.points == null)
+			if (_points == null)
 			{
 				throw new NullReferenceException("points not set");
 			}
 
-			return this.points;
+			return _points;
 		}
 
 		/// <inheritdoc />
@@ -116,14 +116,14 @@ namespace Task1CS.Classes
 		/// </summary>
 		/// <returns>Square.</returns>
 		/// <exception cref="T:System.NullReferenceException">Throws if array of points is null.</exception>
-        public double CalcSquare()
+		public double CalcSquare()
 		{
-			if (this.points == null)
+			if (_points == null)
 			{
 				throw new NullReferenceException("points not set");
 			}
 
-			return Math.Pow(Point.CalcDistance(this.points[0], this.points[1]), 2);
+			return Math.Pow(Point.CalcDistance(_points[0], _points[1]), 2);
 		}
 
 		/// <summary>
@@ -131,17 +131,17 @@ namespace Task1CS.Classes
 		/// </summary>
 		/// <returns>Text interpretation of the element of square class.</returns>
 		/// <exception cref="NullReferenceException">Throws if array of points is null.</exception>
-        public override string ToString()
+		public override string ToString()
 		{
-			if (this.points == null)
+			if (_points == null)
 			{
 				throw new NullReferenceException("points not set");
 			}
 
 			var result = "Square:";
-			for (var i = 0; i < this.points.Length; i++)
+			for (var i = 0; i < _points.Length; i++)
 			{
-				result += $"\n  Point {i}: x={this.points[i].X}, y={this.points[i].Y}";
+				result += $"\n  Point {i}: x={_points[i].X}, y={_points[i].Y}";
 			}
 
 			return result;
@@ -154,7 +154,7 @@ namespace Task1CS.Classes
 		/// <param name="line">Line to parse.</param>
 		/// <returns>True if line was parsed,
 		/// false if line was not parsed, or if parsed points are not valid.</returns>
-        public bool Parse(string line)
+		public bool Parse(string line)
 		{
 			var parsedPoints = Helpers.ParseShapePoints(
 				line, @"Square\{\s*((-?\d+\s+){7}-?\d+)\s*\}", Helpers.Const.CoordinatesPerPoint, PointsCount);
@@ -169,7 +169,7 @@ namespace Task1CS.Classes
 				return false;
 			}
 
-			this.points = parsedPoints.ToArray();
+			_points = parsedPoints.ToArray();
 
 			return true;
 		}

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Collections.Generic;
 
 using Xunit;
-
 using Task1CS.Classes;
 
 namespace Task1CS.Test.Classes
@@ -18,7 +17,7 @@ namespace Task1CS.Test.Classes
 			var square = new Square(input);
 			var actual = square.GetPoints().ToArray();
 			Assert.NotNull(actual);
-			Assert.Equal(actual.Count(), expected.Length);
+			Assert.Equal(actual.Length, expected.Length);
 			for (var i = 0; i < expected.Length; i++)
 			{
 				Assert.Equal(actual[i].X, expected[i].X);
