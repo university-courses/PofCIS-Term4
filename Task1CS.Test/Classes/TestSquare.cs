@@ -327,8 +327,8 @@ namespace Task1CS.Test.Classes
 						new Point(2, 2), 
 						new Point(1, 2)
 					}),
-					"Square:\n  Point 0: x=1, y=1\n  Point 1: x=2, y=1\n  Point 2: x=2, y=2\n  Point 3: x=1, y=2"
-				},
+                    $"Square:{Environment.NewLine}  Point 0: x=1, y=1{Environment.NewLine}  Point 1: x=2, y=1{Environment.NewLine}  Point 2: x=2, y=2{Environment.NewLine}  Point 3: x=1, y=2"
+                },
 				new object[]
 				{
 					new Square(new[]
@@ -338,8 +338,8 @@ namespace Task1CS.Test.Classes
 						new Point(3, 3),
 						new Point(-2, 3)
 					}),
-					"Square:\n  Point 0: x=-2, y=-2\n  Point 1: x=3, y=-2\n  Point 2: x=3, y=3\n  Point 3: x=-2, y=3"
-				}
+                    $"Square:{Environment.NewLine}  Point 0: x=-2, y=-2{Environment.NewLine}  Point 1: x=3, y=-2{Environment.NewLine}  Point 2: x=3, y=3{Environment.NewLine}  Point 3: x=-2, y=3"
+                }
 			};
 		}
         

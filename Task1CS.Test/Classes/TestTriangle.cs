@@ -249,41 +249,41 @@ namespace Task1CS.Test.Classes
 					{
 						new Point(0, 0), new Point(0, 1), new Point(5, 1)
 					}),
-					"Triangle:\n  Point 0: x=0, y=0\n  Point 1: x=0, y=1\n  Point 2: x=5, y=1"
-				},
+                    $"Triangle:{Environment.NewLine}  Point 0: x=0, y=0{Environment.NewLine}  Point 1: x=0, y=1{Environment.NewLine}  Point 2: x=5, y=1"
+                },
 				new object[]
 				{
 					new Triangle(new[]
 					{
 						new Point(0, 0), new Point(1, 1), new Point(5, 1)
 					}),
-					"Triangle:\n  Point 0: x=0, y=0\n  Point 1: x=1, y=1\n  Point 2: x=5, y=1"
-				},
+                    $"Triangle:{Environment.NewLine}  Point 0: x=0, y=0{Environment.NewLine}  Point 1: x=1, y=1{Environment.NewLine}  Point 2: x=5, y=1"
+                },
 				new object[]
 				{
 					new Triangle(new[]
 					{
 						new Point(0, 0), new Point(4, 4), new Point(5, 1)
 					}),
-					
-					"Triangle:\n  Point 0: x=0, y=0\n  Point 1: x=4, y=4\n  Point 2: x=5, y=1"
-				},
+
+                    $"Triangle:{Environment.NewLine}  Point 0: x=0, y=0{Environment.NewLine}  Point 1: x=4, y=4{Environment.NewLine}  Point 2: x=5, y=1"
+                },
 				new object[]
 				{
 					new Triangle(new[]
 					{
 						new Point(0, 0), new Point(5, 0), new Point(5, 1)
 					}),
-					"Triangle:\n  Point 0: x=0, y=0\n  Point 1: x=5, y=0\n  Point 2: x=5, y=1"
-				},
+                    $"Triangle:{Environment.NewLine}  Point 0: x=0, y=0{Environment.NewLine}  Point 1: x=5, y=0{Environment.NewLine}  Point 2: x=5, y=1"
+                },
 				new object[]
 				{
 					new Triangle(new[]
 					{
 						new Point(1, 0), new Point(0, 1), new Point(5, 1)
 					}),
-					"Triangle:\n  Point 0: x=1, y=0\n  Point 1: x=0, y=1\n  Point 2: x=5, y=1"
-				},
+                    $"Triangle:{Environment.NewLine}  Point 0: x=1, y=0{Environment.NewLine}  Point 1: x=0, y=1{Environment.NewLine}  Point 2: x=5, y=1"
+                },
 			};
 			
 			public static IEnumerable<object[]> ParseData => new List<object[]>

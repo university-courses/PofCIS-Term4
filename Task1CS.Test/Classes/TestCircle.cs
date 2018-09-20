@@ -345,7 +345,7 @@ namespace Task1CS.Test.Classes
 					{
 						new Point(0, 0), new Point(0, 1)
 					}),
-					"Circle:\n  Radius: 1\n  Points:\n    Point 0: x=0, y=0\n    Point 1: x=0, y=1"
+					$"Circle:{Environment.NewLine}  Radius: 1{Environment.NewLine}  Points:{Environment.NewLine}    Point 0: x=0, y=0{Environment.NewLine}    Point 1: x=0, y=1"
 				},
 				new object[]
 				{
@@ -353,7 +353,7 @@ namespace Task1CS.Test.Classes
 					{
 						new Point(0, 0), new Point(1, 1)
 					}),
-						$"Circle:\n  Radius: {Math.Sqrt(2)}\n  Points:\n    Point 0: x=0, y=0\n    Point 1: x=1, y=1"
+					$"Circle:{Environment.NewLine}  Radius: {Math.Sqrt(2)}{Environment.NewLine}  Points:{Environment.NewLine}    Point 0: x=0, y=0{Environment.NewLine}    Point 1: x=1, y=1"
 				},
 				new object[]
 				{
@@ -361,8 +361,7 @@ namespace Task1CS.Test.Classes
 					{
 						new Point(0, 0), new Point(4, 4)
 					}),
-					
-						$"Circle:\n  Radius: {Math.Sqrt(32)}\n  Points:\n    Point 0: x=0, y=0\n    Point 1: x=4, y=4"
+					$"Circle:{Environment.NewLine}  Radius: {Math.Sqrt(32)}{Environment.NewLine}  Points:{Environment.NewLine}    Point 0: x=0, y=0{Environment.NewLine}    Point 1: x=4, y=4"
 				},
 				new object[]
 				{
@@ -370,15 +369,15 @@ namespace Task1CS.Test.Classes
 					{
 						new Point(0, 0), new Point(5, 0)
 					}),
-					"Circle:\n  Radius: 5\n  Points:\n    Point 0: x=0, y=0\n    Point 1: x=5, y=0"
-				},
+                    $"Circle:{Environment.NewLine}  Radius: 5{Environment.NewLine}  Points:{Environment.NewLine}    Point 0: x=0, y=0{Environment.NewLine}    Point 1: x=5, y=0"
+                },
 				new object[]
 				{
 					new Circle(new[]
 					{
 						new Point(1, 0), new Point(0, 1)
 					}),
-					$"Circle:\n  Radius: {Math.Sqrt(2)}\n  Points:\n    Point 0: x=1, y=0\n    Point 1: x=0, y=1"
+					$"Circle:{Environment.NewLine}  Radius: {Math.Sqrt(2)}{Environment.NewLine}  Points:{Environment.NewLine}    Point 0: x=1, y=0{Environment.NewLine}    Point 1: x=0, y=1"
 				},
 			};
 		}

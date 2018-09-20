@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
@@ -222,28 +223,8 @@ Square{0 0 5 0 5 5 0 5}";
 							new Point(-2, -2), 	
 						})
 					},
-					@"Triangle:
-  Point 0: x=2, y=3
-  Point 1: x=0, y=0
-  Point 2: x=8, y=8
-
-Triangle:
-  Point 0: x=4, y=2
-  Point 1: x=1, y=3
-  Point 2: x=0, y=0
-
-Triangle:
-  Point 0: x=-2, y=-1
-  Point 1: x=-5, y=-1
-  Point 2: x=-2, y=-5
-
-Circle:
-  Radius: 4.24264068711928
-  Points:
-    Point 0: x=-5, y=-5
-    Point 1: x=-2, y=-2
-"
-				},
+                    $"Triangle:{Environment.NewLine}  Point 0: x=2, y=3{Environment.NewLine}  Point 1: x=0, y=0{Environment.NewLine}  Point 2: x=8, y=8{Environment.NewLine}{Environment.NewLine}Triangle:{Environment.NewLine}  Point 0: x=4, y=2{Environment.NewLine}  Point 1: x=1, y=3{Environment.NewLine}  Point 2: x=0, y=0{Environment.NewLine}{Environment.NewLine}Triangle:{Environment.NewLine}  Point 0: x=-2, y=-1{Environment.NewLine}  Point 1: x=-5, y=-1{Environment.NewLine}  Point 2: x=-2, y=-5{Environment.NewLine}{Environment.NewLine}Circle:{Environment.NewLine}  Radius: 4.24264068711928{Environment.NewLine}  Points:{Environment.NewLine}    Point 0: x=-5, y=-5{Environment.NewLine}    Point 1: x=-2, y=-2{Environment.NewLine}"
+                },
 				new object[]
 				{
 					TestDataDir + "2\\TestResult.txt",
@@ -257,12 +238,8 @@ Circle:
 							new Point(-2, -5), 
 						})
 					},
-					@"Triangle:
-  Point 0: x=-2, y=-1
-  Point 1: x=-5, y=-1
-  Point 2: x=-2, y=-5
-"
-				}
+                    $"Triangle:{Environment.NewLine}  Point 0: x=-2, y=-1{Environment.NewLine}  Point 1: x=-5, y=-1{Environment.NewLine}  Point 2: x=-2, y=-5{Environment.NewLine}"
+                }
 			};
 		}
 	}
