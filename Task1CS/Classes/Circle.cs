@@ -161,7 +161,7 @@ namespace Task1CS.Classes
 				throw new NullReferenceException("points not set");
 			}
 
-			var result = $"Circle:\n  Radius: {_points}\n  Points:";
+			var result = $"Circle:\n  Radius: {_radius}\n  Points:";
 			for (var i = 0; i < _points.Length; i++)
 			{
 				result += $"\n    Point {i}: x={_points[i].X}, y={_points[i].Y}";

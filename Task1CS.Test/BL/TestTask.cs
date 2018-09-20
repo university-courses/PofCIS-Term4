@@ -220,8 +220,8 @@ Triangle:
 Circle:
   Radius: 4.24264068711928
   Points:
-	Point 0: x=-5, y=-5
-	Point 1: x=-2, y=-2
+    Point 0: x=-5, y=-5
+    Point 1: x=-2, y=-2
 "
 				},
 				new object[]
