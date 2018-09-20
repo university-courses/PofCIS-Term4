@@ -7,115 +7,172 @@ using Task1CS.Interfaces;
 
 namespace Task1CS.Classes
 {
-	public class Triangle : IShape
-	{
-		private Point[] _points;
+    /// <inheritdoc />
+    /// <summary>
+    /// Class to represent square shape.
+    /// </summary>
+    public class Triangle : IShape
+    {
+        /// <summary>
+        /// Array of points to set a triangle.
+        /// </summary>
+        private Point[] points;
 
-		private const int PointsCount = 3;
-		private const int CoordinatesPerPoint = 2;
+        /// <summary>
+        /// Value of points, required to set a circle. 
+        /// </summary>
+        private const int PointsCount = 3;
 
-		public Triangle()
-		{}
-		
-		public Triangle(Point[] points)
-		{
-			if (points == null)
-			{
-				throw new NullReferenceException("points is null");
-			}
-			
-			if (points.Length != PointsCount)
-			{
-				throw new InvalidDataException("invalid triangle points count");
-			}
+        /// <summary>
+        /// Initializes a new instance of the <see cref = "Triangle"/> class.
+        /// </summary>
+        public Triangle()
+        {
+        }
 
-			if (!PointsAreValid(points))
-			{
-				throw new InvalidDataException("invalid triangle");
-			}
+        /// <summary>
+        /// Initializes a new instance of the <see cref = "Triangle"/> class.
+        /// </summary>
+        /// <param name="points">Array of points to set the triangle.</param>
+        public Triangle(Point[] points)
+        {
+            if (points == null)
+            {
+                throw new NullReferenceException("points is null");
+            }
 
-			_points = points;
-		}
+            if (points.Length != PointsCount)
+            {
+                throw new InvalidDataException("invalid triangle points count");
+            }
 
-		public static bool PointsAreValid(IReadOnlyList<Point> points)
-		{
-			if (points == null)
-			{
-				throw new NullReferenceException("points is null");
-			}
-			var a = Point.CalcDistance(points[0], points[1]); 
-			var b = Point.CalcDistance(points[1], points[2]); 
-			var c = Point.CalcDistance(points[2], points[0]);
-			return a < b + c && b < a + c && c < b + a;
-		}
-		
-		public double CalcPerimeter()
-		{
-			if (_points == null)
-			{
-				throw new NullReferenceException("points not set");
-			}
-			return _points.Select((current, i) => Point.CalcDistance(current, _points[(i + 1) % _points.Length])).Sum();
-		}
+            if (!PointsAreValid(points))
+            {
+                throw new InvalidDataException("invalid triangle");
+            }
 
-		public IEnumerable<Point> GetPoints()
-		{
-			if (_points == null)
-			{
-				throw new NullReferenceException("points not set");
-			}
-			return _points;
-		}
+            this.points = points;
+        }
 
-		public double CalcSquare()
-		{
-			if (_points == null)
-			{
-				throw new NullReferenceException("points not set");
-			}
-			var halfPerimeter = CalcPerimeter() / 2;
-			var expression = halfPerimeter;
-			for (var i = 0; i < _points.Length; i++)
-			{
-				expression *= halfPerimeter - Point.CalcDistance(_points[i], _points[(i + 1) % _points.Length]);
-			}
-			return Math.Sqrt(expression);
-		}
+        /// <summary>
+        /// Function to check whether given coordinates will set a triangle
+        /// </summary>
+        /// <param name="points">Array of points to set the square.</param>
+        /// <returns>True if square can be set with given points
+        /// false if array of points is null, of if the amount of points does not equal the amount required</returns>
+        public static bool PointsAreValid(IReadOnlyList<Point> points)
+        {
+            if (points == null)
+            {
+                throw new NullReferenceException("points is null");
+            }
 
-		public bool Parse(string line)
-		{
-			var points = Helpers.ParseShapePoints(
-				line, @"Triangle\{\s*((-?\d+\s+){5}-?\d+)\s*\}", CoordinatesPerPoint, PointsCount
-			);
-			
-			if (points == null)
-			{
-				return false;
-			}
+            var a = Point.CalcDistance(points[0], points[1]);
+            var b = Point.CalcDistance(points[1], points[2]);
+            var c = Point.CalcDistance(points[2], points[0]);
+            return a < b + c && b < a + c && c < b + a;
+        }
 
-			if (!PointsAreValid(points))
-			{
-				return false;
-			}
+        /// <inheritdoc />
+        /// <summary>
+        /// Function to calculate the perimeter of the triangle
+        /// </summary>
+        /// <returns>Perimeter of the shape.</returns>
+        public double CalcPerimeter()
+        {
+            if (this.points == null)
+            {
+                throw new NullReferenceException("points not set");
+            }
 
-			_points = points.ToArray();
+            return this.points.Select((current, i) => Point.CalcDistance(current, this.points[(i + 1) % this.points.Length])).Sum();
+        }
 
-			return true;
-		}
-		
-		public override string ToString()
-		{
-			if (_points == null)
-			{
-				throw new NullReferenceException("points not set");
-			}
-			var result = "Triangle:";
-			for (var i = 0; i < _points.Length; i++)
-			{
-				result += $"\n  Point {i}: x={_points[i].X}, y={_points[i].Y}";
-			}
+        /// <inheritdoc />
+        /// <summary>
+        /// Function to get points of vertices of the triangle.
+        /// </summary>
+        /// <returns>Array of points.</returns>
+        /// <exception cref="T:System.NullReferenceException">Throws if array of points is null.</exception>
+        public IEnumerable<Point> GetPoints()
+        {
+            if (this.points == null)
+            {
+                throw new NullReferenceException("points not set");
+            }
 
-			return result;
-		}
-	}
+            return this.points;
+        }
+
+        /// <inheritdoc />
+        /// <summary>
+        /// Function that calculates square of the triangle.
+        /// </summary>
+        /// <returns>Square.</returns>
+        /// <exception cref="T:System.NullReferenceException">Throws if array of points is null.</exception>
+        public double CalcSquare()
+        {
+            if (this.points == null)
+            {
+                throw new NullReferenceException("points not set");
+            }
+
+            var halfPerimeter = this.CalcPerimeter() / 2;
+            var expression = halfPerimeter;
+            for (var i = 0; i < this.points.Length; i++)
+            {
+                expression *= halfPerimeter - Point.CalcDistance(this.points[i], this.points[(i + 1) % this.points.Length]);
+            }
+
+            return Math.Sqrt(expression);
+        }
+
+        /// <inheritdoc />
+        /// <summary>
+        /// Function to parse string of data into the element of triangle class.
+        /// </summary>
+        /// <param name="line">Line to parse.</param>
+        /// <returns>True if line was parsed,
+        /// false if line was not parsed, or if parsed points are not valid.</returns>
+        public bool Parse(string line)
+        {
+            var parsedPoints = Helpers.ParseShapePoints(
+                line, @"Triangle\{\s*((-?\d+\s+){5}-?\d+)\s*\}", Helpers.Const.CoordinatesPerPoint, PointsCount);
+
+            if (parsedPoints == null)
+            {
+                return false;
+            }
+
+            if (!PointsAreValid(parsedPoints))
+            {
+                return false;
+            }
+
+            this.points = parsedPoints.ToArray();
+
+            return true;
+        }
+
+        /// <summary>
+        /// Function to convert element of triangle class to string.
+        /// </summary>
+        /// <returns>Text interpretation of the element of triangle class.</returns>
+        /// <exception cref="NullReferenceException">Throws if array of points is null.</exception>
+        public override string ToString()
+        {
+            if (this.points == null)
+            {
+                throw new NullReferenceException("points not set");
+            }
+
+            var result = "Triangle:";
+            for (var i = 0; i < this.points.Length; i++)
+            {
+                result += $"\n  Point {i}: x={this.points[i].X}, y={this.points[i].Y}";
+            }
+
+            return result;
+        }
+    }
 }
