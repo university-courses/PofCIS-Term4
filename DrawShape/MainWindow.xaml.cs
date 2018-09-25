@@ -15,14 +15,17 @@ using System.Windows.Shapes;
 
 namespace DrawShape
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
-    {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
-    }
+	/// <summary>
+	/// Interaction logic for MainWindow.xaml
+	/// </summary>
+	public partial class MainWindow : Window
+	{
+        /// <summary>
+        /// Constructs the main window of an application.
+        /// </summary>
+		public MainWindow()
+		{
+			InitializeComponent();
+		}
+	}
 }
