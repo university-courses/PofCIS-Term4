@@ -28,7 +28,7 @@ namespace DrawShape
 			InitializeComponent();
 		}
 
-        private void FileItem_Click(object sender, RoutedEventArgs e)
+        private void FileMenu_Click(object sender, RoutedEventArgs e)
         {
 
         }
