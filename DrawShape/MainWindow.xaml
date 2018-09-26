@@ -13,6 +13,7 @@
                 <MenuItem x:Name="SaveButton" Header="Save" HorizontalAlignment="Left" Height="31" Width="140" Click="SaveButton_Click"/>
                 <MenuItem x:Name="OpenButton" Header="Open" HorizontalAlignment="Left" Height="30" Width="140" Click="OpenButton_Click"/>
             </MenuItem>
+            <MenuItem x:Name="ShapesMenu" Header="Shapes&#xD;&#xA;" Height="28" Width="100" Click="ShapesMenu_Click"/>
         </Menu>
 
     </Grid>

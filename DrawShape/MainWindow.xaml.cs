@@ -47,5 +47,10 @@ namespace DrawShape
         {
 
         }
+
+        private void ShapesMenu_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
