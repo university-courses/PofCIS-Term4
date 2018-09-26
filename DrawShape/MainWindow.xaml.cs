@@ -52,5 +52,10 @@ namespace DrawShape
         {
 
         }
+
+        private void SaveMenu_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
