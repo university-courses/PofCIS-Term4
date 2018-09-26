@@ -7,7 +7,13 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Menu HorizontalAlignment="Left" Height="28" VerticalAlignment="Top" Width="792"/>
+        <Menu x:Name="Menu" HorizontalAlignment="Left" Height="28" VerticalAlignment="Top" Width="792">
+            <MenuItem x:Name="FileItem" Header="File&#xD;&#xA;" Height="28" Width="100" Click="FileItem_Click">
+                <MenuItem x:Name="NewButton" Header="New&#xD;&#xA;" HorizontalAlignment="Left" Height="28" Width="140" Click="NewButton_Click"/>
+                <MenuItem x:Name="SaveButton" Header="Save" HorizontalAlignment="Left" Height="31" Width="140" Click="SaveButton_Click"/>
+                <MenuItem x:Name="OpenButton" Header="Open" HorizontalAlignment="Left" Height="30" Width="140" Click="OpenButton_Click"/>
+            </MenuItem>
+        </Menu>
 
     </Grid>
 </Window>

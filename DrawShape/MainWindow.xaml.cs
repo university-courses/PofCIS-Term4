@@ -27,5 +27,25 @@ namespace DrawShape
 		{
 			InitializeComponent();
 		}
-	}
+
+        private void FileItem_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void NewButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void OpenButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+    }
 }
