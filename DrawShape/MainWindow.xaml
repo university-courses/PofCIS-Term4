@@ -5,9 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DrawShape"
         mc:Ignorable="d"
+        Name="WindowMain"
         Title="Draw Hexagon" Height="450" Width="800" MinHeight="100" MinWidth="200">
     <Grid>
-        <Menu x:Name="Menu" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="768">
+        <Menu x:Name="Menu" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="{Binding Path=ActualWidth, ElementName=WindowMain}">
             <MenuItem x:Name="FileMenu" Header="File" Height="25" Width="30">
                 <MenuItem x:Name="NewButton" Header="New" HorizontalAlignment="Left" Height="20" Width="160" Click="NewButton_Click" InputGestureText="Ctrl+N"/>
                 <MenuItem x:Name="SaveButton" Header="Save" HorizontalAlignment="Left" Height="20" Width="160" Click="SaveButton_Click" InputGestureText="Ctrl+S"/>
