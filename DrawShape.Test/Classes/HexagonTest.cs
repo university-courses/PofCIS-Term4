@@ -1,9 +1,10 @@
-﻿using System;
-using Xunit;
+﻿using Xunit;
 
+using System;
+using System.IO;
 using System.Windows.Media;
 using System.Collections.Generic;
-using System.IO;
+
 using DrawShape.Classes;
 
 namespace DrawShape.Test.Classes
@@ -119,6 +120,13 @@ namespace DrawShape.Test.Classes
 					}
 				}
 			};
+		}
+
+		[Fact]
+		public void TestToPolygonThrows()
+		{
+			Assert.Throws<NullReferenceException>(() => new Hexagon().ToPolygon());
+			Assert.Throws<InvalidDataException>(() => new Hexagon("name", new List<Point>(), new SolidColorBrush()).ToPolygon());
 		}
 	}
 }

@@ -1,10 +1,9 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Xml.Serialization;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 
 namespace DrawShape.Classes
 {
