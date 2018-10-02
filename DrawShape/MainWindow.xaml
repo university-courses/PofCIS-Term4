@@ -7,13 +7,13 @@
         mc:Ignorable="d"
         Title="Draw Hexagon" Height="450" Width="800" MinHeight="100" MinWidth="200">
     <Grid>
-        <Menu x:Name="Menu" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="768">
-            <MenuItem x:Name="FileMenu" Header="File" Height="20" Width="30" Click="FileMenu_Click">
+        <Menu x:Name="Menu" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="768">
+            <MenuItem x:Name="FileMenu" Header="File" Height="25" Width="30">
                 <MenuItem x:Name="NewButton" Header="New" HorizontalAlignment="Left" Height="20" Width="160" Click="NewButton_Click" InputGestureText="Ctrl+N"/>
                 <MenuItem x:Name="SaveButton" Header="Save" HorizontalAlignment="Left" Height="20" Width="160" Click="SaveButton_Click" InputGestureText="Ctrl+S"/>
                 <MenuItem x:Name="OpenButton" Header="Open" HorizontalAlignment="Left" Height="20" Width="160" Click="OpenButton_Click" InputGestureText="Ctrl+O"/>
             </MenuItem>
-            <MenuItem x:Name="ShapesMenu" Header="Shapes" Height="20" Width="50" Click="ShapesMenu_Click"/>
+            <MenuItem x:Name="ShapesMenu" Header="Shapes" Height="25" Width="50" Click="ShapesMenu_Click"/>
         </Menu>
     </Grid>
 </Window>
