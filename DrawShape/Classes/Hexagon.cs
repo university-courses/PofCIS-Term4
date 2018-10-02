@@ -3,6 +3,7 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Xml.Serialization;
 using System.Collections.Generic;
+using System.IO;
 
 namespace DrawShape.Classes
 {
@@ -26,6 +27,14 @@ namespace DrawShape.Classes
 
 		public Hexagon(string name, List<Point> points, Color color)
 		{
+			if (points == null)
+			{
+				throw new NullReferenceException("points are null");
+			}
+			if (points.Count != 6)
+			{
+				throw new InvalidDataException("hexagon requires six points");
+			}
 			Name = name;
 			Points = points.ToArray();
 			R = color.R;

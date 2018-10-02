@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Xml.Serialization;
 
 namespace DrawShape.Classes
@@ -11,5 +12,11 @@ namespace DrawShape.Classes
 		
 		[XmlAttribute]
 		public double Y { get; set; }
+
+		public Point(double x, double y)
+		{
+			X = x;
+			Y = y;
+		}
 	}
 }
