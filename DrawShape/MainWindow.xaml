@@ -5,17 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DrawShape"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Draw Hexagon" Height="450" Width="800" MinHeight="100" MinWidth="200">
     <Grid>
-        <Menu x:Name="Menu" HorizontalAlignment="Left" Height="28" VerticalAlignment="Top" Width="792">
-            <MenuItem x:Name="FileMenu" Header="File&#xD;&#xA;" Height="28" Width="100" Click="FileMenu_Click">
-                <MenuItem x:Name="NewButton" Header="New&#xD;&#xA;" HorizontalAlignment="Left" Height="28" Width="140" Click="NewButton_Click"/>
-                <MenuItem x:Name="SaveButton" Header="Save" HorizontalAlignment="Left" Height="31" Width="140" Click="SaveButton_Click"/>
-                <MenuItem x:Name="OpenButton" Header="Open" HorizontalAlignment="Left" Height="30" Width="140" Click="OpenButton_Click"/>
+        <Menu x:Name="Menu" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="768">
+            <MenuItem x:Name="FileMenu" Header="File" Height="20" Width="30" Click="FileMenu_Click">
+                <MenuItem x:Name="NewButton" Header="New" HorizontalAlignment="Left" Height="20" Width="160" Click="NewButton_Click" InputGestureText="Ctrl+N"/>
+                <MenuItem x:Name="SaveButton" Header="Save" HorizontalAlignment="Left" Height="20" Width="160" Click="SaveButton_Click" InputGestureText="Ctrl+S"/>
+                <MenuItem x:Name="OpenButton" Header="Open" HorizontalAlignment="Left" Height="20" Width="160" Click="OpenButton_Click" InputGestureText="Ctrl+O"/>
             </MenuItem>
-            <MenuItem x:Name="ShapesMenu" Header="Shapes&#xD;&#xA;" Height="28" Width="100" Click="ShapesMenu_Click"/>
-            <MenuItem x:Name="SaveMenu" Header="Save&#xD;&#xA;" Height="28" Width="100" Click="SaveMenu_Click"/>
+            <MenuItem x:Name="ShapesMenu" Header="Shapes" Height="20" Width="50" Click="ShapesMenu_Click"/>
         </Menu>
-
     </Grid>
 </Window>
