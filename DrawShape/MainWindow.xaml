@@ -1,12 +1,12 @@
 ﻿<Window x:Class="DrawShape.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:DrawShape"
-        mc:Ignorable="d"
-        Name="WindowMain"
-        Title="Draw Hexagon" Height="450" Width="800" MinHeight="100" MinWidth="200">
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:local="clr-namespace:DrawShape"
+		mc:Ignorable="d"
+		Name="WindowMain"
+		Title="Draw Hexagon" Height="450" Width="800" MinHeight="100" MinWidth="200">
     <Grid>
         <Menu x:Name="Menu" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="{Binding Path=ActualWidth, ElementName=WindowMain}">
             <MenuItem x:Name="FileMenu" Header="File" Height="25" Width="30">
@@ -14,7 +14,8 @@
                 <MenuItem x:Name="SaveButton" Header="Save" HorizontalAlignment="Left" Height="20" Width="160" Click="SaveButton_Click" InputGestureText="Ctrl+S"/>
                 <MenuItem x:Name="OpenButton" Header="Open" HorizontalAlignment="Left" Height="20" Width="160" Click="OpenButton_Click" InputGestureText="Ctrl+O"/>
             </MenuItem>
-            <MenuItem x:Name="ShapesMenu" Header="Shapes" Height="25" Width="50" Click="ShapesMenu_Click"/>
+            <MenuItem x:Name="ShapesMenu" Header="Shapes" Height="25" Width="50"/>
         </Menu>
+        <Canvas x:Name="DrawingPanel" Opacity="1" Background="White" MouseLeftButtonUp="MouseSetPoint" MouseMove="DrawingHexagon" HorizontalAlignment="Center" Height="{Binding Path=ActualHeight, ElementName=WindowMain}" Margin="0,25,0,0" VerticalAlignment="Top" Width="{Binding Path=ActualWidth, ElementName=WindowMain}"/>
     </Grid>
 </Window>

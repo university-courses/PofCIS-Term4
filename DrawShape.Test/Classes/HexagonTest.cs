@@ -14,7 +14,7 @@ namespace DrawShape.Test.Classes
 		[MemberData(nameof(ConstructorData.SuccessData), MemberType = typeof(ConstructorData))]
 		public void TestConstructor(string inputName, List<Point> inputPoints, byte r, byte g, byte b, Hexagon expectedHexagon)
 		{
-			var actualHexagon = new Hexagon(inputName, inputPoints, Color.FromRgb(r, g, b));
+			var actualHexagon = new Hexagon(inputName, inputPoints, new SolidColorBrush(Color.FromRgb(r, g, b)));
 			Assert.Equal(expectedHexagon.Name, actualHexagon.Name);
 			Assert.Equal(expectedHexagon.R, actualHexagon.R);
 			Assert.Equal(expectedHexagon.G, actualHexagon.G);
@@ -32,13 +32,13 @@ namespace DrawShape.Test.Classes
 		[MemberData(nameof(ConstructorData.ThrowsInvalidDataExcpetionData), MemberType = typeof(ConstructorData))]
 		public void TestConstructorThrowsInvalidDataExcpetion(List<Point> points)
 		{
-			Assert.Throws<InvalidDataException>(() => new Hexagon("Hexagon", points, Colors.Violet));
+			Assert.Throws<InvalidDataException>(() => new Hexagon("Hexagon", points, Brushes.Violet));
 		}
 
 		[Fact]
 		public void TestConstructorThrowsNullReferenceExcpetion()
 		{
-			Assert.Throws<NullReferenceException>(() => new Hexagon("Hexagon", null, Colors.Violet));
+			Assert.Throws<NullReferenceException>(() => new Hexagon("Hexagon", null, Brushes.Violet));
 		}
 
 		private class ConstructorData
@@ -57,7 +57,7 @@ namespace DrawShape.Test.Classes
 					{
 						new Point(1, 2), new Point(3, 4), new Point(5, 6),
 						new Point(7, 8), new Point(9, 10), new Point(11, 12)
-					}, Color.FromRgb(1, 1, 1)) 
+					}, new SolidColorBrush(Color.FromRgb(1, 1, 1))) 
 				},
 				new object[]
 				{
@@ -71,7 +71,7 @@ namespace DrawShape.Test.Classes
 					{
 						new Point(12, 11), new Point(10, 9), new Point(8, 7),
 						new Point(6, 5), new Point(4, 3), new Point(2, 1)
-					}, Color.FromRgb(255, 255, 255))
+					}, new SolidColorBrush(Color.FromRgb(255, 255, 255)))
 				},
 				new object[]
 				{
@@ -85,7 +85,7 @@ namespace DrawShape.Test.Classes
 					{
 						new Point(1.1, 2.2), new Point(3.3, 4.4), new Point(5.5, 6.6),
 						new Point(7.7, 8.8), new Point(9.9, 10.10), new Point(11.11, 12.12)
-					}, Color.FromRgb(0, 111, 222)) 
+					}, new SolidColorBrush(Color.FromRgb(0, 111, 222)))
 				}
 			};
 

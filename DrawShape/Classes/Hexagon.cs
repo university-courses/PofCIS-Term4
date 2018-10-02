@@ -4,28 +4,33 @@ using System.Windows.Shapes;
 using System.Xml.Serialization;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace DrawShape.Classes
 {
 	[Serializable]
 	public class Hexagon
 	{
-		[XmlAttribute]
+		[XmlArray]
 		public Point[] Points { get; set; }
 
-		[XmlAnyAttribute]
+		[XmlAttribute]
 		public int R { get; set; }
 		
-		[XmlAnyAttribute]
+		[XmlAttribute]
 		public int G { get; set; }
 		
-		[XmlAnyAttribute]
+		[XmlAttribute]
 		public int B { get; set; }
 		
 		[XmlAttribute]
 		public string Name { get; set; }
 
-		public Hexagon(string name, List<Point> points, Color color)
+		public Hexagon()
+		{
+		}
+		
+		public Hexagon(string name, List<Point> points, Brush brush)
 		{
 			if (points == null)
 			{
@@ -37,6 +42,7 @@ namespace DrawShape.Classes
 			}
 			Name = name;
 			Points = points.ToArray();
+			var color = ((SolidColorBrush) brush).Color;
 			R = color.R;
 			G = color.G;
 			B = color.B;
@@ -44,6 +50,14 @@ namespace DrawShape.Classes
 
 		public Polygon ToPolygon()
 		{
+			if (Points == null)
+			{
+				throw new NullReferenceException("points are null");
+			}
+			if (Points.Length != 6)
+			{
+				throw new InvalidDataException("hexagon requires six points");
+			}
 			var polygon = new Polygon();
 			foreach (var point in Points)
 			{
@@ -52,7 +66,18 @@ namespace DrawShape.Classes
 			var color = Color.FromRgb((byte)R, (byte)G, (byte)B);
 			polygon.Stroke = new SolidColorBrush(color);
 			polygon.Fill = new SolidColorBrush(color);
+			polygon.Name = Name;
 			return polygon;
+		}
+
+		public static Hexagon FromPolygon(Polygon polygon)
+		{
+			var points = new List<Point>();
+			foreach (var point in polygon.Points)
+			{
+				points.Add(new Point(point.X, point.Y));
+			}
+			return new Hexagon(polygon.Name, points, polygon.Fill);
 		}
 	}
 }

@@ -1,26 +1,30 @@
 ﻿using System.IO;
-using System.Collections.Generic;
-
-using DrawShape.Classes;
+using System.Linq;
+using System.Windows.Controls;
+using System.Windows.Forms;
+using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace DrawShape.Utils
 {
 	public static class Util
 	{
-		public static Hexagon GetHexagonByClick(Point clickPosition, List<Hexagon> hexagons)
+		public static int GetHexagonIdByClickPos(Classes.Point clickPosition, UIElementCollection elements)
 		{
-			for (var i = hexagons.Count - 1; i >= 0; i--)
+			var hexagons = elements.OfType<Polygon>();
+			var enumerable = hexagons as Polygon[] ?? hexagons.ToArray();
+			for (var i = enumerable.Length - 1; i >= 0; i--)
 			{
-				if (PointIsInRect(clickPosition, hexagons[i]))
+				if (PointIsInHexagon(clickPosition, enumerable[i]))
 				{
-					return hexagons[i];
+					return i;
 				}
 			}
 
-			return null;
+			throw new InvalidDataException("hexagon does not exist");
 		}
 
-		public static bool PointIsInRect(Point point, Hexagon rect)
+		public static bool PointIsInHexagon(Classes.Point point, Polygon hexagon)
 		{
 			// TODO: check if mouse is clicked on hexagon
 			
@@ -31,20 +35,35 @@ namespace DrawShape.Utils
 		/// Returns an index of a hexagon with specified name.
 		/// </summary>
 		/// <param name="name">Hexagon's name.</param>
-		/// <param name="hexagons">A list of available hexagons.</param>
+		/// <param name="elements">A list of available hexagons.</param>
 		/// <returns>Index of hexagon.</returns>
 		/// <exception cref="InvalidDataException">Throws if hexagon does not exist.</exception>
-		public static int GetHexagonIdByName(string name, List<Hexagon> hexagons)
+		public static int GetHexagonIdByName(string name, UIElementCollection elements)
 		{
-			for (var i = 0; i < hexagons.Count; i++)
+			var hexagons = elements.OfType<Polygon>();
+			var enumerable = hexagons as Polygon[] ?? hexagons.ToArray();
+			for (var i = 0; i < enumerable.Length; i++)
 			{
-				if (hexagons[i].Name == name)
+				if (enumerable[i].Name == name)
 				{
 					return i;
 				}
 			}
 
 			throw new InvalidDataException("hexagon does not exist");
+		}
+		
+		public static bool GetColorFromColorDilog(out Brush brush)
+		{
+			var colorDialog = new ColorDialog {AllowFullOpen = true};
+			var dialogResult = colorDialog.ShowDialog();
+			brush = new SolidColorBrush();
+			if (dialogResult != DialogResult.OK)
+			{
+				return false;
+			}
+			brush = new SolidColorBrush(Color.FromArgb(colorDialog.Color.A, colorDialog.Color.R, colorDialog.Color.G, colorDialog.Color.B));
+			return true;
 		}
 	}
 }
