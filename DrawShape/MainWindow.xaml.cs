@@ -7,7 +7,7 @@ using System.Windows.Input;
 using System.Windows.Shapes;
 using System.Windows.Controls;
 using System.Collections.Generic;
-
+using System.Windows.Media;
 using DrawShape.Utils;
 using DrawShape.Classes;
 
@@ -29,6 +29,16 @@ namespace DrawShape
 		/// Holds current chosen hexagon's id.
 		/// </summary>
 		private int _currentHexagonId;
+
+		/// <summary>
+		/// Holds current chosen color to fill a hexagon's background.
+		/// </summary>
+		private Brush _currentFillColor;
+		
+		/// <summary>
+		/// Holds current chosen color to fill a hexagon's border.
+		/// </summary>
+		private Brush _currentBorderColor;
 		
 		/// <summary>
 		/// Constructs the main window of an application.
@@ -38,17 +48,20 @@ namespace DrawShape
 			InitializeComponent();
 			_currentHexagonId = -1;
 			_currentDrawingHexagon = new List<Classes.Point>();
+			_currentFillColor = new SolidColorBrush(Colors.Black);
+			ColorPickerFill.Fill = _currentFillColor;
+			_currentBorderColor = new SolidColorBrush(Colors.Black);
+			ColorPickerBorder.Fill = _currentBorderColor;
 		}
 
 		private void NewButton_Click(object sender, RoutedEventArgs e)
 		{
 			if (!_pictureIsSaved)
 			{
-				// TODO: open saving dialog.
+				SaveButton_Click(sender, e);
 			}
 
 			DrawingPanel.Children.Clear();
-			_pictureIsSaved = false;
 		}
 
 		private void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -57,7 +70,7 @@ namespace DrawShape
 			{
 				var sfd = new SaveFileDialog
 				{
-					Filter = @"Xml files (*.xml)|*.xml|All files (*.*)|*.*",
+					Filter = @"Xml files (*.xml)|*.xml",
 					DefaultExt = "xml",
 					FileName = "Rectangles",
 					AddExtension = true
@@ -104,7 +117,7 @@ namespace DrawShape
 				}
 				catch (Exception exc)
 				{
-					MessageBox.Show(exc.Message, "Fatal", MessageBoxButton.OK, MessageBoxImage.Error);
+					Util.MessageBoxFatal(exc.Message);
 				}
 			}
 		}
@@ -118,21 +131,13 @@ namespace DrawShape
 			}
 			if (_currentDrawingHexagon.Count == 6)
 			{
-				if (Util.GetColorFromColorDilog(out var color))
-				{
-					var hexagon = new Hexagon($"Hexagon{DrawingPanel.Children.Count}", _currentDrawingHexagon, color);
-					DrawingPanel.Children.Add(hexagon.ToPolygon());
-					var newMenuItem = new MenuItem {Header = hexagon.Name};
-					newMenuItem.Click += SetCurrentHexagonFromMenu;
-					ShapesMenu.Items.Add(newMenuItem);
-				}
+				var hexagon = new Hexagon($"Hexagon{DrawingPanel.Children.Count}", _currentDrawingHexagon, _currentFillColor, _currentBorderColor);
+				DrawingPanel.Children.Add(hexagon.ToPolygon());
+				var newMenuItem = new MenuItem {Header = hexagon.Name};
+				newMenuItem.Click += SetCurrentHexagonFromMenu;
+				ShapesMenu.Items.Add(newMenuItem);
 				_currentDrawingHexagon.Clear();
 			}
-		}
-		
-		private void DrawingHexagon(object sender, MouseEventArgs e)
-		{
-			// TODO: display helper lines while drawing a hexagon. 
 		}
 		
 		private void SetCurrentHexagonFromMenu(object sender, RoutedEventArgs e)
@@ -147,8 +152,26 @@ namespace DrawShape
 			}
 			catch (InvalidDataException exc)
 			{
-				MessageBox.Show(exc.Message, "Fatal", MessageBoxButton.OK, MessageBoxImage.Error);
-			} 
+				Util.MessageBoxFatal(exc.Message);
+			}
+		}
+
+		private void SetFillColor(object sender, MouseButtonEventArgs e)
+		{
+			if (Util.GetColorFromColorDilog(out var color))
+			{
+				_currentFillColor = color;
+				ColorPickerFill.Fill = color;
+			}
+		}
+
+		private void SetBorderColor(object sender, MouseButtonEventArgs e)
+		{
+			if (Util.GetColorFromColorDilog(out var color))
+			{
+				_currentBorderColor = color;
+				ColorPickerBorder.Fill = color;
+			}
 		}
 	}
 }

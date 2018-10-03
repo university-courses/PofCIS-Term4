@@ -1,9 +1,12 @@
 ﻿using System.IO;
 using System.Linq;
-using System.Windows.Controls;
-using System.Windows.Forms;
+using System.Windows;
 using System.Windows.Media;
+using System.Windows.Forms;
 using System.Windows.Shapes;
+using System.Windows.Controls;
+
+using MessageBox = System.Windows.MessageBox;
 
 namespace DrawShape.Utils
 {
@@ -64,6 +67,11 @@ namespace DrawShape.Utils
 			}
 			brush = new SolidColorBrush(Color.FromArgb(colorDialog.Color.A, colorDialog.Color.R, colorDialog.Color.G, colorDialog.Color.B));
 			return true;
+		}
+
+		public static void MessageBoxFatal(string msg)
+		{
+			MessageBox.Show(msg, "Fatal", MessageBoxButton.OK, MessageBoxImage.Error);
 		}
 	}
 }

@@ -10,26 +10,69 @@ namespace DrawShape.Classes
 	[Serializable]
 	public class Hexagon
 	{
-		[XmlArray]
-		public Point[] Points { get; set; }
+		public class BorderColor
+		{
+			[XmlAttribute]
+			public int R { get; set; }
+		
+			[XmlAttribute]
+			public int G { get; set; }
+		
+			[XmlAttribute]
+			public int B { get; set; }
+			
+			public BorderColor()
+			{
+			}
+			
+			public BorderColor(int r, int g, int b)
+			{
+				R = r;
+				G = g;
+				B = b;
+			}
+		}
+		
+		public class FillColor
+		{
+			[XmlAttribute]
+			public int R { get; set; }
+		
+			[XmlAttribute]
+			public int G { get; set; }
+		
+			[XmlAttribute]
+			public int B { get; set; }
 
-		[XmlAttribute]
-		public int R { get; set; }
-		
-		[XmlAttribute]
-		public int G { get; set; }
-		
-		[XmlAttribute]
-		public int B { get; set; }
+			public FillColor()
+			{
+			}
+			
+			public FillColor(int r, int g, int b)
+			{
+				R = r;
+				G = g;
+				B = b;
+			}
+		}
 		
 		[XmlAttribute]
 		public string Name { get; set; }
+
+		[XmlElement]
+		public FillColor ColorFill { get; set; }
+		
+		[XmlElement]
+		public BorderColor ColorBorder { get; set; }
+		
+		[XmlArray]
+		public Point[] Points { get; set; }
 
 		public Hexagon()
 		{
 		}
 		
-		public Hexagon(string name, List<Point> points, Brush brush)
+		public Hexagon(string name, List<Point> points, Brush fillBrush, Brush borderBrush)
 		{
 			if (points == null)
 			{
@@ -41,10 +84,10 @@ namespace DrawShape.Classes
 			}
 			Name = name;
 			Points = points.ToArray();
-			var color = ((SolidColorBrush) brush).Color;
-			R = color.R;
-			G = color.G;
-			B = color.B;
+			var colorFill = ((SolidColorBrush) fillBrush).Color;
+			ColorFill = new FillColor(colorFill.R, colorFill.G, colorFill.B);
+			var colorBorder = ((SolidColorBrush) borderBrush).Color;
+			ColorBorder = new BorderColor(colorBorder.R, colorBorder.G, colorBorder.B);
 		}
 
 		public Polygon ToPolygon()
@@ -62,9 +105,8 @@ namespace DrawShape.Classes
 			{
 				polygon.Points.Add(new System.Windows.Point(point.X, point.Y));
 			}
-			var color = Color.FromRgb((byte)R, (byte)G, (byte)B);
-			polygon.Stroke = new SolidColorBrush(color);
-			polygon.Fill = new SolidColorBrush(color);
+			polygon.Stroke = new SolidColorBrush(Color.FromRgb((byte)ColorBorder.R, (byte)ColorBorder.G, (byte)ColorBorder.B));
+			polygon.Fill = new SolidColorBrush(Color.FromRgb((byte)ColorFill.R, (byte)ColorFill.G, (byte)ColorFill.B));
 			polygon.Name = Name;
 			return polygon;
 		}
@@ -76,7 +118,7 @@ namespace DrawShape.Classes
 			{
 				points.Add(new Point(point.X, point.Y));
 			}
-			return new Hexagon(polygon.Name, points, polygon.Fill);
+			return new Hexagon(polygon.Name, points, polygon.Fill, polygon.Stroke);
 		}
 	}
 }
