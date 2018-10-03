@@ -56,8 +56,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BL\FormBL.cs" />
     <Compile Include="Classes\Point.cs" />
-    <Compile Include="Utils\Drawing.cs" />
     <Compile Include="Utils\Serialization.cs" />
     <Compile Include="Utils\Util.cs" />
     <Page Include="MainWindow.xaml">

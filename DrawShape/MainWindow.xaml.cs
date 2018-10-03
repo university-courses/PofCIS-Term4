@@ -1,13 +1,12 @@
-﻿using Microsoft.Win32;
-
-using System;
+﻿using System;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Shapes;
+using System.Windows.Media;
 using System.Windows.Controls;
 using System.Collections.Generic;
-using System.Windows.Media;
+
+using DrawShape.BL;
 using DrawShape.Utils;
 using DrawShape.Classes;
 
@@ -18,7 +17,7 @@ namespace DrawShape
 	/// </summary>
 	public partial class MainWindow
 	{
-		private List<Classes.Point> _currentDrawingHexagon;
+		private readonly List<Classes.Point> _currentDrawingHexagon;
 		
 		/// <summary>
 		/// Indicates if current picture is saved or not.
@@ -68,57 +67,34 @@ namespace DrawShape
 		{
 			if (DrawingPanel.Children.Count > 0 && !_pictureIsSaved)
 			{
-				var sfd = new SaveFileDialog
-				{
-					Filter = @"Xml files (*.xml)|*.xml",
-					DefaultExt = "xml",
-					FileName = "Rectangles",
-					AddExtension = true
-				};
-				if (sfd.ShowDialog() == true)
-				{
-					var hexagons = new List<Hexagon>();
-					foreach (var item in DrawingPanel.Children)
-					{
-						if (item is Polygon polygon)
-						{
-							hexagons.Add(Hexagon.FromPolygon(polygon));
-						}
-					}
-					Serialization.SerializeHexagons(sfd.FileName, hexagons);
-					_pictureIsSaved = true;
-				}
+				FormBl.SaveHexagons(ref DrawingPanel);
+				_pictureIsSaved = true;
 			}
 		}
 
 		private void OpenButton_Click(object sender, RoutedEventArgs e)
 		{
-			var ofd = new OpenFileDialog
+			try
 			{
-				Filter = @"Xml files (*.xml)|*.xml",
-				DefaultExt = "xml",
-				AddExtension = true
-			};
-			if (ofd.ShowDialog() == true)
+				var hexagons = FormBl.ReadHexagons();
+				if (hexagons == null)
+				{
+					return;
+				}
+
+				foreach (var hexagon in hexagons)
+				{
+					DrawingPanel.Children.Add(hexagon.ToPolygon());
+					var newMenuItem = new MenuItem {Header = hexagon.Name};
+					newMenuItem.Click += SetCurrentHexagonFromMenu;
+					ShapesMenu.Items.Add(newMenuItem);
+				}
+
+				_pictureIsSaved = true;
+			}
+			catch (Exception exc)
 			{
-				try
-				{
-					var hexagons = Serialization.DeserializeHexagons(ofd.FileName);
-
-					foreach (var hexagon in hexagons)
-					{
-						DrawingPanel.Children.Add(hexagon.ToPolygon());
-						var newMenuItem = new MenuItem {Header = hexagon.Name};
-						newMenuItem.Click += SetCurrentHexagonFromMenu;
-						ShapesMenu.Items.Add(newMenuItem);
-					}
-
-					_pictureIsSaved = true;
-				}
-				catch (Exception exc)
-				{
-					Util.MessageBoxFatal(exc.Message);
-				}
+				Util.MessageBoxFatal(exc.Message);
 			}
 		}
 
@@ -158,20 +134,12 @@ namespace DrawShape
 
 		private void SetFillColor(object sender, MouseButtonEventArgs e)
 		{
-			if (Util.GetColorFromColorDilog(out var color))
-			{
-				_currentFillColor = color;
-				ColorPickerFill.Fill = color;
-			}
+			FormBl.SetColor(ref _currentFillColor, ref ColorPickerFill);
 		}
 
 		private void SetBorderColor(object sender, MouseButtonEventArgs e)
 		{
-			if (Util.GetColorFromColorDilog(out var color))
-			{
-				_currentBorderColor = color;
-				ColorPickerBorder.Fill = color;
-			}
+			FormBl.SetColor(ref _currentBorderColor, ref ColorPickerBorder);
 		}
 	}
 }
