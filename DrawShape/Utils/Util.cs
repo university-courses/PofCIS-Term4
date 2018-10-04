@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
@@ -72,6 +73,108 @@ namespace DrawShape.Utils
 		public static void MessageBoxFatal(string msg)
 		{
 			MessageBox.Show(msg, "Fatal", MessageBoxButton.OK, MessageBoxImage.Error);
+		}
+
+		public static double Determinant(double[][] matrix)
+		{
+			var order = matrix.Length;
+			if (order < 1)
+			{
+				throw new InvalidDataException("matrix is empty");
+			}
+
+			if (matrix[0].Length != order)
+			{
+				throw new InvalidDataException("matrix is not square");
+			}
+
+			var eps = 1e-9;
+			var det = 1.0;
+			for (var i = 0; i < order; i++)
+			{
+				var k = i;
+				for (var j = i + 1; j < order; j++)
+				{
+					if (Math.Abs(matrix[j][i]) > Math.Abs(matrix[k][i]))
+					{
+						k = j;
+					}
+				}
+
+				if (Math.Abs(matrix[k][i]) < eps)
+				{
+					det = 0;
+					break;
+				}
+
+				var temp = matrix[i];
+				matrix[i] = matrix[k];
+				matrix[k] = temp;
+				if (i != k)
+				{
+					det = -det;
+				}
+
+				det *= matrix[i][i];
+				for (var j = i + 1; j < order; j++)
+				{
+					matrix[i][j] /= matrix[i][i];
+				}
+
+				for (var j = 0; j < order; j++)
+				{
+					if (j != i && Math.Abs(matrix[j][i]) > eps)
+					{
+						for (var l = i + 1; l < order; l++)
+						{
+							matrix[j][l] -= matrix[i][l] * matrix[j][i];
+						}
+					}
+				}
+			}
+
+			return det;
+		}
+
+		public static double[] SolveCarmer(double[][] extendedMatrix)
+		{
+			var size = extendedMatrix.Length;
+			if (size < 1)
+			{
+				throw new InvalidDataException("matrix is empty");
+			}
+
+			if (size + 1 != extendedMatrix[0].Length)
+			{
+				throw new InvalidDataException("can't solve matrix");
+			}
+			
+			var solution = new double[extendedMatrix.Length];
+			var mainDet = Determinant(extendedMatrix);
+			if (mainDet.Equals(0))
+			{
+				throw new InvalidDataException("matrix is singular");
+			}
+
+			for (var j = 0; j < size; j++)
+			{
+				var col = new double[size];
+				for (var i = 0; i < size; i++)
+				{
+					col[i] = extendedMatrix[i][j];
+					extendedMatrix[i][j] = extendedMatrix[i][size];
+				}
+
+				var currentDet = Determinant(extendedMatrix);
+				for (var i = 0; i < size; i++)
+				{
+					extendedMatrix[i][j] = col[i];
+				}
+
+				solution[j] = currentDet / mainDet;
+			}
+
+			return solution;
 		}
 	}
 }
