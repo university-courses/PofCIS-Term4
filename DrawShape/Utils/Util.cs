@@ -6,8 +6,9 @@ using System.Windows.Media;
 using System.Windows.Forms;
 using System.Windows.Shapes;
 using System.Windows.Controls;
-
+using DrawShape.Classes;
 using MessageBox = System.Windows.MessageBox;
+using Point = System.Windows.Point;
 
 namespace DrawShape.Utils
 {
@@ -88,7 +89,7 @@ namespace DrawShape.Utils
 				throw new InvalidDataException("matrix is not square");
 			}
 
-			var eps = 1e-9;
+			const double eps = 1e-9;
 			var det = 1.0;
 			for (var i = 0; i < order; i++)
 			{
@@ -175,6 +176,22 @@ namespace DrawShape.Utils
 			}
 
 			return solution;
+		}
+		
+		public static void MoveHexagonWithArrows(ref Hexagon hexagon, Point location)
+		{
+			foreach (var point in hexagon.Points)
+			{
+				point.X = location.X;
+				point.Y = location.Y;
+			}
+		}
+		
+		public static Line GetLine(Classes.Point start, Classes.Point end, Brush brush)
+		{
+			var line = new Line { X1 = start.X, Y1 = start.Y, X2 = end.X, Y2 = end.Y, StrokeThickness = 1, Stroke = brush, SnapsToDevicePixels = true};
+			line.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
+			return line;
 		}
 	}
 }
