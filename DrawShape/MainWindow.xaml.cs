@@ -5,10 +5,12 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Controls;
 using System.Collections.Generic;
-
+using System.Windows.Shapes;
+using System.Windows.Threading;
 using DrawShape.BL;
 using DrawShape.Utils;
 using DrawShape.Classes;
+using Point = DrawShape.Classes.Point;
 
 namespace DrawShape
 {
@@ -38,6 +40,14 @@ namespace DrawShape
 		/// Holds current chosen color to fill a hexagon's border.
 		/// </summary>
 		private Brush _currentBorderColor;
+
+		readonly DispatcherTimer _dhsTimer = new DispatcherTimer();
+
+		private readonly Point _mouseLoc;
+
+		private Polygon _expectedHexagon;
+
+		private Line _expectedLine;
 		
 		/// <summary>
 		/// Constructs the main window of an application.
@@ -51,6 +61,8 @@ namespace DrawShape
 			ColorPickerFill.Fill = _currentFillColor;
 			_currentBorderColor = new SolidColorBrush(Colors.Black);
 			ColorPickerBorder.Fill = _currentBorderColor;
+			StartDrawingTicker();
+			_mouseLoc = new Point();
 		}
 
 		private void NewButton_Click(object sender, RoutedEventArgs e)
@@ -103,8 +115,25 @@ namespace DrawShape
 			if (_currentDrawingHexagon.Count < 6)
 			{
 				var mousePos = e.GetPosition(DrawingPanel);
-				_currentDrawingHexagon.Add(new Classes.Point(mousePos.X, mousePos.Y));	
+				_currentDrawingHexagon.Add(new Point(mousePos.X, mousePos.Y));
+				if (_expectedHexagon == null)
+				{
+					_expectedHexagon = new Polygon
+					{
+						Stroke = _currentBorderColor,
+						Opacity = 1
+					};
+					DrawingPanel.Children.Add(_expectedHexagon);
+					_expectedLine = FormBl.GetLine(
+						new Point(_currentDrawingHexagon[0].X, _currentDrawingHexagon[0].Y),
+						new Point(_mouseLoc.X, _mouseLoc.Y), _currentBorderColor
+					);
+					DrawingPanel.Children.Add(_expectedLine);
+				}
+
+				_expectedHexagon.Points.Add(mousePos);
 			}
+			
 			if (_currentDrawingHexagon.Count == 6)
 			{
 				var hexagon = new Hexagon($"Hexagon{DrawingPanel.Children.Count}", _currentDrawingHexagon, _currentFillColor, _currentBorderColor);
@@ -113,6 +142,10 @@ namespace DrawShape
 				newMenuItem.Click += SetCurrentHexagonFromMenu;
 				ShapesMenu.Items.Add(newMenuItem);
 				_currentDrawingHexagon.Clear();
+				DrawingPanel.Children.Remove(_expectedHexagon);
+				DrawingPanel.Children.Remove(_expectedLine);
+				_expectedHexagon = null;
+				_expectedLine = null;
 			}
 		}
 		
@@ -140,6 +173,32 @@ namespace DrawShape
 		private void SetBorderColor(object sender, MouseButtonEventArgs e)
 		{
 			FormBl.SetColor(ref _currentBorderColor, ref ColorPickerBorder);
+		}
+		
+		private void StartDrawingTicker()
+		{
+			_dhsTimer.Interval = TimeSpan.FromMilliseconds(10);
+			_dhsTimer.Tick += DrawingHexagonSide;
+			_dhsTimer.Start();
+		}
+		
+		private void DrawingHexagonSide(object sender, EventArgs e)
+		{
+			if (_currentDrawingHexagon.Count > 0)
+			{
+				var lastPoint = _currentDrawingHexagon[_currentDrawingHexagon.Count - 1];
+				_expectedLine.X1 = lastPoint.X;
+				_expectedLine.Y1 = lastPoint.Y;
+				_expectedLine.X2 = _mouseLoc.X;
+				_expectedLine.Y2 = _mouseLoc.Y;
+			}
+		}
+		
+		private void MouseLoc(object sender, MouseEventArgs e)
+		{
+			var point = e.GetPosition(this);
+			_mouseLoc.X = point.X + 7;
+			_mouseLoc.Y = point.Y - 25;
 		}
 	}
 }

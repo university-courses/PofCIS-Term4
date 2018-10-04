@@ -24,6 +24,6 @@
 				<Rectangle x:Name="ColorPickerBorder" HorizontalAlignment="Right" VerticalAlignment="Center" Width="15" Height="15"/>
 			</Grid>
 		</Menu>
-		<Canvas x:Name="DrawingPanel" Opacity="1" Background="White" MouseLeftButtonUp="MouseSetPoint" HorizontalAlignment="Center" Height="{Binding Path=ActualHeight, ElementName=WindowMain}" Margin="0,25,0,0" VerticalAlignment="Top" Width="{Binding Path=ActualWidth, ElementName=WindowMain}"/>
+		<Canvas x:Name="DrawingPanel" Opacity="1" Background="White" MouseMove="MouseLoc" MouseLeftButtonUp="MouseSetPoint" HorizontalAlignment="Center" Height="{Binding Path=ActualHeight, ElementName=WindowMain}" Margin="0,25,0,0" VerticalAlignment="Top" Width="{Binding Path=ActualWidth, ElementName=WindowMain}"/>
 	</Grid>
 </Window>
