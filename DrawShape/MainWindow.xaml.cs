@@ -7,9 +7,11 @@ using System.Windows.Controls;
 using System.Collections.Generic;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+
 using DrawShape.BL;
 using DrawShape.Utils;
 using DrawShape.Classes;
+
 using Point = DrawShape.Classes.Point;
 
 namespace DrawShape
@@ -41,13 +43,15 @@ namespace DrawShape
 		/// </summary>
 		private Brush _currentBorderColor;
 
-		readonly DispatcherTimer _dhsTimer = new DispatcherTimer();
+		private readonly DispatcherTimer _dhsTimer = new DispatcherTimer();
 
 		private readonly Point _mouseLoc;
 
 		private Polygon _expectedHexagon;
 
 		private Line _expectedLine;
+
+		private Mode _currentMode;
 		
 		/// <summary>
 		/// Constructs the main window of an application.
@@ -63,6 +67,7 @@ namespace DrawShape
 			ColorPickerBorder.Fill = _currentBorderColor;
 			StartDrawingTicker();
 			_mouseLoc = new Point();
+			_currentMode = Mode.Drawing;
 		}
 
 		private void NewButton_Click(object sender, RoutedEventArgs e)
@@ -112,6 +117,20 @@ namespace DrawShape
 
 		private void MouseSetPoint(object sender, MouseButtonEventArgs e)
 		{
+			switch (_currentMode)
+			{
+				case Mode.Drawing:
+					ExecDrawingMode(e);
+					break;
+				case Mode.Moving:
+					break;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(sender));
+			}
+		}
+
+		private void ExecDrawingMode(MouseEventArgs e)
+		{
 			if (_currentDrawingHexagon.Count < 6)
 			{
 				var mousePos = e.GetPosition(DrawingPanel);
@@ -124,7 +143,7 @@ namespace DrawShape
 						Opacity = 1
 					};
 					DrawingPanel.Children.Add(_expectedHexagon);
-					_expectedLine = FormBl.GetLine(
+					_expectedLine = Util.GetLine(
 						new Point(_currentDrawingHexagon[0].X, _currentDrawingHexagon[0].Y),
 						new Point(_mouseLoc.X, _mouseLoc.Y), _currentBorderColor
 					);
@@ -199,6 +218,21 @@ namespace DrawShape
 			var point = e.GetPosition(this);
 			_mouseLoc.X = point.X + 7;
 			_mouseLoc.Y = point.Y - 25;
+		}
+
+		private void SetDrawingMode(object sender, RoutedEventArgs e)
+		{
+			_currentMode = Mode.Drawing;
+		}
+
+		private void SetMovingMode(object sender, RoutedEventArgs e)
+		{
+			_currentMode = Mode.Moving;
+		}
+
+		public enum Mode
+		{
+			Drawing, Moving
 		}
 	}
 }

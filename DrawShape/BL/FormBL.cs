@@ -12,13 +12,6 @@ namespace DrawShape.BL
 {
 	public static class FormBl
 	{
-		public static Line GetLine(Point start, Point end, Brush brush)
-		{
-			var line = new Line { X1 = start.X, Y1 = start.Y, X2 = end.X, Y2 = end.Y, StrokeThickness = 1, Stroke = brush, SnapsToDevicePixels = true};
-			line.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
-			return line;
-		}
-		
 		public static void SetColor(ref Brush current, ref Rectangle picker)
 		{
 			if (!Util.GetColorFromColorDilog(out var color))
@@ -54,12 +47,6 @@ namespace DrawShape.BL
 			}
 
 			Serialization.SerializeHexagons(sfd.FileName, hexagons);
-		}
-
-		public static void MoveLine(ref Line line, Point point)
-		{
-			line.X2 = point.X;
-			line.Y2 = point.Y;
 		}
 	}
 }
