@@ -58,24 +58,42 @@ namespace DrawShape.Classes
 		}
 		
         /// <summary>
-        /// 
+        /// Class to set colour of hexagon.
         /// </summary>
 		public class FillColor
 		{
-			[XmlAttribute]
-			public int R { get; set; }
-		
-			[XmlAttribute]
-			public int G { get; set; }
-		
-			[XmlAttribute]
-			public int B { get; set; }
+            /// <summary>
+            /// Amount of red colour in RGB specification.
+            /// </summary>
+            [XmlAttribute]
+            public int R { get; set; }
 
+            /// <summary>
+            /// Amount of green colour in RGB specification.
+            /// </summary>
+            [XmlAttribute]
+            public int G { get; set; }
+
+            /// <summary>
+            /// Amount of blue colour in RGB specification.
+            /// </summary>
+            [XmlAttribute]
+            public int B { get; set; }
+
+            /// <summary>
+            /// Function to set colour of the hexagon.
+            /// </summary>
 			public FillColor()
 			{
 			}
-			
-			public FillColor(int r, int g, int b)
+
+            /// <summary>
+            /// Function to set colour of the hexagon using rgb specification.
+            /// </summary>
+            /// <param name="r">Amount of red.</param>
+            /// <param name="g">Amount of green.</param>
+            /// <param name="b">Amount of blue.</param>
+            public FillColor(int r, int g, int b)
 			{
 				R = r;
 				G = g;
@@ -83,15 +101,27 @@ namespace DrawShape.Classes
 			}
 		}
 		
+        /// <summary>
+        /// Name of hexagon.
+        /// </summary>
 		[XmlAttribute]
 		public string Name { get; set; }
 
+        /// <summary>
+        /// Colour of the hexagon.
+        /// </summary>
 		[XmlElement]
 		public FillColor ColorFill { get; set; }
-		
-		[XmlElement]
+
+        /// <summary>
+        /// Colour of the hexagon border.
+        /// </summary>
+        [XmlElement]
 		public BorderColor ColorBorder { get; set; }
 		
+        /// <summary>
+        /// Array of points of hexagon.
+        /// </summary>
 		[XmlArray]
 		public Point[] Points { get; set; }
 
@@ -105,10 +135,10 @@ namespace DrawShape.Classes
         /// <summary>
         /// Initializes a new instance of the <see cref="Hexagon"/> class. 
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="points"></param>
-        /// <param name="fillBrush"></param>
-        /// <param name="borderBrush"></param>
+        /// <param name="name">Name of hexagon.</param>
+        /// <param name="points">Points of hexagon vertices.</param>
+        /// <param name="fillBrush">Colour of hexagon.</param>
+        /// <param name="borderBrush">Colour of hexagon border.</param>
         public Hexagon(string name, List<Point> points, Brush fillBrush, Brush borderBrush)
 		{
 			if (points == null)
@@ -127,6 +157,10 @@ namespace DrawShape.Classes
 			ColorBorder = new BorderColor(colorBorder.R, colorBorder.G, colorBorder.B);
 		}
 
+        /// <summary>
+        /// Function to convert hexagon type to polygon type.
+        /// </summary>
+        /// <returns>Hexagon shape of type <see cref="Polygon"/></returns>
 		public Polygon ToPolygon()
 		{
 			if (Points == null)
@@ -148,6 +182,10 @@ namespace DrawShape.Classes
 			return polygon;
 		}
 
+        /// <summary>
+        /// Function to convert polygon type to hexagon type.
+        /// </summary>
+        /// <returns>Hexagon shape of type <see cref="Hexagon"/></returns>
 		public static Hexagon FromPolygon(Polygon polygon)
 		{
 			var points = new List<Point>();

@@ -12,8 +12,18 @@ using Point = System.Windows.Point;
 
 namespace DrawShape.Utils
 {
+    /// <summary>
+    /// Utility class.
+    /// </summary>
 	public static class Util
 	{
+        /// <summary>
+        /// Function to get hexagon id by clicking on it
+        /// </summary>
+        /// <param name="clickPosition">Point where mouse was clicked.</param>
+        /// <param name="elements">Collection of elements.</param>
+        /// <returns>Id of hexagon, if the point that was clocked was in it.</returns>
+		/// <exception cref="InvalidDataException">Throws if hexagon does not exist.</exception>
 		public static int GetHexagonIdByClickPos(Classes.Point clickPosition, UIElementCollection elements)
 		{
 			var hexagons = elements.OfType<Polygon>();
@@ -29,6 +39,12 @@ namespace DrawShape.Utils
 			throw new InvalidDataException("hexagon does not exist");
 		}
 
+        /// <summary>
+        /// Function to check if point is in hexagon.
+        /// </summary>
+        /// <param name="point">Point to check.</param>
+        /// <param name="hexagon">Hexagon in which point might be.</param>
+        /// <returns>True if point is located in given hexagon.</returns>
 		public static bool PointIsInHexagon(Classes.Point point, Polygon hexagon)
 		{
 			// TODO: check if mouse is clicked on hexagon
@@ -58,6 +74,11 @@ namespace DrawShape.Utils
 			throw new InvalidDataException("hexagon does not exist");
 		}
 		
+        /// <summary>
+        /// Function to get colour with ColorDialog.
+        /// </summary>
+        /// <param name="brush">Variable to store picked colour.</param>
+        /// <returns>True if colour was picked.</returns>
 		public static bool GetColorFromColorDilog(out Brush brush)
 		{
 			var colorDialog = new ColorDialog {AllowFullOpen = true};
@@ -71,11 +92,21 @@ namespace DrawShape.Utils
 			return true;
 		}
 
+        /// <summary>
+        /// Finction to display message box.
+        /// </summary>
+        /// <param name="msg">Message to be displayed.</param>
 		public static void MessageBoxFatal(string msg)
 		{
 			MessageBox.Show(msg, "Fatal", MessageBoxButton.OK, MessageBoxImage.Error);
 		}
 
+        /// <summary>
+        /// Function to calculate determinant of matrix.
+        /// </summary>
+        /// <param name="matrix">Matrix.</param>
+        /// <returns>Value of determinant.</returns>
+		/// <exception cref="InvalidDataException">Throws if matrix is empty, or it's dimensions aren't equal.</exception>
 		public static double Determinant(double[][] matrix)
 		{
 			var order = matrix.Length;
@@ -137,6 +168,11 @@ namespace DrawShape.Utils
 			return det;
 		}
 
+        /// <summary>
+        /// Finction to solve linear equations using Cramer's method.
+        /// </summary>
+        /// <param name="extendedMatrix">Extended matrix of the equations.</param>
+        /// <returns>Array of results.</returns>
 		public static double[] SolveCarmer(double[][] extendedMatrix)
 		{
 			var size = extendedMatrix.Length;
@@ -178,6 +214,11 @@ namespace DrawShape.Utils
 			return solution;
 		}
 		
+        /// <summary>
+        /// Function to move hexagon using arrow keys.
+        /// </summary>
+        /// <param name="hexagon">Hexagon to be moved.</param>
+        /// <param name="location">Where to move the hexagon.</param>
 		public static void MoveHexagonWithArrows(ref Hexagon hexagon, Point location)
 		{
 			foreach (var point in hexagon.Points)
@@ -187,6 +228,13 @@ namespace DrawShape.Utils
 			}
 		}
 		
+        /// <summary>
+        /// Function to get line from given coordinates.
+        /// </summary>
+        /// <param name="start">Starting point.</param>
+        /// <param name="end">Ending point.</param>
+        /// <param name="brush">Colour of the line.</param>
+        /// <returns></returns>
 		public static Line GetLine(Classes.Point start, Classes.Point end, Brush brush)
 		{
 			var line = new Line { X1 = start.X, Y1 = start.Y, X2 = end.X, Y2 = end.Y, StrokeThickness = 1, Stroke = brush, SnapsToDevicePixels = true};
