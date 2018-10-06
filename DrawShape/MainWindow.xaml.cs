@@ -4,15 +4,16 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using System.Windows.Controls;
 using System.Windows.Threading;
 using System.Collections.Generic;
 
 using DrawShape.BL;
-using DrawShape.Classes;
 using DrawShape.Utils;
+using DrawShape.Classes;
 
 using Point = DrawShape.Classes.Point;
+using MenuItem = System.Windows.Controls.MenuItem;
+using MouseEventArgs = System.Windows.Input.MouseEventArgs;
 
 namespace DrawShape
 {
@@ -22,7 +23,7 @@ namespace DrawShape
 	public partial class MainWindow
 	{
 		private readonly List<Point> _currentDrawingHexagon;
-		
+
 		/// <summary>
 		/// Indicates if current picture is saved or not.
 		/// </summary>
@@ -31,7 +32,7 @@ namespace DrawShape
 		/// <summary>
 		/// Holds current chosen hexagon's id.
 		/// </summary>
-		private int _currentHexagonId;
+		private int _currentChosenHexagonId;
 
 		/// <summary>
 		/// Holds current chosen color to fill a hexagon's background.
@@ -53,6 +54,10 @@ namespace DrawShape
 
 		private Mode _currentMode;
 
+		private System.Windows.Point _mouseDownLoc;
+
+		private bool _mouseIsDown;
+
 		/// <summary>
 		/// Shortcuts. TODO: add general description.
 		/// </summary>
@@ -70,7 +75,7 @@ namespace DrawShape
 		public MainWindow()
 		{
 			InitializeComponent();
-			_currentHexagonId = -1;
+			_currentChosenHexagonId = -1;
 			_currentDrawingHexagon = new List<Point>();
 			_currentFillColor = new SolidColorBrush(Colors.Black);
 			ColorPickerFill.Fill = _currentFillColor;
@@ -80,6 +85,8 @@ namespace DrawShape
 			_mouseLoc = new Point();
 			_currentMode = Mode.Drawing;
 			SetShortcuts();
+			_mouseDownLoc = new System.Windows.Point();
+			_mouseIsDown = false;
 		}
 
 		private static void SetShortcuts()
@@ -139,45 +146,6 @@ namespace DrawShape
 			}
 		}
 
-		private void ExecDrawingMode(MouseEventArgs e)
-		{
-			if (_currentDrawingHexagon.Count < 6)
-			{
-				var mousePos = e.GetPosition(DrawingPanel);
-				_currentDrawingHexagon.Add(new Point(mousePos.X, mousePos.Y));
-				if (_expectedHexagon == null)
-				{
-					_expectedHexagon = new Polygon
-					{
-						Stroke = _currentBorderColor,
-						Opacity = 1
-					};
-					DrawingPanel.Children.Add(_expectedHexagon);
-					_expectedLine = Util.GetLine(
-						new Point(_currentDrawingHexagon[0].X, _currentDrawingHexagon[0].Y),
-						new Point(_mouseLoc.X, _mouseLoc.Y), _currentBorderColor
-					);
-					DrawingPanel.Children.Add(_expectedLine);
-				}
-
-				_expectedHexagon.Points.Add(mousePos);
-			}
-			
-			if (_currentDrawingHexagon.Count == 6)
-			{
-				var hexagon = new Hexagon($"Hexagon{DrawingPanel.Children.Count}", _currentDrawingHexagon, _currentFillColor, _currentBorderColor);
-				DrawingPanel.Children.Add(hexagon.ToPolygon());
-				var newMenuItem = new MenuItem {Header = hexagon.Name};
-				newMenuItem.Click += SetCurrentHexagonFromMenu;
-				ShapesMenu.Items.Add(newMenuItem);
-				_currentDrawingHexagon.Clear();
-				DrawingPanel.Children.Remove(_expectedHexagon);
-				DrawingPanel.Children.Remove(_expectedLine);
-				_expectedHexagon = null;
-				_expectedLine = null;
-			}
-		}
-		
 		private void SetCurrentHexagonFromMenu(object sender, RoutedEventArgs e)
 		{
 			var menuItem = e.OriginalSource as MenuItem;
@@ -185,7 +153,7 @@ namespace DrawShape
 			{
 				if (menuItem != null)
 				{
-					_currentHexagonId = Util.GetHexagonIdByName(menuItem.Header.ToString(), DrawingPanel.Children);
+					_currentChosenHexagonId = Util.GetHexagonIdByName(menuItem.Header.ToString(), DrawingPanel.Children);
 				}
 			}
 			catch (InvalidDataException exc)
@@ -245,19 +213,132 @@ namespace DrawShape
 			Drawing, Moving
 		}
 		
-		private void ProcessCanvas(object sender, MouseButtonEventArgs e)
+		private void ProcessDrawingOfHexagon(object sender, MouseButtonEventArgs e)
 		{
-			switch (_currentMode)
+			if (_currentMode == Mode.Drawing)
 			{
-				case Mode.Drawing:
-					ExecDrawingMode(e);
-					break;
-				case Mode.Moving:
-					Util.MessageBoxFatal("Not implemented");
-					break;
-				default:
-					throw new ArgumentOutOfRangeException(nameof(sender));
+				if (_currentDrawingHexagon.Count < 6)
+				{
+					var mousePos = e.GetPosition(DrawingPanel);
+					_currentDrawingHexagon.Add(new Point(mousePos.X, mousePos.Y));
+					if (_expectedHexagon == null)
+					{
+						_expectedHexagon = new Polygon
+						{
+							Stroke = _currentBorderColor,
+							Opacity = 1,
+							StrokeThickness = 2
+						};
+						DrawingPanel.Children.Add(_expectedHexagon);
+						_expectedLine = Util.GetLine(
+							new Point(_currentDrawingHexagon[0].X, _currentDrawingHexagon[0].Y),
+							new Point(_mouseLoc.X, _mouseLoc.Y), _currentBorderColor
+						);
+						_expectedLine.StrokeThickness = 2;
+						DrawingPanel.Children.Add(_expectedLine);
+					}
+
+					_expectedHexagon.Points.Add(mousePos);
+				}
+			
+				if (_currentDrawingHexagon.Count == 6)
+				{
+					var hexagon = new Hexagon($"Hexagon{DrawingPanel.Children.Count}", _currentDrawingHexagon, _currentFillColor, _currentBorderColor).ToPolygon();
+					hexagon.MouseMove += MoveHexagonWithMouse; 
+				//	hexagon.KeyDown += MoveHexagonWithKeys;
+					DrawingPanel.Children.Add(hexagon);
+					_currentChosenHexagonId++;
+					var newMenuItem = new MenuItem {Header = hexagon.Name};
+					newMenuItem.Click += SetCurrentHexagonFromMenu;
+					ShapesMenu.Items.Add(newMenuItem);
+					_currentDrawingHexagon.Clear();
+					DrawingPanel.Children.Remove(_expectedHexagon);
+					DrawingPanel.Children.Remove(_expectedLine);
+					_expectedHexagon = null;
+					_expectedLine = null;
+				}
 			}
+		}
+		
+		/*
+		private void MoveHexagonWithKeys(object sender, KeyEventArgs e)
+		{
+			try
+			{
+				if (_currentMode == Mode.Moving && _currentChosenHexagonId > -1 && DrawingPanel.Children.Count > 0)
+				{
+					var newLoc = new System.Windows.Point(0, 0);
+					if (Keyboard.IsKeyDown(Key.Up))
+					{
+						newLoc.Y = -5;
+					}
+					else if (Keyboard.IsKeyDown(Key.Right))
+					{
+						newLoc.X = 5;
+					}
+					else if (Keyboard.IsKeyDown(Key.Down))
+					{
+						newLoc.Y = 5;
+					}
+					else if (Keyboard.IsKeyDown(Key.Left))
+					{
+						newLoc.X = -5;
+					}
+
+					if (!(DrawingPanel.Children[_currentChosenHexagonId] is Polygon hexagon))
+					{
+						throw new InvalidCastException("can't move hexagon");
+					}
+
+					Util.MoveHexagonWithArrows(ref hexagon, newLoc);
+				//	DrawingPanel.InvalidateVisual();
+				}
+			}
+			catch (Exception exc)
+			{
+				Util.MessageBoxFatal(exc.ToString());
+			}
+		}
+		*/
+		
+		private void MoveHexagonWithMouse(object sender, MouseEventArgs mouseEventArgs)
+		{
+			try
+			{
+				if (!_mouseIsDown)
+				{
+					return;
+				}
+				
+				if (_currentMode == Mode.Moving && _currentChosenHexagonId > -1 && DrawingPanel.Children.Count > 0)
+				{
+					if (!(DrawingPanel.Children[_currentChosenHexagonId] is Polygon hexagon))
+					{
+						throw new InvalidCastException("can't move hexagon");
+					}
+					Util.MoveHexagonWithArrows(ref hexagon, new System.Windows.Point(
+						_mouseLoc.X - _mouseDownLoc.X, _mouseLoc.Y - _mouseDownLoc.Y)
+					);
+				}
+			}
+			catch (Exception exc)
+			{
+				Util.MessageBoxFatal(exc.ToString());
+			}
+		}
+
+		private void GetMouseDownPosition(object sender, MouseButtonEventArgs e)
+		{
+			if (_currentMode == Mode.Moving)
+			{
+				_mouseIsDown = true;
+				_mouseDownLoc = e.GetPosition(this);	
+			}
+		}
+
+		private void ResetMouseDownField(object sender, MouseButtonEventArgs e)
+		{
+			_mouseIsDown = false;
 		}
 	}
 }

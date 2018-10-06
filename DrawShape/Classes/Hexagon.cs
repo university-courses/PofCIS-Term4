@@ -177,6 +177,7 @@ namespace DrawShape.Classes
 				polygon.Points.Add(new System.Windows.Point(point.X, point.Y));
 			}
 			polygon.Stroke = new SolidColorBrush(Color.FromRgb((byte)ColorBorder.R, (byte)ColorBorder.G, (byte)ColorBorder.B));
+			polygon.StrokeThickness = 2;
 			polygon.Fill = new SolidColorBrush(Color.FromRgb((byte)ColorFill.R, (byte)ColorFill.G, (byte)ColorFill.B));
 			polygon.Name = Name;
 			return polygon;
