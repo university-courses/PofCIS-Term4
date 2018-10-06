@@ -7,49 +7,49 @@ using System.Collections.Generic;
 
 namespace DrawShape.Classes
 {
-    /// <summary>
-    /// Class to represent a hexagon in two-dimensional space.
-    /// </summary>
+	/// <summary>
+	/// Class to represent a hexagon in two-dimensional space.
+	/// </summary>
 	[Serializable]
 	public class Hexagon
 	{
-        /// <summary>
-        /// Class to represent a border of hexagon.
-        /// </summary>
+		/// <summary>
+		/// Class to represent a border of hexagon.
+		/// </summary>
 		public class BorderColor
 		{
-            /// <summary>
-            /// Amount of red colour in RGB specification.
-            /// </summary>
+			/// <summary>
+			/// Amount of red colour in RGB specification.
+			/// </summary>
 			[XmlAttribute]
 			public int R { get; set; }
 
-            /// <summary>
-            /// Amount of green colour in RGB specification.
-            /// </summary>
-            [XmlAttribute]
+			/// <summary>
+			/// Amount of green colour in RGB specification.
+			/// </summary>
+			[XmlAttribute]
 			public int G { get; set; }
 
-            /// <summary>
-            /// Amount of blue colour in RGB specification.
-            /// </summary>
-            [XmlAttribute]
+			/// <summary>
+			/// Amount of blue colour in RGB specification.
+			/// </summary>
+			[XmlAttribute]
 			public int B { get; set; }
 
-            /// <summary>
-            /// Function to set colour of the border.
-            /// </summary>
-            public BorderColor()
+			/// <summary>
+			/// Function to set colour of the border.
+			/// </summary>
+			public BorderColor()
 			{
 			}
 
-            /// <summary>
-            /// Function to set colour of the border using rgb specification.
-            /// </summary>
-            /// <param name="r">Amount of red.</param>
-            /// <param name="g">Amount of green.</param>
-            /// <param name="b">Amount of blue.</param>
-            public BorderColor(int r, int g, int b)
+			/// <summary>
+			/// Function to set colour of the border using rgb specification.
+			/// </summary>
+			/// <param name="r">Amount of red.</param>
+			/// <param name="g">Amount of green.</param>
+			/// <param name="b">Amount of blue.</param>
+			public BorderColor(int r, int g, int b)
 			{
 				R = r;
 				G = g;
@@ -57,43 +57,43 @@ namespace DrawShape.Classes
 			}
 		}
 		
-        /// <summary>
-        /// Class to set colour of hexagon.
-        /// </summary>
+		/// <summary>
+		/// Class to set colour of hexagon.
+		/// </summary>
 		public class FillColor
 		{
-            /// <summary>
-            /// Amount of red colour in RGB specification.
-            /// </summary>
-            [XmlAttribute]
-            public int R { get; set; }
+			/// <summary>
+			/// Amount of red colour in RGB specification.
+			/// </summary>
+			[XmlAttribute]
+			public int R { get; set; }
 
-            /// <summary>
-            /// Amount of green colour in RGB specification.
-            /// </summary>
-            [XmlAttribute]
-            public int G { get; set; }
+			/// <summary>
+			/// Amount of green colour in RGB specification.
+			/// </summary>
+			[XmlAttribute]
+			public int G { get; set; }
 
-            /// <summary>
-            /// Amount of blue colour in RGB specification.
-            /// </summary>
-            [XmlAttribute]
-            public int B { get; set; }
+			/// <summary>
+			/// Amount of blue colour in RGB specification.
+			/// </summary>
+			[XmlAttribute]
+			public int B { get; set; }
 
-            /// <summary>
-            /// Function to set colour of the hexagon.
-            /// </summary>
+			/// <summary>
+			/// Function to set colour of the hexagon.
+			/// </summary>
 			public FillColor()
 			{
 			}
 
-            /// <summary>
-            /// Function to set colour of the hexagon using rgb specification.
-            /// </summary>
-            /// <param name="r">Amount of red.</param>
-            /// <param name="g">Amount of green.</param>
-            /// <param name="b">Amount of blue.</param>
-            public FillColor(int r, int g, int b)
+			/// <summary>
+			/// Function to set colour of the hexagon using rgb specification.
+			/// </summary>
+			/// <param name="r">Amount of red.</param>
+			/// <param name="g">Amount of green.</param>
+			/// <param name="b">Amount of blue.</param>
+			public FillColor(int r, int g, int b)
 			{
 				R = r;
 				G = g;
@@ -101,45 +101,45 @@ namespace DrawShape.Classes
 			}
 		}
 		
-        /// <summary>
-        /// Name of hexagon.
-        /// </summary>
+		/// <summary>
+		/// Name of hexagon.
+		/// </summary>
 		[XmlAttribute]
 		public string Name { get; set; }
 
-        /// <summary>
-        /// Colour of the hexagon.
-        /// </summary>
+		/// <summary>
+		/// Colour of the hexagon.
+		/// </summary>
 		[XmlElement]
 		public FillColor ColorFill { get; set; }
 
-        /// <summary>
-        /// Colour of the hexagon border.
-        /// </summary>
-        [XmlElement]
+		/// <summary>
+		/// Colour of the hexagon border.
+		/// </summary>
+		[XmlElement]
 		public BorderColor ColorBorder { get; set; }
 		
-        /// <summary>
-        /// Array of points of hexagon.
-        /// </summary>
+		/// <summary>
+		/// Array of points of hexagon.
+		/// </summary>
 		[XmlArray]
 		public Point[] Points { get; set; }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Hexagon"/> class.  
-        /// </summary>
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Hexagon"/> class.  
+		/// </summary>
 		public Hexagon()
 		{
 		}
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Hexagon"/> class. 
-        /// </summary>
-        /// <param name="name">Name of hexagon.</param>
-        /// <param name="points">Points of hexagon vertices.</param>
-        /// <param name="fillBrush">Colour of hexagon.</param>
-        /// <param name="borderBrush">Colour of hexagon border.</param>
-        public Hexagon(string name, List<Point> points, Brush fillBrush, Brush borderBrush)
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Hexagon"/> class. 
+		/// </summary>
+		/// <param name="name">Name of hexagon.</param>
+		/// <param name="points">Points of hexagon vertices.</param>
+		/// <param name="fillBrush">Colour of hexagon.</param>
+		/// <param name="borderBrush">Colour of hexagon border.</param>
+		public Hexagon(string name, List<Point> points, Brush fillBrush, Brush borderBrush)
 		{
 			if (points == null)
 			{
@@ -157,10 +157,10 @@ namespace DrawShape.Classes
 			ColorBorder = new BorderColor(colorBorder.R, colorBorder.G, colorBorder.B);
 		}
 
-        /// <summary>
-        /// Function to convert hexagon type to polygon type.
-        /// </summary>
-        /// <returns>Hexagon shape of type <see cref="Polygon"/></returns>
+		/// <summary>
+		/// Function to convert hexagon type to polygon type.
+		/// </summary>
+		/// <returns>Hexagon shape of type <see cref="Polygon"/></returns>
 		public Polygon ToPolygon()
 		{
 			if (Points == null)
@@ -183,10 +183,10 @@ namespace DrawShape.Classes
 			return polygon;
 		}
 
-        /// <summary>
-        /// Function to convert polygon type to hexagon type.
-        /// </summary>
-        /// <returns>Hexagon shape of type <see cref="Hexagon"/></returns>
+		/// <summary>
+		/// Function to convert polygon type to hexagon type.
+		/// </summary>
+		/// <returns>Hexagon shape of type <see cref="Hexagon"/></returns>
 		public static Hexagon FromPolygon(Polygon polygon)
 		{
 			var points = new List<Point>();
