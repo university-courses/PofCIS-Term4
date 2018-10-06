@@ -22,6 +22,9 @@ namespace DrawShape.Classes
 		[XmlAttribute]
 		public double Y { get; set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Point"/> class.  
+        /// </summary>
 		public Point()
 		{
 		}

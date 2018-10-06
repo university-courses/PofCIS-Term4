@@ -7,25 +7,49 @@ using System.Collections.Generic;
 
 namespace DrawShape.Classes
 {
+    /// <summary>
+    /// Class to represent a hexagon in two-dimensional space.
+    /// </summary>
 	[Serializable]
 	public class Hexagon
 	{
+        /// <summary>
+        /// Class to represent a border of hexagon.
+        /// </summary>
 		public class BorderColor
 		{
+            /// <summary>
+            /// Amount of red colour in RGB specification.
+            /// </summary>
 			[XmlAttribute]
 			public int R { get; set; }
-		
-			[XmlAttribute]
+
+            /// <summary>
+            /// Amount of green colour in RGB specification.
+            /// </summary>
+            [XmlAttribute]
 			public int G { get; set; }
-		
-			[XmlAttribute]
+
+            /// <summary>
+            /// Amount of blue colour in RGB specification.
+            /// </summary>
+            [XmlAttribute]
 			public int B { get; set; }
-			
-			public BorderColor()
+
+            /// <summary>
+            /// Function to set colour of the border.
+            /// </summary>
+            public BorderColor()
 			{
 			}
-			
-			public BorderColor(int r, int g, int b)
+
+            /// <summary>
+            /// Function to set colour of the border using rgb specification.
+            /// </summary>
+            /// <param name="r">Amount of red.</param>
+            /// <param name="g">Amount of green.</param>
+            /// <param name="b">Amount of blue.</param>
+            public BorderColor(int r, int g, int b)
 			{
 				R = r;
 				G = g;
@@ -33,6 +57,9 @@ namespace DrawShape.Classes
 			}
 		}
 		
+        /// <summary>
+        /// 
+        /// </summary>
 		public class FillColor
 		{
 			[XmlAttribute]
@@ -68,11 +95,21 @@ namespace DrawShape.Classes
 		[XmlArray]
 		public Point[] Points { get; set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Hexagon"/> class.  
+        /// </summary>
 		public Hexagon()
 		{
 		}
-		
-		public Hexagon(string name, List<Point> points, Brush fillBrush, Brush borderBrush)
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Hexagon"/> class. 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="points"></param>
+        /// <param name="fillBrush"></param>
+        /// <param name="borderBrush"></param>
+        public Hexagon(string name, List<Point> points, Brush fillBrush, Brush borderBrush)
 		{
 			if (points == null)
 			{
