@@ -3,14 +3,14 @@ using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Controls;
-using System.Collections.Generic;
 using System.Windows.Shapes;
+using System.Windows.Controls;
 using System.Windows.Threading;
+using System.Collections.Generic;
 
 using DrawShape.BL;
-using DrawShape.Utils;
 using DrawShape.Classes;
+using DrawShape.Utils;
 
 using Point = DrawShape.Classes.Point;
 
@@ -21,7 +21,7 @@ namespace DrawShape
 	/// </summary>
 	public partial class MainWindow
 	{
-		private readonly List<Classes.Point> _currentDrawingHexagon;
+		private readonly List<Point> _currentDrawingHexagon;
 		
 		/// <summary>
 		/// Indicates if current picture is saved or not.
@@ -52,6 +52,17 @@ namespace DrawShape
 		private Line _expectedLine;
 
 		private Mode _currentMode;
+
+		/// <summary>
+		/// Shortcuts. TODO: add general description.
+		/// </summary>
+		public static readonly RoutedCommand SetDrawingModeCommand = new RoutedCommand();
+		public static readonly RoutedCommand SetMovingModeCommand = new RoutedCommand();
+		public static readonly RoutedCommand SetFillColorCommand = new RoutedCommand();
+		public static readonly RoutedCommand SetStrokeColorCommand = new RoutedCommand();
+		public static readonly RoutedCommand NewDialogCommand = new RoutedCommand();
+		public static readonly RoutedCommand SaveDialogCommand = new RoutedCommand();
+		public static readonly RoutedCommand OpenDialogCommand = new RoutedCommand();
 		
 		/// <summary>
 		/// Constructs the main window of an application.
@@ -60,7 +71,7 @@ namespace DrawShape
 		{
 			InitializeComponent();
 			_currentHexagonId = -1;
-			_currentDrawingHexagon = new List<Classes.Point>();
+			_currentDrawingHexagon = new List<Point>();
 			_currentFillColor = new SolidColorBrush(Colors.Black);
 			ColorPickerFill.Fill = _currentFillColor;
 			_currentBorderColor = new SolidColorBrush(Colors.Black);
@@ -68,6 +79,18 @@ namespace DrawShape
 			StartDrawingTicker();
 			_mouseLoc = new Point();
 			_currentMode = Mode.Drawing;
+			SetShortcuts();
+		}
+
+		private static void SetShortcuts()
+		{
+			SetDrawingModeCommand.InputGestures.Add(new KeyGesture(Key.D, ModifierKeys.Control));
+			SetMovingModeCommand.InputGestures.Add(new KeyGesture(Key.M, ModifierKeys.Control));
+			SetFillColorCommand.InputGestures.Add(new KeyGesture(Key.F, ModifierKeys.Control));
+			SetStrokeColorCommand.InputGestures.Add(new KeyGesture(Key.Q, ModifierKeys.Control));
+			NewDialogCommand.InputGestures.Add(new KeyGesture(Key.N, ModifierKeys.Control));
+			SaveDialogCommand.InputGestures.Add(new KeyGesture(Key.S, ModifierKeys.Control));
+			OpenDialogCommand.InputGestures.Add(new KeyGesture(Key.O, ModifierKeys.Control));
 		}
 
 		private void NewButton_Click(object sender, RoutedEventArgs e)
@@ -99,6 +122,7 @@ namespace DrawShape
 					return;
 				}
 
+				DrawingPanel.Children.Clear();
 				foreach (var hexagon in hexagons)
 				{
 					DrawingPanel.Children.Add(hexagon.ToPolygon());
@@ -112,20 +136,6 @@ namespace DrawShape
 			catch (Exception exc)
 			{
 				Util.MessageBoxFatal(exc.Message);
-			}
-		}
-
-		private void MouseSetPoint(object sender, MouseButtonEventArgs e)
-		{
-			switch (_currentMode)
-			{
-				case Mode.Drawing:
-					ExecDrawingMode(e);
-					break;
-				case Mode.Moving:
-					break;
-				default:
-					throw new ArgumentOutOfRangeException(nameof(sender));
 			}
 		}
 
@@ -184,12 +194,12 @@ namespace DrawShape
 			}
 		}
 
-		private void SetFillColor(object sender, MouseButtonEventArgs e)
+		private void SetFillColor(object sender, RoutedEventArgs e)
 		{
 			FormBl.SetColor(ref _currentFillColor, ref ColorPickerFill);
 		}
 
-		private void SetBorderColor(object sender, MouseButtonEventArgs e)
+		private void SetBorderColor(object sender, RoutedEventArgs e)
 		{
 			FormBl.SetColor(ref _currentBorderColor, ref ColorPickerBorder);
 		}
@@ -233,6 +243,21 @@ namespace DrawShape
 		public enum Mode
 		{
 			Drawing, Moving
+		}
+		
+		private void ProcessCanvas(object sender, MouseButtonEventArgs e)
+		{
+			switch (_currentMode)
+			{
+				case Mode.Drawing:
+					ExecDrawingMode(e);
+					break;
+				case Mode.Moving:
+					Util.MessageBoxFatal("Not implemented");
+					break;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(sender));
+			}
 		}
 	}
 }

@@ -15,7 +15,7 @@
 				<MenuItem x:Name="OpenButton" Header="Open" HorizontalAlignment="Left" Height="20" Width="160" Click="OpenButton_Click" InputGestureText="Ctrl+O"/>
 			</MenuItem>
 			<MenuItem x:Name="ModeMenu" Header="Mode" Height="25" Width="45">
-				<MenuItem x:Name="DrawingMode" Header="Drawing" HorizontalAlignment="Left" Height="20" Width="170" Click="{Binding ElementName=_currentMode}" InputGestureText="Ctrl+D"/>
+				<MenuItem x:Name="DrawingMode" Header="Drawing" HorizontalAlignment="Left" Height="20" Width="170" Click="SetDrawingMode" InputGestureText="Ctrl+D"/>
 				<MenuItem x:Name="MovingMode" Header="Moving" HorizontalAlignment="Left" Height="20" Width="170" Click="SetMovingMode" InputGestureText="Ctrl+M"/>
 			</MenuItem>
 			<MenuItem x:Name="ShapesMenu" Header="Shapes" Height="25" Width="50"/>
@@ -28,6 +28,15 @@
 				<Rectangle x:Name="ColorPickerBorder" HorizontalAlignment="Right" VerticalAlignment="Center" Width="15" Height="15"/>
 			</Grid>
 		</Menu>
-		<Canvas x:Name="DrawingPanel" Opacity="1" Background="White" MouseMove="MouseLoc" MouseLeftButtonUp="MouseSetPoint" HorizontalAlignment="Center" Height="{Binding Path=ActualHeight, ElementName=WindowMain}" Margin="0,25,0,0" VerticalAlignment="Top" Width="{Binding Path=ActualWidth, ElementName=WindowMain}"/>
+		<Canvas x:Name="DrawingPanel" Opacity="1" Background="White" MouseMove="MouseLoc" MouseLeftButtonUp="ProcessCanvas" HorizontalAlignment="Center" Height="{Binding Path=ActualHeight, ElementName=WindowMain}" Margin="0,25,0,0" VerticalAlignment="Top" Width="{Binding Path=ActualWidth, ElementName=WindowMain}"/>
 	</Grid>
+	<Window.CommandBindings>
+		<CommandBinding Command="{x:Static local:MainWindow.SetDrawingModeCommand}" Executed="SetDrawingMode"/>
+		<CommandBinding Command="{x:Static local:MainWindow.SetMovingModeCommand}" Executed="SetMovingMode"/>
+		<CommandBinding Command="{x:Static local:MainWindow.SetFillColorCommand}" Executed="SetFillColor"/>
+		<CommandBinding Command="{x:Static local:MainWindow.SetStrokeColorCommand}" Executed="SetBorderColor"/>
+		<CommandBinding Command="{x:Static local:MainWindow.NewDialogCommand}" Executed="NewButton_Click"/>
+		<CommandBinding Command="{x:Static local:MainWindow.SaveDialogCommand}" Executed="SaveButton_Click"/>
+		<CommandBinding Command="{x:Static local:MainWindow.OpenDialogCommand}" Executed="OpenButton_Click"/>
+	</Window.CommandBindings>
 </Window>
