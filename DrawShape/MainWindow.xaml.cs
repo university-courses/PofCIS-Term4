@@ -1,24 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Windows.Threading;
-using System.Collections.Generic;
-
 using DrawShape.BL;
-using DrawShape.Utils;
 using DrawShape.Classes;
-
+using DrawShape.Utils;
 using Point = DrawShape.Classes.Point;
-using MenuItem = System.Windows.Controls.MenuItem;
-using MouseEventArgs = System.Windows.Input.MouseEventArgs;
 
 namespace DrawShape
 {
-	using System.Windows.Controls;
-
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
 	/// </summary>
@@ -56,22 +51,22 @@ namespace DrawShape
 
 		private Mode _currentMode;
 
-		private System.Windows.Point _mouseDownLoc;
+	//	private System.Windows.Point _mouseDownLoc;
 
-		private bool _mouseIsDown;
+	//	private bool _mouseIsDown;
 
-		bool dragging;
+		private bool _dragging;
 
-		System.Windows.Point clickV;
+		private System.Windows.Point _clickV;
 
-		public static Shape selectedPolygon;
+		private static Shape _selectedPolygon;
 
-		private System.Windows.Point newLoc;
+		private System.Windows.Point _newLoc;
 
-        void DrawingPanel_MouseUp(object sender, MouseButtonEventArgs e)
+        private void DrawingPanel_MouseUp(object sender, MouseButtonEventArgs e)
 		{
-			dragging = false;
-			this.newLoc = new System.Windows.Point(0, 0);
+			_dragging = false;
+			_newLoc = new System.Windows.Point(0, 0);
         }
 
         /// <summary>
@@ -101,8 +96,8 @@ namespace DrawShape
 			_mouseLoc = new Point();
 			_currentMode = Mode.Drawing;
 			SetShortcuts();
-			_mouseDownLoc = new System.Windows.Point();
-			_mouseIsDown = false;
+		//	_mouseDownLoc = new System.Windows.Point();
+		//	_mouseIsDown = false;
 		}
 
 		private static void SetShortcuts()
@@ -171,7 +166,7 @@ namespace DrawShape
 				{
 					_currentChosenHexagonId = Util.GetHexagonIdByName(menuItem.Header.ToString(), DrawingPanel.Children);
 
-					this.newLoc = new System.Windows.Point(0, 0);
+					_newLoc = new System.Windows.Point(0, 0);
                 }
 			}
 			catch (InvalidDataException exc)
@@ -217,7 +212,7 @@ namespace DrawShape
 		private void SetMovingMode(object sender, RoutedEventArgs e)
 		{
 			_currentMode = Mode.Moving;
-			this.newLoc = new System.Windows.Point(0, 0);
+			_newLoc = new System.Windows.Point(0, 0);
         }
 
 		public enum Mode
@@ -280,55 +275,56 @@ namespace DrawShape
 				{
 					if (_currentMode == Mode.Moving && _currentChosenHexagonId > -1 && DrawingPanel.Children.Count > 0)
 					{
-
 						if(Keyboard.IsKeyDown(Key.Up)&& Keyboard.IsKeyDown(Key.Right))
 						{
-							newLoc.Y -= 5;
-							newLoc.X += 5;
+							_newLoc.Y -= 5;
+							_newLoc.X += 5;
                         }
 						else if(Keyboard.IsKeyDown(Key.Up) && Keyboard.IsKeyDown(Key.Left))
 						{
-							newLoc.Y -= 5;
-							newLoc.X -= 5;
+							_newLoc.Y -= 5;
+							_newLoc.X -= 5;
 						}
 						else if(Keyboard.IsKeyDown(Key.Down) && Keyboard.IsKeyDown(Key.Right))
 						{
-							newLoc.Y += 5;
-							newLoc.X += 5;
+							_newLoc.Y += 5;
+							_newLoc.X += 5;
 						}
 						else if(Keyboard.IsKeyDown(Key.Down) && Keyboard.IsKeyDown(Key.Left))
 						{
-							newLoc.Y += 5;
-							newLoc.X -= 5;
+							_newLoc.Y += 5;
+							_newLoc.X -= 5;
 						}
                         else if (Keyboard.IsKeyDown(Key.Up))
 						{
-							newLoc.Y -= 5;
+							_newLoc.Y -= 5;
 						}
 						else if (Keyboard.IsKeyDown(Key.Right))
 						{
-							newLoc.X += 5;
+							_newLoc.X += 5;
 						}
 						else if (Keyboard.IsKeyDown(Key.Down))
 						{
-							newLoc.Y += 5;
+							_newLoc.Y += 5;
 						}
 						else if (Keyboard.IsKeyDown(Key.Left))
 						{
-							newLoc.X -= 5;
+							_newLoc.X -= 5;
 						}
 
-						if (!(DrawingPanel.Children[_currentChosenHexagonId] is Polygon hexagon))
+					//	if (!(DrawingPanel.Children[_currentChosenHexagonId] is Polygon hexagon))
+					//	{
+					//		throw new InvalidCastException("can't move hexagon");
+					//	}
+
+						if (!((DrawingPanel.Children[_currentChosenHexagonId] as Shape) is Polygon p))
 						{
-							throw new InvalidCastException("can't move hexagon");
+							throw new InvalidDataException("can't move null shape");
 						}
 
-						Polygon p = DrawingPanel.Children[_currentChosenHexagonId] as Shape as Polygon;
-						Canvas.SetLeft(p, newLoc.X);
-						Canvas.SetTop(p, newLoc.Y);
-
+						Canvas.SetLeft(p, _newLoc.X);
+						Canvas.SetTop(p, _newLoc.Y);
 						keyPressed = false;
-						//	DrawingPanel.InvalidateVisual();
 					}
 				}
 			}
@@ -340,15 +336,18 @@ namespace DrawShape
 		
 		private void DrawingPanel_MouseMove(object sender, MouseEventArgs e)
 		{
-			Polygon p = selectedPolygon as Polygon;
-			if (dragging && _currentMode == Mode.Moving)
+			if (_dragging && _currentMode == Mode.Moving)
 			{
-				Canvas.SetLeft(p, e.GetPosition(DrawingPanel).X - clickV.X);
-
-				Canvas.SetTop(p, e.GetPosition(DrawingPanel).Y - clickV.Y);
+				if (!(_selectedPolygon is Polygon p))
+				{
+					throw new InvalidDataException("selected shape is not hexagon");
+				}
+				
+				Canvas.SetLeft(p, e.GetPosition(DrawingPanel).X - _clickV.X);
+				Canvas.SetTop(p, e.GetPosition(DrawingPanel).Y - _clickV.Y);
 			}
 
-			if (this._currentMode == Mode.Drawing)
+			if (_currentMode == Mode.Drawing)
 			{
 				var point = e.GetPosition(this);
 				_mouseLoc.X = point.X + 7;
@@ -358,13 +357,18 @@ namespace DrawShape
 
 		private void myPoly_MouseDown(object sender, MouseButtonEventArgs e)
 		{
-			if (_currentChosenHexagonId > -1 && this._currentMode == Mode.Moving)
+			if (_currentChosenHexagonId > -1 && _currentMode == Mode.Moving)
 			{
-				dragging = true;
-
-				selectedPolygon = DrawingPanel.Children[_currentChosenHexagonId] as Shape;
-
-				clickV = e.GetPosition(selectedPolygon);
+			//	for (var i = DrawingPanel.Children.Count - 1; i >= 0; i--)
+			//	{
+					_selectedPolygon = DrawingPanel.Children[_currentChosenHexagonId] as Shape;
+					_clickV = e.GetPosition(_selectedPolygon);
+			//		if (Util.PointIsInHexagon(new Point(_clickV.X, _clickV.Y), _expectedHexagon))
+			//		{
+						_dragging = true;
+			//			return;
+			//		}
+			//	}
 			}
         }
 	}

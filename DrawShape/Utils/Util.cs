@@ -2,13 +2,12 @@
 using System.IO;
 using System.Linq;
 using System.Windows;
-using System.Windows.Media;
-using System.Windows.Forms;
-using System.Windows.Shapes;
 using System.Windows.Controls;
-using DrawShape.Classes;
+using System.Windows.Forms;
+using System.Windows.Media;
+using System.Windows.Shapes;
 using MessageBox = System.Windows.MessageBox;
-using Point = System.Windows.Point;
+using Point = DrawShape.Classes.Point;
 
 namespace DrawShape.Utils
 {
@@ -24,7 +23,7 @@ namespace DrawShape.Utils
 		/// <param name="elements">Collection of elements.</param>
 		/// <returns>Id of hexagon, if the point that was clocked was in it.</returns>
 		/// <exception cref="InvalidDataException">Throws if hexagon does not exist.</exception>
-		public static int GetHexagonIdByClickPos(Classes.Point clickPosition, UIElementCollection elements)
+		public static int GetHexagonIdByClickPos(Point clickPosition, UIElementCollection elements)
 		{
 			var hexagons = elements.OfType<Polygon>();
 			var enumerable = hexagons as Polygon[] ?? hexagons.ToArray();
@@ -45,11 +44,34 @@ namespace DrawShape.Utils
 		/// <param name="point">Point to check.</param>
 		/// <param name="hexagon">Hexagon in which point might be.</param>
 		/// <returns>True if point is located in given hexagon.</returns>
-		public static bool PointIsInHexagon(Classes.Point point, Polygon hexagon)
+		public static bool PointIsInHexagon(Point point, Polygon hexagon)
 		{
 			// TODO: check if mouse is clicked on hexagon
-			
+
 			return false;
+		}
+
+		public static bool AreSidesIntersected(
+			System.Windows.Point firstSidePointOne, System.Windows.Point firstSidePointTwo,
+			System.Windows.Point secondSidePointOne, System.Windows.Point secondSidePointTwo
+		)
+		{
+			var solution = SolveCramer(new[]
+			{
+				new[]
+				{
+					firstSidePointTwo.X - firstSidePointOne.X,
+					-secondSidePointTwo.X + secondSidePointOne.X,
+					secondSidePointOne.X - firstSidePointOne.X
+				},
+				new[]
+				{
+					firstSidePointTwo.Y - firstSidePointOne.Y,
+					-secondSidePointTwo.Y + secondSidePointOne.Y,
+					secondSidePointOne.Y - firstSidePointOne.Y
+				}
+			});
+			return !solution.Any(var => var < 0 && var > 1);
 		}
 		
 		/// <summary>
@@ -88,6 +110,7 @@ namespace DrawShape.Utils
 			{
 				return false;
 			}
+
 			brush = new SolidColorBrush(Color.FromArgb(colorDialog.Color.A, colorDialog.Color.R, colorDialog.Color.G, colorDialog.Color.B));
 			return true;
 		}
@@ -173,7 +196,7 @@ namespace DrawShape.Utils
 		/// </summary>
 		/// <param name="extendedMatrix">Extended matrix of the equations.</param>
 		/// <returns>Array of results.</returns>
-		public static double[] SolveCarmer(double[][] extendedMatrix)
+		public static double[] SolveCramer(double[][] extendedMatrix)
 		{
 			var size = extendedMatrix.Length;
 			if (size < 1)
@@ -219,7 +242,7 @@ namespace DrawShape.Utils
 		/// </summary>
 		/// <param name="hexagon">Hexagon to be moved.</param>
 		/// <param name="location">Where to move the hexagon.</param>
-		public static Polygon MoveHexagonWithArrows(Polygon hexagon, Point location)
+		public static Polygon MoveHexagonWithArrows(Polygon hexagon, System.Windows.Point location)
 		{
 			/*
 			var points = hexagon.Points;
@@ -243,7 +266,7 @@ namespace DrawShape.Utils
 		/// <param name="end">Ending point.</param>
 		/// <param name="brush">Colour of the line.</param>
 		/// <returns></returns>
-		public static Line GetLine(Classes.Point start, Classes.Point end, Brush brush)
+		public static Line GetLine(Point start, Point end, Brush brush)
 		{
 			var line = new Line { X1 = start.X, Y1 = start.Y, X2 = end.X, Y2 = end.Y, StrokeThickness = 1, Stroke = brush, SnapsToDevicePixels = true};
 			line.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
