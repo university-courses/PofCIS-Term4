@@ -66,12 +66,13 @@ namespace DrawShape
 
 		public static Shape selectedPolygon;
 
-		System.Windows.Point newLoc = new System.Windows.Point(0, 0);
+		private System.Windows.Point newLoc;
 
         void DrawingPanel_MouseUp(object sender, MouseButtonEventArgs e)
 		{
 			dragging = false;
-		}
+			this.newLoc = new System.Windows.Point(0, 0);
+        }
 
         /// <summary>
         /// Shortcuts. TODO: add general description.
@@ -169,7 +170,9 @@ namespace DrawShape
 				if (menuItem != null)
 				{
 					_currentChosenHexagonId = Util.GetHexagonIdByName(menuItem.Header.ToString(), DrawingPanel.Children);
-				}
+
+					this.newLoc = new System.Windows.Point(0, 0);
+                }
 			}
 			catch (InvalidDataException exc)
 			{
@@ -214,7 +217,8 @@ namespace DrawShape
 		private void SetMovingMode(object sender, RoutedEventArgs e)
 		{
 			_currentMode = Mode.Moving;
-		}
+			this.newLoc = new System.Windows.Point(0, 0);
+        }
 
 		public enum Mode
 		{
@@ -277,8 +281,27 @@ namespace DrawShape
 					if (_currentMode == Mode.Moving && _currentChosenHexagonId > -1 && DrawingPanel.Children.Count > 0)
 					{
 
-
-						if (Keyboard.IsKeyDown(Key.Up))
+						if(Keyboard.IsKeyDown(Key.Up)&& Keyboard.IsKeyDown(Key.Right))
+						{
+							newLoc.Y -= 5;
+							newLoc.X += 5;
+                        }
+						else if(Keyboard.IsKeyDown(Key.Up) && Keyboard.IsKeyDown(Key.Left))
+						{
+							newLoc.Y -= 5;
+							newLoc.X -= 5;
+						}
+						else if(Keyboard.IsKeyDown(Key.Down) && Keyboard.IsKeyDown(Key.Right))
+						{
+							newLoc.Y += 5;
+							newLoc.X += 5;
+						}
+						else if(Keyboard.IsKeyDown(Key.Down) && Keyboard.IsKeyDown(Key.Left))
+						{
+							newLoc.Y += 5;
+							newLoc.X -= 5;
+						}
+                        else if (Keyboard.IsKeyDown(Key.Up))
 						{
 							newLoc.Y -= 5;
 						}
