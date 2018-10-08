@@ -265,42 +265,45 @@ namespace DrawShape
 			}
 		}
 		
-		
 		private void MoveHexagonWithKeys(object sender, KeyEventArgs e)
 		{
 			try
 			{
-				if (_currentMode == Mode.Moving && _currentChosenHexagonId > -1 && DrawingPanel.Children.Count > 0)
+				bool keyPressed = true;
+				while (keyPressed)
 				{
-					var newLoc = new System.Windows.Point(0, 0);
-					if (Keyboard.IsKeyDown(Key.Up))
+					if (_currentMode == Mode.Moving && _currentChosenHexagonId > -1 && DrawingPanel.Children.Count > 0)
 					{
-						newLoc.Y = -5;
-					}
-					else if (Keyboard.IsKeyDown(Key.Right))
-					{
-						newLoc.X = 5;
-					}
-					else if (Keyboard.IsKeyDown(Key.Down))
-					{
-						newLoc.Y = 5;
-					}
-					else if (Keyboard.IsKeyDown(Key.Left))
-					{
-						newLoc.X = -5;
-					}
+						var newLoc = new System.Windows.Point(0, 0);
+						if (Keyboard.IsKeyDown(Key.Up))
+						{
+							newLoc.Y = -5;
+						}
+						else if (Keyboard.IsKeyDown(Key.Right))
+						{
+							newLoc.X = 5;
+						}
+						else if (Keyboard.IsKeyDown(Key.Down))
+						{
+							newLoc.Y = 5;
+						}
+						else if (Keyboard.IsKeyDown(Key.Left))
+						{
+							newLoc.X = -5;
+						}
 
-					if (!(DrawingPanel.Children[_currentChosenHexagonId] is Polygon hexagon))
-					{
-						throw new InvalidCastException("can't move hexagon");
+						if (!(DrawingPanel.Children[_currentChosenHexagonId] is Polygon hexagon))
+						{
+							throw new InvalidCastException("can't move hexagon");
+						}
+
+						Polygon p = DrawingPanel.Children[_currentChosenHexagonId] as Shape as Polygon;
+						Canvas.SetLeft(p, +newLoc.X);
+						Canvas.SetTop(p, +newLoc.Y);
+
+						keyPressed = false;
+						//	DrawingPanel.InvalidateVisual();
 					}
-
-					var newPoly = Util.MoveHexagonWithArrows(hexagon, newLoc);
-
-					this.DrawingPanel.Children.Remove(hexagon);
-                    this.DrawingPanel.Children.Insert(this._currentChosenHexagonId, newPoly);
-
-				//	DrawingPanel.InvalidateVisual();
 				}
 			}
 			catch (Exception exc)
@@ -309,34 +312,7 @@ namespace DrawShape
 			}
 		}
 		
-		/*
-		private void MoveHexagonWithMouse(object sender, MouseEventArgs mouseEventArgs)
-		{
-			try
-			{
-				if (!_mouseIsDown)
-				{
-					return;
-				}
-				
-				if (_currentMode == Mode.Moving && _currentChosenHexagonId > -1 && DrawingPanel.Children.Count > 0)
-				{
-					if (!(DrawingPanel.Children[_currentChosenHexagonId] is Polygon hexagon))
-					{
-						throw new InvalidCastException("can't move hexagon");
-					}
-					Util.MoveHexagonWithArrows( hexagon, new System.Windows.Point(
-						_mouseLoc.X - _mouseDownLoc.X, _mouseLoc.Y - _mouseDownLoc.Y)
-					);
-				}
-			}
-			catch (Exception exc)
-			{
-				Util.MessageBoxFatal(exc.ToString());
-			}
-		}*/
-
-		void DrawingPanel_MouseMove(object sender, MouseEventArgs e)
+		private void DrawingPanel_MouseMove(object sender, MouseEventArgs e)
 		{
 			Polygon p = selectedPolygon as Polygon;
 			if (dragging && _currentMode == Mode.Moving)
@@ -358,11 +334,11 @@ namespace DrawShape
 		{
 			if (_currentChosenHexagonId > -1 && this._currentMode == Mode.Moving)
 			{
-			dragging = true;
+				dragging = true;
 
-			selectedPolygon = DrawingPanel.Children[_currentChosenHexagonId] as Shape;
+				selectedPolygon = DrawingPanel.Children[_currentChosenHexagonId] as Shape;
 
-			clickV = e.GetPosition(selectedPolygon);
+				clickV = e.GetPosition(selectedPolygon);
 			}
         }
 	}
