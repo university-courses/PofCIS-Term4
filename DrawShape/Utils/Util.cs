@@ -93,7 +93,7 @@ namespace DrawShape.Utils
 		}
 
 		/// <summary>
-		/// Finction to display message box.
+		/// Function to display message box.
 		/// </summary>
 		/// <param name="msg">Message to be displayed.</param>
 		public static void MessageBoxFatal(string msg)
@@ -219,14 +219,21 @@ namespace DrawShape.Utils
 		/// </summary>
 		/// <param name="hexagon">Hexagon to be moved.</param>
 		/// <param name="location">Where to move the hexagon.</param>
-		public static void MoveHexagonWithArrows(ref Polygon hexagon, Point location)
+		public static Polygon MoveHexagonWithArrows(Polygon hexagon, Point location)
 		{
+			/*
 			var points = hexagon.Points;
 			hexagon.Points.Clear();
 			foreach (var point in points)
 			{
 				hexagon.Points.Add(new Point(point.X - location.X, point.Y - location.Y));
 			}
+	*/		
+			Canvas.SetTop(hexagon, Canvas.GetTop(hexagon)-location.Y);
+			Canvas.SetLeft(hexagon, Canvas.GetLeft(hexagon)+location.X);
+			
+
+			return hexagon;
 		}
 		
 		/// <summary>

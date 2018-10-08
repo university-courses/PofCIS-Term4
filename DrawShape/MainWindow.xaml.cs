@@ -17,6 +17,8 @@ using MouseEventArgs = System.Windows.Input.MouseEventArgs;
 
 namespace DrawShape
 {
+	using System.Windows.Controls;
+
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
 	/// </summary>
@@ -243,12 +245,13 @@ namespace DrawShape
 			
 				if (_currentDrawingHexagon.Count == 6)
 				{
-					var hexagon = new Hexagon($"Hexagon{DrawingPanel.Children.Count}", _currentDrawingHexagon, _currentFillColor, _currentBorderColor).ToPolygon();
-					hexagon.MouseMove += MoveHexagonWithMouse; 
-				//	hexagon.KeyDown += MoveHexagonWithKeys;
-					DrawingPanel.Children.Add(hexagon);
-					_currentChosenHexagonId++;
-					var newMenuItem = new MenuItem {Header = hexagon.Name};
+                    var hexagon = new Hexagon($"Hexagon_{++_currentChosenHexagonId+1}", _currentDrawingHexagon, _currentFillColor, _currentBorderColor).ToPolygon();
+				//	hexagon.MouseMove += MoveHexagonWithMouse; 
+					hexagon.KeyDown += MoveHexagonWithKeys;
+                    DrawingPanel.Children.Add(hexagon);
+                    //Canvas.SetTop(hexagon, hexagon.Points[0].Y);
+                    //Canvas.SetLeft(hexagon, hexagon.Points[0].X);
+                    var newMenuItem = new MenuItem {Header = hexagon.Name};
 					newMenuItem.Click += SetCurrentHexagonFromMenu;
 					ShapesMenu.Items.Add(newMenuItem);
 					_currentDrawingHexagon.Clear();
@@ -260,7 +263,7 @@ namespace DrawShape
 			}
 		}
 		
-		/*
+		
 		private void MoveHexagonWithKeys(object sender, KeyEventArgs e)
 		{
 			try
@@ -290,7 +293,11 @@ namespace DrawShape
 						throw new InvalidCastException("can't move hexagon");
 					}
 
-					Util.MoveHexagonWithArrows(ref hexagon, newLoc);
+					var newPoly = Util.MoveHexagonWithArrows(hexagon, newLoc);
+
+					this.DrawingPanel.Children.Remove(hexagon);
+                    this.DrawingPanel.Children.Insert(this._currentChosenHexagonId, newPoly);
+
 				//	DrawingPanel.InvalidateVisual();
 				}
 			}
@@ -299,7 +306,7 @@ namespace DrawShape
 				Util.MessageBoxFatal(exc.ToString());
 			}
 		}
-		*/
+		
 		
 		private void MoveHexagonWithMouse(object sender, MouseEventArgs mouseEventArgs)
 		{
@@ -316,7 +323,7 @@ namespace DrawShape
 					{
 						throw new InvalidCastException("can't move hexagon");
 					}
-					Util.MoveHexagonWithArrows(ref hexagon, new System.Windows.Point(
+					Util.MoveHexagonWithArrows( hexagon, new System.Windows.Point(
 						_mouseLoc.X - _mouseDownLoc.X, _mouseLoc.Y - _mouseDownLoc.Y)
 					);
 				}
@@ -340,5 +347,58 @@ namespace DrawShape
 		{
 			_mouseIsDown = false;
 		}
+
+
+
+		public static bool dragging;
+
+		public static System.Windows.Point clickV;
+
+		public static Shape selectedPolygon;
+
+		void DrawingPanel_MouseUp(object sender, MouseButtonEventArgs e)
+		{
+			dragging = false;
+		}
+
+		void DrawingPanel_MouseMove(object sender, MouseEventArgs e)
+		{
+			Polygon p = selectedPolygon as Polygon;
+			if (dragging&& _currentMode == Mode.Moving)
+			{
+				Canvas.SetLeft(p, e.GetPosition(DrawingPanel).X - clickV.X);
+
+				Canvas.SetTop(p, e.GetPosition(DrawingPanel).Y - clickV.Y);
+			}
+		}
+
+		private void myPoly_MouseDown(object sender, MouseButtonEventArgs e)
+		{
+			if (_currentChosenHexagonId > -1 && this._currentMode == Mode.Moving)
+			{
+			dragging = true;
+
+			selectedPolygon = DrawingPanel.Children[_currentChosenHexagonId] as Shape;
+
+			clickV = e.GetPosition(MainWindow.selectedPolygon);
+			}
+        }
 	}
+
+	public class MovePolygon : Control
+	{
+		static MovePolygon()
+		{
+			DefaultStyleKeyProperty.OverrideMetadata(typeof(MovePolygon), new FrameworkPropertyMetadata(typeof(MovePolygon)));
+		}
+
+		void myPoly_MouseDown(object sender, MouseButtonEventArgs e)
+		{
+			MainWindow.dragging = true;
+
+			MainWindow.selectedPolygon = sender as Shape;
+
+			MainWindow.clickV = e.GetPosition(MainWindow.selectedPolygon);
+		}
+    }
 }
