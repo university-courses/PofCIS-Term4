@@ -60,10 +60,21 @@ namespace DrawShape
 
 		private bool _mouseIsDown;
 
-		/// <summary>
-		/// Shortcuts. TODO: add general description.
-		/// </summary>
-		public static readonly RoutedCommand SetDrawingModeCommand = new RoutedCommand();
+		bool dragging;
+
+		System.Windows.Point clickV;
+
+		public static Shape selectedPolygon;
+
+		void DrawingPanel_MouseUp(object sender, MouseButtonEventArgs e)
+		{
+			dragging = false;
+		}
+
+        /// <summary>
+        /// Shortcuts. TODO: add general description.
+        /// </summary>
+        public static readonly RoutedCommand SetDrawingModeCommand = new RoutedCommand();
 		public static readonly RoutedCommand SetMovingModeCommand = new RoutedCommand();
 		public static readonly RoutedCommand SetFillColorCommand = new RoutedCommand();
 		public static readonly RoutedCommand SetStrokeColorCommand = new RoutedCommand();
@@ -195,9 +206,7 @@ namespace DrawShape
 		
 		private void MouseLoc(object sender, MouseEventArgs e)
 		{
-			var point = e.GetPosition(this);
-			_mouseLoc.X = point.X + 7;
-			_mouseLoc.Y = point.Y - 25;
+			
 		}
 
 		private void SetDrawingMode(object sender, RoutedEventArgs e)
@@ -249,8 +258,6 @@ namespace DrawShape
 				//	hexagon.MouseMove += MoveHexagonWithMouse; 
 					hexagon.KeyDown += MoveHexagonWithKeys;
                     DrawingPanel.Children.Add(hexagon);
-                    //Canvas.SetTop(hexagon, hexagon.Points[0].Y);
-                    //Canvas.SetLeft(hexagon, hexagon.Points[0].X);
                     var newMenuItem = new MenuItem {Header = hexagon.Name};
 					newMenuItem.Click += SetCurrentHexagonFromMenu;
 					ShapesMenu.Items.Add(newMenuItem);
@@ -307,7 +314,7 @@ namespace DrawShape
 			}
 		}
 		
-		
+		/*
 		private void MoveHexagonWithMouse(object sender, MouseEventArgs mouseEventArgs)
 		{
 			try
@@ -332,7 +339,7 @@ namespace DrawShape
 			{
 				Util.MessageBoxFatal(exc.ToString());
 			}
-		}
+		}*/
 
 		private void GetMouseDownPosition(object sender, MouseButtonEventArgs e)
 		{
@@ -341,36 +348,32 @@ namespace DrawShape
 				_mouseIsDown = true;
 				_mouseDownLoc = e.GetPosition(this);	
 			}
-		}
 
-		private void ResetMouseDownField(object sender, MouseButtonEventArgs e)
-		{
-			_mouseIsDown = false;
-		}
-
-
-
-		public static bool dragging;
-
-		public static System.Windows.Point clickV;
-
-		public static Shape selectedPolygon;
-
-		void DrawingPanel_MouseUp(object sender, MouseButtonEventArgs e)
-		{
-			dragging = false;
+			if (this._currentMode == Mode.Drawing)
+			{
+				var point = e.GetPosition(this);
+				_mouseLoc.X = point.X + 7;
+				_mouseLoc.Y = point.Y - 25;
+            }
 		}
 
 		void DrawingPanel_MouseMove(object sender, MouseEventArgs e)
 		{
 			Polygon p = selectedPolygon as Polygon;
-			if (dragging&& _currentMode == Mode.Moving)
+			if (dragging && _currentMode == Mode.Moving)
 			{
 				Canvas.SetLeft(p, e.GetPosition(DrawingPanel).X - clickV.X);
 
 				Canvas.SetTop(p, e.GetPosition(DrawingPanel).Y - clickV.Y);
 			}
-		}
+
+			if (this._currentMode == Mode.Drawing)
+			{
+				var point = e.GetPosition(this);
+				_mouseLoc.X = point.X + 7;
+				_mouseLoc.Y = point.Y - 25;
+			}
+        }
 
 		private void myPoly_MouseDown(object sender, MouseButtonEventArgs e)
 		{
@@ -380,25 +383,8 @@ namespace DrawShape
 
 			selectedPolygon = DrawingPanel.Children[_currentChosenHexagonId] as Shape;
 
-			clickV = e.GetPosition(MainWindow.selectedPolygon);
+			clickV = e.GetPosition(selectedPolygon);
 			}
         }
 	}
-
-	public class MovePolygon : Control
-	{
-		static MovePolygon()
-		{
-			DefaultStyleKeyProperty.OverrideMetadata(typeof(MovePolygon), new FrameworkPropertyMetadata(typeof(MovePolygon)));
-		}
-
-		void myPoly_MouseDown(object sender, MouseButtonEventArgs e)
-		{
-			MainWindow.dragging = true;
-
-			MainWindow.selectedPolygon = sender as Shape;
-
-			MainWindow.clickV = e.GetPosition(MainWindow.selectedPolygon);
-		}
-    }
 }

@@ -32,10 +32,9 @@
 			</Grid>
 		</Menu>
         <Canvas x:Name="DrawingPanel" Opacity="1" Background="White"
-		        MouseUp="ResetMouseDownField"
+		        MouseUp="DrawingPanel_MouseUp"
 		        MouseMove="DrawingPanel_MouseMove"
                 MouseDown="myPoly_MouseDown"
-                PreviewMouseUp="DrawingPanel_MouseUp"
                 KeyDown="MoveHexagonWithKeys"
 		        MouseLeftButtonUp="ProcessDrawingOfHexagon"
 		        HorizontalAlignment="Center"
