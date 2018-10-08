@@ -11,6 +11,8 @@ using Point = DrawShape.Classes.Point;
 
 namespace DrawShape.Utils
 {
+	using Point = System.Windows.Point;
+
 	/// <summary>
 	/// Utility class.
 	/// </summary>
@@ -23,20 +25,20 @@ namespace DrawShape.Utils
 		/// <param name="elements">Collection of elements.</param>
 		/// <returns>Id of hexagon, if the point that was clocked was in it.</returns>
 		/// <exception cref="InvalidDataException">Throws if hexagon does not exist.</exception>
-		public static int GetHexagonIdByClickPos(Point clickPosition, UIElementCollection elements)
-		{
-			var hexagons = elements.OfType<Polygon>();
-			var enumerable = hexagons as Polygon[] ?? hexagons.ToArray();
-			for (var i = enumerable.Length - 1; i >= 0; i--)
-			{
-				if (PointIsInHexagon(clickPosition, enumerable[i]))
-				{
-					return i;
-				}
-			}
+		//public static int GetHexagonIdByClickPos(Point clickPosition, UIElementCollection elements)
+		//{
+		//	var hexagons = elements.OfType<Polygon>();
+		//	var enumerable = hexagons as Polygon[] ?? hexagons.ToArray();
+		//	for (var i = enumerable.Length - 1; i >= 0; i--)
+		//	{
+		//		if (PointIsInHexagon(clickPosition, enumerable[i]))
+		//		{
+		//			return i;
+		//		}
+		//	}
 
-			throw new InvalidDataException("hexagon does not exist");
-		}
+		//	throw new InvalidDataException("hexagon does not exist");
+		//}
 
 		/// <summary>
 		/// Function to check if point is in hexagon.
@@ -44,19 +46,93 @@ namespace DrawShape.Utils
 		/// <param name="point">Point to check.</param>
 		/// <param name="hexagon">Hexagon in which point might be.</param>
 		/// <returns>True if point is located in given hexagon.</returns>
-		public static bool PointIsInHexagon(Point point, Polygon hexagon)
+		public static bool PointIsInHexagon(Classes.Point point, Polygon hexagon)
 		{
-			// TODO: check if mouse is clicked on hexagon
+            // TODO: check if mouse is clicked on hexagon
 
+			// Create a point for line segment from p to infinite 
+			Point extreme = new Point(10000, point.Y);
+
+			// Count intersections of the above line with sides of polygon 
+			int count = 0, i = 0;
+			do
+			{
+				int next = (i + 1) % 6;
+
+				// Check if the line segment from 'p' to 'extreme' intersects 
+				// with the line segment from 'polygon[i]' to 'polygon[next]' 
+				if (AreSidesIntersected(hexagon.Points[i], hexagon.Points[next], new Point(point.X, point.Y),  extreme))
+				{
+					// If the point 'p' is colinear with line segment 'i-next', 
+					// then check if it lies on segment. If it lies, return true, 
+					// otherwise false 
+					if (orientation(hexagon.Points[i], new Point(point.X, point.Y), hexagon.Points[next]) == 0)
+						return onSegment(hexagon.Points[i], new Point(point.X, point.Y), hexagon.Points[next]);
+
+					count++;
+				}
+				i = next;
+			} while (i != 0);
+
+			// Return true if count is odd, false otherwise 
+			return count % 2 == 1;
+		}
+
+		public static bool onSegment(Point p, System.Windows.Point q, Point r)
+		{
+			if (q.X <= Math.Max(p.X, r.X)
+			    && q.X >= Math.Min(p.X, r.X)
+			    && q.Y <= Math.Max(p.Y, r.Y)
+			    && q.Y >= Math.Min(p.Y, r.Y))
+			{
+				return true;
+			}
 			return false;
 		}
 
-		public static bool AreSidesIntersected(
+        // To find orientation of ordered triplet (p, q, r). 
+        // The function returns following values 
+        // 0 --> p, q and r are colinear 
+        // 1 --> Clockwise 
+        // 2 --> Counterclockwise 
+		public static int orientation(Point p, Point q, Point r)
+		{
+			double val = (q.Y - p.Y) * (r.X - q.X) -(q.X - p.X) * (r.Y - q.Y);
+
+			if (val == 0) return 0;  // colinear 
+			return (val > 0) ? 1 : 2; // clock or counterclock wise 
+		}
+
+        public static bool AreSidesIntersected(
 			System.Windows.Point firstSidePointOne, System.Windows.Point firstSidePointTwo,
 			System.Windows.Point secondSidePointOne, System.Windows.Point secondSidePointTwo
 		)
 		{
-			var solution = SolveCramer(new[]
+			int o1 = orientation(firstSidePointOne, firstSidePointTwo, secondSidePointOne);
+			int o2 = orientation(firstSidePointOne, firstSidePointTwo, secondSidePointTwo);
+			int o3 = orientation(secondSidePointOne, secondSidePointTwo, firstSidePointOne);
+			int o4 = orientation(secondSidePointOne, secondSidePointTwo, firstSidePointTwo);
+
+			// General case 
+			if (o1 != o2 && o3 != o4)
+				return true;
+
+			// Special Cases 
+			// p1, q1 and p2 are colinear and p2 lies on segment p1q1 
+			if (o1 == 0 && onSegment(firstSidePointOne, secondSidePointOne, firstSidePointTwo)) return true;
+
+			// p1, q1 and p2 are colinear and q2 lies on segment p1q1 
+			if (o2 == 0 && onSegment(firstSidePointOne, secondSidePointTwo, firstSidePointTwo)) return true;
+
+			// p2, q2 and p1 are colinear and p1 lies on segment p2q2 
+			if (o3 == 0 && onSegment(secondSidePointOne, firstSidePointOne, secondSidePointTwo)) return true;
+
+			// p2, q2 and q1 are colinear and q1 lies on segment p2q2 
+			if (o4 == 0 && onSegment(secondSidePointOne, firstSidePointTwo, secondSidePointTwo)) return true;
+
+			return false;
+
+            /*var solution = SolveCramer(new[]
 			{
 				new[]
 				{
@@ -72,7 +148,10 @@ namespace DrawShape.Utils
 				}
 			});
 			return !solution.Any(var => var < 0 && var > 1);
-		}
+		*/
+
+
+        }
 		
 		/// <summary>
 		/// Returns an index of a hexagon with specified name.
@@ -138,7 +217,7 @@ namespace DrawShape.Utils
 				throw new InvalidDataException("matrix is empty");
 			}
 
-			if (matrix[0].Length != order)
+			if (matrix[0].Length - 1 != order)
 			{
 				throw new InvalidDataException("matrix is not square");
 			}
@@ -238,35 +317,13 @@ namespace DrawShape.Utils
 		}
 		
 		/// <summary>
-		/// Function to move hexagon using arrow keys.
-		/// </summary>
-		/// <param name="hexagon">Hexagon to be moved.</param>
-		/// <param name="location">Where to move the hexagon.</param>
-		public static Polygon MoveHexagonWithArrows(Polygon hexagon, System.Windows.Point location)
-		{
-			/*
-			var points = hexagon.Points;
-			hexagon.Points.Clear();
-			foreach (var point in points)
-			{
-				hexagon.Points.Add(new Point(point.X - location.X, point.Y - location.Y));
-			}
-	*/		
-			Canvas.SetTop(hexagon, Canvas.GetTop(hexagon)-location.Y);
-			Canvas.SetLeft(hexagon, Canvas.GetLeft(hexagon)+location.X);
-			
-
-			return hexagon;
-		}
-		
-		/// <summary>
 		/// Function to get line from given coordinates.
 		/// </summary>
 		/// <param name="start">Starting point.</param>
 		/// <param name="end">Ending point.</param>
 		/// <param name="brush">Colour of the line.</param>
 		/// <returns></returns>
-		public static Line GetLine(Point start, Point end, Brush brush)
+		public static Line GetLine(Classes.Point start, Classes.Point end, Brush brush)
 		{
 			var line = new Line { X1 = start.X, Y1 = start.Y, X2 = end.X, Y2 = end.Y, StrokeThickness = 1, Stroke = brush, SnapsToDevicePixels = true};
 			line.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);

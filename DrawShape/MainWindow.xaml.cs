@@ -359,16 +359,16 @@ namespace DrawShape
 		{
 			if (_currentChosenHexagonId > -1 && _currentMode == Mode.Moving)
 			{
-			//	for (var i = DrawingPanel.Children.Count - 1; i >= 0; i--)
-			//	{
+				for (var i = DrawingPanel.Children.Count - 1; i >= 0; i--)
+				{
 					_selectedPolygon = DrawingPanel.Children[_currentChosenHexagonId] as Shape;
 					_clickV = e.GetPosition(_selectedPolygon);
-			//		if (Util.PointIsInHexagon(new Point(_clickV.X, _clickV.Y), _expectedHexagon))
-			//		{
+					if (Util.PointIsInHexagon(new Point(_clickV.X, _clickV.Y), _selectedPolygon as Polygon))
+					{
 						_dragging = true;
-			//			return;
-			//		}
-			//	}
+						return;
+					}
+				}
 			}
         }
 	}
