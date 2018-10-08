@@ -66,7 +66,9 @@ namespace DrawShape
 
 		public static Shape selectedPolygon;
 
-		void DrawingPanel_MouseUp(object sender, MouseButtonEventArgs e)
+		System.Windows.Point newLoc = new System.Windows.Point(0, 0);
+
+        void DrawingPanel_MouseUp(object sender, MouseButtonEventArgs e)
 		{
 			dragging = false;
 		}
@@ -274,22 +276,23 @@ namespace DrawShape
 				{
 					if (_currentMode == Mode.Moving && _currentChosenHexagonId > -1 && DrawingPanel.Children.Count > 0)
 					{
-						var newLoc = new System.Windows.Point(0, 0);
+
+
 						if (Keyboard.IsKeyDown(Key.Up))
 						{
-							newLoc.Y = -5;
+							newLoc.Y -= 5;
 						}
 						else if (Keyboard.IsKeyDown(Key.Right))
 						{
-							newLoc.X = 5;
+							newLoc.X += 5;
 						}
 						else if (Keyboard.IsKeyDown(Key.Down))
 						{
-							newLoc.Y = 5;
+							newLoc.Y += 5;
 						}
 						else if (Keyboard.IsKeyDown(Key.Left))
 						{
-							newLoc.X = -5;
+							newLoc.X -= 5;
 						}
 
 						if (!(DrawingPanel.Children[_currentChosenHexagonId] is Polygon hexagon))
@@ -298,8 +301,8 @@ namespace DrawShape
 						}
 
 						Polygon p = DrawingPanel.Children[_currentChosenHexagonId] as Shape as Polygon;
-						Canvas.SetLeft(p, +newLoc.X);
-						Canvas.SetTop(p, +newLoc.Y);
+						Canvas.SetLeft(p, newLoc.X);
+						Canvas.SetTop(p, newLoc.Y);
 
 						keyPressed = false;
 						//	DrawingPanel.InvalidateVisual();
