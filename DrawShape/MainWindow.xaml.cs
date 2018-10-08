@@ -204,11 +204,6 @@ namespace DrawShape
 			}
 		}
 		
-		private void MouseLoc(object sender, MouseEventArgs e)
-		{
-			
-		}
-
 		private void SetDrawingMode(object sender, RoutedEventArgs e)
 		{
 			_currentMode = Mode.Drawing;
@@ -340,22 +335,6 @@ namespace DrawShape
 				Util.MessageBoxFatal(exc.ToString());
 			}
 		}*/
-
-		private void GetMouseDownPosition(object sender, MouseButtonEventArgs e)
-		{
-			if (_currentMode == Mode.Moving)
-			{
-				_mouseIsDown = true;
-				_mouseDownLoc = e.GetPosition(this);	
-			}
-
-			if (this._currentMode == Mode.Drawing)
-			{
-				var point = e.GetPosition(this);
-				_mouseLoc.X = point.X + 7;
-				_mouseLoc.Y = point.Y - 25;
-            }
-		}
 
 		void DrawingPanel_MouseMove(object sender, MouseEventArgs e)
 		{
