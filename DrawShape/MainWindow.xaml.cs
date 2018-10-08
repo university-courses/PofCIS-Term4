@@ -361,7 +361,7 @@ namespace DrawShape
 			{
 				for (var i = DrawingPanel.Children.Count - 1; i >= 0; i--)
 				{
-					_selectedPolygon = DrawingPanel.Children[_currentChosenHexagonId] as Shape;
+					_selectedPolygon = DrawingPanel.Children[i] as Shape;
 					_clickV = e.GetPosition(_selectedPolygon);
 					if (Util.PointIsInHexagon(new Point(_clickV.X, _clickV.Y), _selectedPolygon as Polygon))
 					{
