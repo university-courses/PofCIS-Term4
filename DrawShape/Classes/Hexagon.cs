@@ -145,10 +145,12 @@ namespace DrawShape.Classes
 			{
 				throw new NullReferenceException("points are null");
 			}
+			
 			if (points.Count != 6)
 			{
 				throw new InvalidDataException("hexagon requires six points");
 			}
+			
 			Name = name;
 			Points = points.ToArray();
 			var colorFill = ((SolidColorBrush) fillBrush).Color;
@@ -167,15 +169,18 @@ namespace DrawShape.Classes
 			{
 				throw new NullReferenceException("points are null");
 			}
+			
 			if (Points.Length != 6)
 			{
 				throw new InvalidDataException("hexagon requires six points");
 			}
+
 			var polygon = new Polygon();
 			foreach (var point in Points)
 			{
 				polygon.Points.Add(new System.Windows.Point(point.X, point.Y));
 			}
+			
 			polygon.Stroke = new SolidColorBrush(Color.FromRgb((byte)ColorBorder.R, (byte)ColorBorder.G, (byte)ColorBorder.B));
 			polygon.StrokeThickness = 2;
 			polygon.Fill = new SolidColorBrush(Color.FromRgb((byte)ColorFill.R, (byte)ColorFill.G, (byte)ColorFill.B));
@@ -194,6 +199,7 @@ namespace DrawShape.Classes
 			{
 				points.Add(new Point(point.X, point.Y));
 			}
+
 			return new Hexagon(polygon.Name, points, polygon.Fill, polygon.Stroke);
 		}
 	}
