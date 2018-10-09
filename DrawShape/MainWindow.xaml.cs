@@ -220,15 +220,38 @@ namespace DrawShape
 					for (int i = this._currentDrawingHexagon.Count-2; i > 0; i--)
 					{
 						if (Util.AreSidesIntersected(
-							    new System.Windows.Point(mousePos.X, mousePos.Y),
-							    new System.Windows.Point(this._expectedHexagon.Points[_currentDrawingHexagon.Count - 1].X, _expectedHexagon.Points[_currentDrawingHexagon.Count - 1].Y),
-							    this._expectedHexagon.Points[i],
-							    this._expectedHexagon.Points[i - 1]))
+							new System.Windows.Point(mousePos.X, mousePos.Y),
+							new System.Windows.Point(
+								this._expectedHexagon.Points[_currentDrawingHexagon.Count - 1].X,
+								_expectedHexagon.Points[_currentDrawingHexagon.Count - 1].Y),
+							this._expectedHexagon.Points[i],
+							this._expectedHexagon.Points[i - 1]))
 						{
 							return;
 						}
 					}
-					_currentDrawingHexagon.Add(new Point(mousePos.X, mousePos.Y));
+					for (int i = this._currentDrawingHexagon.Count - 1; i >= 0; i--)
+					{
+						if (new System.Windows.Point(mousePos.X, mousePos.Y)==
+							this._expectedHexagon.Points[i])
+						{
+							return;
+						}
+					}
+
+                    if (_currentDrawingHexagon.Count > 2 && Util.Orientation(
+						    new System.Windows.Point(mousePos.X, mousePos.Y),
+						    new System.Windows.Point(
+							    this._expectedHexagon.Points[_currentDrawingHexagon.Count - 1].X,
+							    _expectedHexagon.Points[_currentDrawingHexagon.Count - 1].Y),
+						    new System.Windows.Point(
+							    this._expectedHexagon.Points[_currentDrawingHexagon.Count - 1].X,
+							    _expectedHexagon.Points[_currentDrawingHexagon.Count - 2].Y))
+					    == 0)
+					{
+						return;
+					}
+                        _currentDrawingHexagon.Add(new Point(mousePos.X, mousePos.Y));
 					if (_expectedHexagon == null)
 					{
 						_expectedHexagon = new Polyline
