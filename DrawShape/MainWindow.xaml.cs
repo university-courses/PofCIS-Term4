@@ -239,6 +239,24 @@ namespace DrawShape
 						}
 					}
 
+					if (_currentDrawingHexagon.Count == 5)
+					{
+						for (int i = this._currentDrawingHexagon.Count - 2; i > 1; i--)
+						{
+							if (Util.AreSidesIntersected(
+								new System.Windows.Point(mousePos.X, mousePos.Y),
+								new System.Windows.Point(
+									_expectedHexagon.Points[0].X,
+									_expectedHexagon.Points[0].Y),
+								this._expectedHexagon.Points[i],
+								this._expectedHexagon.Points[i - 1]))
+							{
+								return;
+							}
+						}
+					}
+					
+
                     if (_currentDrawingHexagon.Count > 2 && Util.Orientation(
 						    new System.Windows.Point(mousePos.X, mousePos.Y),
 						    new System.Windows.Point(
