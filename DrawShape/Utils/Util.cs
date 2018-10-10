@@ -53,6 +53,8 @@ namespace DrawShape.Utils
 			return count % 2 == 1;
 		}
 
+
+
 		public static bool OnSegment(System.Windows.Point p, System.Windows.Point q, System.Windows.Point r)
 		{
 			return q.X <= Math.Max(p.X, r.X)
@@ -63,7 +65,7 @@ namespace DrawShape.Utils
 
         // To find orientation of ordered triplet (p, q, r). 
         // The function returns following values 
-        // 0 --> p, q and r are colinear 
+        // 0 --> p, q and r are collinear 
         // 1 --> Clockwise 
         // 2 --> Counterclockwise 
 		public static int Orientation(System.Windows.Point p, System.Windows.Point q, System.Windows.Point r)
@@ -71,10 +73,10 @@ namespace DrawShape.Utils
 			var val = (q.Y - p.Y) * (r.X - q.X) - (q.X - p.X) * (r.Y - q.Y);
 			if (val.Equals(0))
 			{
-				return 0; // colinear 
-			}
+				return 0; // collinear 
+            }
 
-			return (val > 0) ? 1 : 2; // clock or counterclock wise 
+			return (val > 0) ? 1 : 2; // clock or counterclockwise
 		}
 
 		public static bool AreSidesIntersected(
@@ -92,16 +94,16 @@ namespace DrawShape.Utils
 				return true;
 
 			// Special Cases 
-			// p1, q1 and p2 are colinear and p2 lies on segment p1q1 
+			// p1, q1 and p2 are collinear and p2 lies on segment p1q1 
 			if (o1 == 0 && OnSegment(firstSidePointOne, secondSidePointOne, firstSidePointTwo)) return true;
 
-			// p1, q1 and p2 are colinear and q2 lies on segment p1q1 
+			// p1, q1 and p2 are collinear and q2 lies on segment p1q1 
 			if (o2 == 0 && OnSegment(firstSidePointOne, secondSidePointTwo, firstSidePointTwo)) return true;
 
-			// p2, q2 and p1 are colinear and p1 lies on segment p2q2 
+			// p2, q2 and p1 are collinear and p1 lies on segment p2q2 
 			if (o3 == 0 && OnSegment(secondSidePointOne, firstSidePointOne, secondSidePointTwo)) return true;
 
-			// p2, q2 and q1 are colinear and q1 lies on segment p2q2 
+			// p2, q2 and q1 are collinear and q1 lies on segment p2q2 
 			if (o4 == 0 && OnSegment(secondSidePointOne, firstSidePointTwo, secondSidePointTwo)) return true;
 
 			return false;
