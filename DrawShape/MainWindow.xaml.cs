@@ -43,24 +43,48 @@ namespace DrawShape
 		/// </summary>
 		private Brush _currentBorderColor;
 
+		/// <summary>
+        /// 
+        /// </summary>
 		private readonly DispatcherTimer _dhsTimer = new DispatcherTimer();
 
+		/// <summary>
+        /// Holds mouse location
+        /// </summary>
 		private readonly Point _mouseLoc;
 
+		/// <summary>
+        /// Holds properties of hexagon that is currently drawn
+        /// </summary>
 		private Polyline _expectedHexagon;
 
+		/// <summary>
+        /// Holds properties of a line that is currently drawn
+        /// </summary>
 		private Line _expectedLine;
 
+		/// <summary>
+        /// Holds action <see cref="Mode"/>
+        /// </summary>
 		private Mode _currentMode;
 
+		/// <summary>
+        /// Holds information if mouse left button is pressed down in moving mode
+        /// </summary>
 		private bool _dragging;
 
+		/// <summary>
+        /// Holds coordinates of a click
+        /// </summary>
 		private System.Windows.Point _clickV;
 
+		/// <summary>
+        /// Holds properties of selected polygon
+        /// </summary>
 		private static Shape _selectedPolygon;
 
 		/// <summary>
-		/// Shortcuts. TODO: add general description.
+		/// Shortcuts. Each variable holds a key shortcut for an action. 
 		/// </summary>
 		public static readonly RoutedCommand SetDrawingModeCommand = new RoutedCommand();
 		public static readonly RoutedCommand SetMovingModeCommand = new RoutedCommand();
@@ -88,12 +112,18 @@ namespace DrawShape
 			SetShortcuts();
 		}
 
+		/// <summary>
+        /// Modes of action in a program.
+        /// </summary>
 		public enum Mode
 		{
 			Drawing, Moving
 		}
-		
-		private static void SetShortcuts()
+
+        /// <summary>
+        /// Sets a key shortcut for an action in each shortcut variable.
+        /// </summary>
+        private static void SetShortcuts()
 		{
 			SetDrawingModeCommand.InputGestures.Add(new KeyGesture(Key.D, ModifierKeys.Control));
 			SetMovingModeCommand.InputGestures.Add(new KeyGesture(Key.M, ModifierKeys.Control));
@@ -104,12 +134,22 @@ namespace DrawShape
 			OpenDialogCommand.InputGestures.Add(new KeyGesture(Key.O, ModifierKeys.Control));
 		}
 		
+		/// <summary>
+        /// Event handler for mouse button release.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
 		private void DrawingPanel_MouseUp(object sender, MouseButtonEventArgs e)
 		{
 			_dragging = false;
 		}
 
-		private void NewButton_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Event handler for mouse button click.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NewButton_Click(object sender, RoutedEventArgs e)
 		{
 			if (!_pictureIsSaved)
 			{
@@ -119,6 +159,11 @@ namespace DrawShape
 			DrawingPanel.Children.Clear();
 		}
 
+		/// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
 		private void SaveButton_Click(object sender, RoutedEventArgs e)
 		{
 			if (DrawingPanel.Children.Count > 0 && !_pictureIsSaved)
