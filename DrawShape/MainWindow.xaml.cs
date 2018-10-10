@@ -44,43 +44,43 @@ namespace DrawShape
 		private Brush _currentBorderColor;
 
 		/// <summary>
-        /// 
-        /// </summary>
+		/// 
+		/// </summary>
 		private readonly DispatcherTimer _dhsTimer = new DispatcherTimer();
 
 		/// <summary>
-        /// Holds mouse location
-        /// </summary>
+		/// Holds mouse location
+		/// </summary>
 		private readonly Point _mouseLoc;
 
 		/// <summary>
-        /// Holds properties of hexagon that is currently drawn
-        /// </summary>
+		/// Holds properties of hexagon that is currently drawn
+		/// </summary>
 		private Polyline _expectedHexagon;
 
 		/// <summary>
-        /// Holds properties of a line that is currently drawn
-        /// </summary>
+		/// Holds properties of a line that is currently drawn
+		/// </summary>
 		private Line _expectedLine;
 
 		/// <summary>
-        /// Holds action <see cref="Mode"/>
-        /// </summary>
+		/// Holds action <see cref="Mode"/>
+		/// </summary>
 		private Mode _currentMode;
 
 		/// <summary>
-        /// Holds information if mouse left button is pressed down in moving mode
-        /// </summary>
+		/// Holds information if mouse left button is pressed down in moving mode
+		/// </summary>
 		private bool _dragging;
 
 		/// <summary>
-        /// Holds coordinates of a click
-        /// </summary>
+		/// Holds coordinates of a click
+		/// </summary>
 		private System.Windows.Point _clickV;
 
 		/// <summary>
-        /// Holds properties of selected polygon
-        /// </summary>
+		/// Holds properties of selected polygon
+		/// </summary>
 		private static Shape _selectedPolygon;
 
 		/// <summary>
@@ -113,17 +113,17 @@ namespace DrawShape
 		}
 
 		/// <summary>
-        /// Modes of action in a program.
-        /// </summary>
+		/// Modes of action in a program.
+		/// </summary>
 		public enum Mode
 		{
 			Drawing, Moving
 		}
 
-        /// <summary>
-        /// Sets a key shortcut for an action in each shortcut variable.
-        /// </summary>
-        private static void SetShortcuts()
+		/// <summary>
+		/// Sets a key shortcut for an action in each shortcut variable.
+		/// </summary>
+		private static void SetShortcuts()
 		{
 			SetDrawingModeCommand.InputGestures.Add(new KeyGesture(Key.D, ModifierKeys.Control));
 			SetMovingModeCommand.InputGestures.Add(new KeyGesture(Key.M, ModifierKeys.Control));
@@ -135,21 +135,21 @@ namespace DrawShape
 		}
 		
 		/// <summary>
-        /// Event handler for mouse button release.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+		/// Event handler for mouse button release.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void DrawingPanel_MouseUp(object sender, MouseButtonEventArgs e)
 		{
 			_dragging = false;
 		}
 
-        /// <summary>
-        /// Event handler for mouse button click.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void NewButton_Click(object sender, RoutedEventArgs e)
+		/// <summary>
+		/// Event handler for mouse button click.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void NewButton_Click(object sender, RoutedEventArgs e)
 		{
 			if (!_pictureIsSaved)
 			{
@@ -160,10 +160,10 @@ namespace DrawShape
 		}
 
 		/// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+		/// 
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void SaveButton_Click(object sender, RoutedEventArgs e)
 		{
 			if (DrawingPanel.Children.Count > 0 && !_pictureIsSaved)
@@ -183,6 +183,7 @@ namespace DrawShape
 					return;
 				}
 
+				_currentChosenHexagonId = -1;
 				DrawingPanel.Children.Clear();
 				foreach (var hexagon in hexagons)
 				{
@@ -192,11 +193,12 @@ namespace DrawShape
 					ShapesMenu.Items.Add(newMenuItem);
 				}
 
+				_currentChosenHexagonId = DrawingPanel.Children.Count - 1;
 				_pictureIsSaved = true;
 			}
 			catch (Exception exc)
 			{
-				Util.MessageBoxFatal(exc.Message);
+				FormBl.MessageBoxFatal(exc.Message);
 			}
 		}
 
@@ -212,7 +214,7 @@ namespace DrawShape
 			}
 			catch (InvalidDataException exc)
 			{
-				Util.MessageBoxFatal(exc.Message);
+				FormBl.MessageBoxFatal(exc.Message);
 			}
 		}
 
@@ -262,23 +264,24 @@ namespace DrawShape
 				if (_currentDrawingHexagon.Count < 6)
 				{
 					var mousePos = e.GetPosition(DrawingPanel);
-					for (int i = this._currentDrawingHexagon.Count-2; i > 0; i--)
+					for (var i = _currentDrawingHexagon.Count-2; i > 0; i--)
 					{
 						if (Util.AreSidesIntersected(
 							new System.Windows.Point(mousePos.X, mousePos.Y),
 							new System.Windows.Point(
-								this._expectedHexagon.Points[_currentDrawingHexagon.Count - 1].X,
+								_expectedHexagon.Points[_currentDrawingHexagon.Count - 1].X,
 								_expectedHexagon.Points[_currentDrawingHexagon.Count - 1].Y),
-							this._expectedHexagon.Points[i],
-							this._expectedHexagon.Points[i - 1]))
+							_expectedHexagon.Points[i],
+							_expectedHexagon.Points[i - 1]))
 						{
 							return;
 						}
 					}
-					for (int i = this._currentDrawingHexagon.Count - 1; i >= 0; i--)
+					
+					for (var i = _currentDrawingHexagon.Count - 1; i >= 0; i--)
 					{
 						if (new System.Windows.Point(mousePos.X, mousePos.Y)==
-							this._expectedHexagon.Points[i])
+							_expectedHexagon.Points[i])
 						{
 							return;
 						}
@@ -286,60 +289,60 @@ namespace DrawShape
 
 					if (_currentDrawingHexagon.Count == 5)
 					{
-						for (int i = this._currentDrawingHexagon.Count - 2; i > 1; i--)
+						for (var i = _currentDrawingHexagon.Count - 2; i > 1; i--)
 						{
 							if (Util.AreSidesIntersected(
 								new System.Windows.Point(mousePos.X, mousePos.Y),
 								new System.Windows.Point(
 									_expectedHexagon.Points[0].X,
 									_expectedHexagon.Points[0].Y),
-								this._expectedHexagon.Points[i],
-								this._expectedHexagon.Points[i - 1]))
+								_expectedHexagon.Points[i],
+								_expectedHexagon.Points[i - 1]))
 							{
 								return;
 							}
 						}
 					}
 					
-
-                    if (_currentDrawingHexagon.Count > 2 && Util.Orientation(
-						    new System.Windows.Point(mousePos.X, mousePos.Y),
-						    new System.Windows.Point(
-							    this._expectedHexagon.Points[_currentDrawingHexagon.Count - 1].X,
-							    _expectedHexagon.Points[_currentDrawingHexagon.Count - 1].Y),
-						    new System.Windows.Point(
-							    this._expectedHexagon.Points[_currentDrawingHexagon.Count - 1].X,
-							    _expectedHexagon.Points[_currentDrawingHexagon.Count - 2].Y))
-					    == 0)
+					if (_currentDrawingHexagon.Count > 2 && Util.Orientation(
+							new System.Windows.Point(mousePos.X, mousePos.Y),
+							new System.Windows.Point(
+								_expectedHexagon.Points[_currentDrawingHexagon.Count - 1].X,
+								_expectedHexagon.Points[_currentDrawingHexagon.Count - 1].Y),
+							new System.Windows.Point(
+								_expectedHexagon.Points[_currentDrawingHexagon.Count - 1].X,
+								_expectedHexagon.Points[_currentDrawingHexagon.Count - 2].Y))
+						== 0)
 					{
 						return;
 					}
-                        _currentDrawingHexagon.Add(new Point(mousePos.X, mousePos.Y));
+
+					_currentDrawingHexagon.Add(new Point(mousePos.X, mousePos.Y));
 					if (_expectedHexagon == null)
 					{
 						_expectedHexagon = new Polyline
-							                   {
-								                   Stroke = _currentBorderColor, Opacity = 1, StrokeThickness = 2
-							                   };
+						{
+							Stroke = _currentBorderColor, Opacity = 1, StrokeThickness = 2
+						};
 						DrawingPanel.Children.Add(_expectedHexagon);
-
 						_expectedLine = Util.GetLine(
 							new Point(_currentDrawingHexagon[0].X, _currentDrawingHexagon[0].Y),
 							new Point(mousePos.X, mousePos.Y),
 							_currentBorderColor);
-
 						_expectedLine.StrokeThickness = 2;
 						DrawingPanel.Children.Add(_expectedLine);
 					}
 
-                    
 					_expectedHexagon.Points.Add(new System.Windows.Point(mousePos.X, mousePos.Y));
 				}
+
 				if (_currentDrawingHexagon.Count == 6)
-					{
+				{
 					var hexagon = new Hexagon(
-						$"Hexagon_{++_currentChosenHexagonId+1}", _currentDrawingHexagon, _currentFillColor, _currentBorderColor
+						$"Hexagon_{_currentChosenHexagonId + 1}", _currentDrawingHexagon, _currentFillColor, _currentBorderColor
 					).ToPolygon();
+					_currentChosenHexagonId++;
+					_pictureIsSaved = false;
 					hexagon.KeyDown += MoveHexagonWithKeys;
 					DrawingPanel.Children.Add(hexagon);
 					Canvas.SetLeft(hexagon, 0);
@@ -416,7 +419,7 @@ namespace DrawShape
 			}
 			catch (Exception exc)
 			{
-				Util.MessageBoxFatal(exc.ToString());
+				FormBl.MessageBoxFatal(exc.ToString());
 			}
 		}
 		

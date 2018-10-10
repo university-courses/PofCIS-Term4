@@ -1,14 +1,11 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Windows;
-using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Windows.Controls;
 
 using Point = DrawShape.Classes.Point;
-using MessageBox = System.Windows.MessageBox;
 
 namespace DrawShape.Utils
 {
@@ -52,8 +49,6 @@ namespace DrawShape.Utils
 			// Return true if count is odd, false otherwise 
 			return count % 2 == 1;
 		}
-
-
 
 		public static bool OnSegment(System.Windows.Point p, System.Windows.Point q, System.Windows.Point r)
 		{
@@ -129,147 +124,6 @@ namespace DrawShape.Utils
 			}
 
 			throw new InvalidDataException("hexagon does not exist");
-		}
-		
-		/// <summary>
-		/// Function to get colour with ColorDialog.
-		/// </summary>
-		/// <param name="brush">Variable to store picked colour.</param>
-		/// <returns>True if colour was picked.</returns>
-		public static bool GetColorFromColorDilog(out Brush brush)
-		{
-			var colorDialog = new ColorDialog {AllowFullOpen = true};
-			var dialogResult = colorDialog.ShowDialog();
-			brush = new SolidColorBrush();
-			if (dialogResult != DialogResult.OK)
-			{
-				return false;
-			}
-
-			brush = new SolidColorBrush(Color.FromArgb(colorDialog.Color.A, colorDialog.Color.R, colorDialog.Color.G, colorDialog.Color.B));
-			return true;
-		}
-
-		/// <summary>
-		/// Function to display message box.
-		/// </summary>
-		/// <param name="msg">Message to be displayed.</param>
-		public static void MessageBoxFatal(string msg)
-		{
-			MessageBox.Show(msg, "Fatal", MessageBoxButton.OK, MessageBoxImage.Error);
-		}
-
-		/// <summary>
-		/// Function to calculate determinant of matrix.
-		/// </summary>
-		/// <param name="matrix">Matrix.</param>
-		/// <returns>Value of determinant.</returns>
-		/// <exception cref="InvalidDataException">Throws if matrix is empty, or it's dimensions aren't equal.</exception>
-		public static double Determinant(double[][] matrix)
-		{
-			var order = matrix.Length;
-			if (order < 1)
-			{
-				throw new InvalidDataException("matrix is empty");
-			}
-
-			if (matrix[0].Length - 1 != order)
-			{
-				throw new InvalidDataException("matrix is not square");
-			}
-
-			const double eps = 1e-9;
-			var det = 1.0;
-			for (var i = 0; i < order; i++)
-			{
-				var k = i;
-				for (var j = i + 1; j < order; j++)
-				{
-					if (Math.Abs(matrix[j][i]) > Math.Abs(matrix[k][i]))
-					{
-						k = j;
-					}
-				}
-
-				if (Math.Abs(matrix[k][i]) < eps)
-				{
-					det = 0;
-					break;
-				}
-
-				var temp = matrix[i];
-				matrix[i] = matrix[k];
-				matrix[k] = temp;
-				if (i != k)
-				{
-					det = -det;
-				}
-
-				det *= matrix[i][i];
-				for (var j = i + 1; j < order; j++)
-				{
-					matrix[i][j] /= matrix[i][i];
-				}
-
-				for (var j = 0; j < order; j++)
-				{
-					if (j != i && Math.Abs(matrix[j][i]) > eps)
-					{
-						for (var l = i + 1; l < order; l++)
-						{
-							matrix[j][l] -= matrix[i][l] * matrix[j][i];
-						}
-					}
-				}
-			}
-
-			return det;
-		}
-
-		/// <summary>
-		/// Finction to solve linear equations using Cramer's method.
-		/// </summary>
-		/// <param name="extendedMatrix">Extended matrix of the equations.</param>
-		/// <returns>Array of results.</returns>
-		public static double[] SolveCramer(double[][] extendedMatrix)
-		{
-			var size = extendedMatrix.Length;
-			if (size < 1)
-			{
-				throw new InvalidDataException("matrix is empty");
-			}
-
-			if (size + 1 != extendedMatrix[0].Length)
-			{
-				throw new InvalidDataException("can't solve matrix");
-			}
-			
-			var solution = new double[extendedMatrix.Length];
-			var mainDet = Determinant(extendedMatrix);
-			if (mainDet.Equals(0))
-			{
-				throw new InvalidDataException("matrix is singular");
-			}
-
-			for (var j = 0; j < size; j++)
-			{
-				var col = new double[size];
-				for (var i = 0; i < size; i++)
-				{
-					col[i] = extendedMatrix[i][j];
-					extendedMatrix[i][j] = extendedMatrix[i][size];
-				}
-
-				var currentDet = Determinant(extendedMatrix);
-				for (var i = 0; i < size; i++)
-				{
-					extendedMatrix[i][j] = col[i];
-				}
-
-				solution[j] = currentDet / mainDet;
-			}
-
-			return solution;
 		}
 		
 		/// <summary>
