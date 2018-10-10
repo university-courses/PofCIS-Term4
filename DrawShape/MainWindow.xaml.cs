@@ -307,7 +307,7 @@ namespace DrawShape
 				if (_currentDrawingHexagon.Count < 6)
 				{
 					var mousePos = e.GetPosition(DrawingPanel);
-					for (var i = _currentDrawingHexagon.Count-2; i > 0; i--)
+					for (var i = _currentDrawingHexagon.Count - 2; i > 0; i--)
 					{
 						if (Util.AreSidesIntersected(
 							new System.Windows.Point(mousePos.X, mousePos.Y),
@@ -393,11 +393,7 @@ namespace DrawShape
 					var newMenuItem = new MenuItem {Header = hexagon.Name};
 					newMenuItem.Click += SetCurrentHexagonFromMenu;
 					ShapesMenu.Items.Add(newMenuItem);
-					_currentDrawingHexagon.Clear();
-					DrawingPanel.Children.Remove(_expectedHexagon);
-					DrawingPanel.Children.Remove(_expectedLine);
-					_expectedHexagon = null;
-					_expectedLine = null;
+					ClearExpectedHexagon();
 				}
 			}
 		}
@@ -411,28 +407,31 @@ namespace DrawShape
 		{
 			try
 			{
-				var keyPressed = true;
-				while (keyPressed)
+				if (Keyboard.IsKeyDown(Key.Escape))
+				{
+					ClearExpectedHexagon();
+				}
+				else
 				{
 					if (_currentMode == Mode.Moving && _currentChosenHexagonId > -1 && DrawingPanel.Children.Count > 0)
 					{
 						var newLoc = new System.Windows.Point(0, 0);
-						if(Keyboard.IsKeyDown(Key.Up)&& Keyboard.IsKeyDown(Key.Right))
+						if (Keyboard.IsKeyDown(Key.Up) && Keyboard.IsKeyDown(Key.Right))
 						{
 							newLoc.Y -= 5;
 							newLoc.X += 5;
 						}
-						else if(Keyboard.IsKeyDown(Key.Up) && Keyboard.IsKeyDown(Key.Left))
+						else if (Keyboard.IsKeyDown(Key.Up) && Keyboard.IsKeyDown(Key.Left))
 						{
 							newLoc.Y -= 5;
 							newLoc.X -= 5;
 						}
-						else if(Keyboard.IsKeyDown(Key.Down) && Keyboard.IsKeyDown(Key.Right))
+						else if (Keyboard.IsKeyDown(Key.Down) && Keyboard.IsKeyDown(Key.Right))
 						{
 							newLoc.Y += 5;
 							newLoc.X += 5;
 						}
-						else if(Keyboard.IsKeyDown(Key.Down) && Keyboard.IsKeyDown(Key.Left))
+						else if (Keyboard.IsKeyDown(Key.Down) && Keyboard.IsKeyDown(Key.Left))
 						{
 							newLoc.Y += 5;
 							newLoc.X -= 5;
@@ -461,7 +460,6 @@ namespace DrawShape
 
 						Canvas.SetLeft(p, Canvas.GetLeft(p) + newLoc.X);
 						Canvas.SetTop(p, Canvas.GetTop(p) + newLoc.Y);
-						keyPressed = false;
 					}
 				}
 			}
@@ -518,6 +516,15 @@ namespace DrawShape
 					}
 				}
 			}
+		}
+
+		private void ClearExpectedHexagon()
+		{
+			_currentDrawingHexagon.Clear();
+			DrawingPanel.Children.Remove(_expectedHexagon);
+			DrawingPanel.Children.Remove(_expectedLine);
+			_expectedHexagon = null;
+			_expectedLine = null;
 		}
 	}
 }

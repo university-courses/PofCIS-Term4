@@ -7,41 +7,98 @@
 		mc:Ignorable="d"
 		Name="WindowMain"
 		Title="Draw Hexagon" Height="450" Width="800" MinHeight="100" MinWidth="200"
-        KeyDown="MoveHexagonWithKeys">
-
-    <Grid>
-        <!--<local:MovePolygon MouseDown="myPoly_MouseDown"/>-->
-        <Menu x:Name="Menu" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="{Binding Path=ActualWidth, ElementName=WindowMain}">
-			<MenuItem x:Name="FileMenu" Header="File" Height="25" Width="30">
-				<MenuItem x:Name="NewButton" Header="New" HorizontalAlignment="Left" Height="20" Width="160" Click="NewButton_Click" InputGestureText="Ctrl+N"/>
-				<MenuItem x:Name="SaveButton" Header="Save" HorizontalAlignment="Left" Height="20" Width="160" Click="SaveButton_Click" InputGestureText="Ctrl+S"/>
-				<MenuItem x:Name="OpenButton" Header="Open" HorizontalAlignment="Left" Height="20" Width="160" Click="OpenButton_Click" InputGestureText="Ctrl+O"/>
+		KeyDown="MoveHexagonWithKeys">
+	<Grid>
+		<Menu
+			HorizontalAlignment="Left"
+		      Height="25"
+		      VerticalAlignment="Top"
+		      Width="{Binding Path=ActualWidth, ElementName=WindowMain}">
+			<MenuItem
+				Header="File"
+			          Height="25"
+			          Width="30">
+				<MenuItem
+					Header="New"
+				          HorizontalAlignment="Left"
+				          Height="20"
+				          Width="160"
+				          Click="NewButton_Click"
+				          InputGestureText="Ctrl+N"/>
+				<MenuItem
+					Header="Save"
+				          HorizontalAlignment="Left"
+				          Height="20"
+				          Width="160"
+				          Click="SaveButton_Click"
+				          InputGestureText="Ctrl+S"/>
+				<MenuItem
+					Header="Open"
+				          HorizontalAlignment="Left"
+				          Height="20"
+				          Width="160"
+				          Click="OpenButton_Click"
+				          InputGestureText="Ctrl+O"/>
 			</MenuItem>
-			<MenuItem x:Name="ModeMenu" Header="Mode" Height="25" Width="45">
-				<MenuItem x:Name="DrawingMode" Header="Drawing" HorizontalAlignment="Left" Height="20" Width="170" Click="SetDrawingMode" InputGestureText="Ctrl+D"/>
-				<MenuItem x:Name="MovingMode" Header="Moving" HorizontalAlignment="Left" Height="20" Width="170" Click="SetMovingMode" InputGestureText="Ctrl+M"/>
+			<MenuItem
+				Header="Mode"
+			          Height="25"
+			          Width="45">
+				<MenuItem
+					Header="Drawing"
+				          HorizontalAlignment="Left"
+				          Height="20"
+				          Width="170"
+				          Click="SetDrawingMode"
+				          InputGestureText="Ctrl+D"/>
+				<MenuItem
+					Header="Moving"
+				          HorizontalAlignment="Left"
+				          Height="20"
+				          Width="170"
+				          Click="SetMovingMode"
+				          InputGestureText="Ctrl+M"/>
 			</MenuItem>
-			<MenuItem x:Name="ShapesMenu" Header="Shapes" Height="25" Width="50"/>
-			<Grid Width="85" MouseDown="SetFillColor">
-				<TextBlock Text="Background"/>
-				<Rectangle x:Name="ColorPickerFill" HorizontalAlignment="Right" VerticalAlignment="Center" Width="15" Height="15"/>
+			<MenuItem x:Name="ShapesMenu"
+			          Header="Shapes"
+			          Height="25"
+			          Width="50"/>
+			<Grid
+				Width="85"
+				MouseDown="SetFillColor">
+				<TextBlock
+					Text="Background"/>
+				<Rectangle x:Name="ColorPickerFill"
+				           HorizontalAlignment="Right"
+				           VerticalAlignment="Center"
+				           Width="15"
+				           Height="15"/>
 			</Grid>
-			<Grid Width="55" MouseDown="SetBorderColor">
-				<TextBlock Text="Stroke"/>
-				<Rectangle x:Name="ColorPickerBorder" HorizontalAlignment="Right" VerticalAlignment="Center" Width="15" Height="15"/>
+			<Grid
+				Width="55"
+				MouseDown="SetBorderColor">
+				<TextBlock
+					Text="Stroke"/>
+				<Rectangle x:Name="ColorPickerBorder"
+				           HorizontalAlignment="Right"
+				           VerticalAlignment="Center"
+				           Width="15"
+				           Height="15"/>
 			</Grid>
 		</Menu>
-        <Canvas x:Name="DrawingPanel" Opacity="1" Background="White"
-		        MouseUp="DrawingPanel_MouseUp"
-		        MouseMove="DrawingPanel_MouseMove"
-                MouseDown="myPoly_MouseDown"
-                KeyDown="MoveHexagonWithKeys"
+		<Canvas x:Name="DrawingPanel"
+		        Opacity="1"
+		        Background="White"
+				MouseUp="DrawingPanel_MouseUp"
+				MouseMove="DrawingPanel_MouseMove"
+				MouseDown="myPoly_MouseDown"
+		        KeyDown="MoveHexagonWithKeys"
 		        MouseLeftButtonUp="ProcessDrawingOfHexagon"
-		        HorizontalAlignment="Center"
-		        Height="{Binding Path=ActualHeight, ElementName=WindowMain}"
-		        Margin="0,25,0,0"
-		        VerticalAlignment="Top"
-		        Width="{Binding Path=ActualWidth, ElementName=WindowMain}"/>
+				HorizontalAlignment="Center"
+				Height="{Binding Path=ActualHeight, ElementName=WindowMain}"
+				Margin="0,25,0,0"
+				VerticalAlignment="Top"
+				Width="{Binding Path=ActualWidth, ElementName=WindowMain}"/>
 	</Grid>
 	<Window.CommandBindings>
 		<CommandBinding Command="{x:Static local:MainWindow.SetDrawingModeCommand}" Executed="SetDrawingMode"/>
