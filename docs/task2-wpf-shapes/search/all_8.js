@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['main',['Main',['../class_draw_shape_1_1_app.html#a206e4796b483fe9f397f707c818ae454',1,'DrawShape.App.Main()'],['../class_draw_shape_1_1_app.html#a206e4796b483fe9f397f707c818ae454',1,'DrawShape.App.Main()']]],
-  ['mainwindow',['MainWindow',['../class_draw_shape_1_1_main_window.html',1,'DrawShape.MainWindow'],['../class_draw_shape_1_1_main_window.html#a6b0b0ab9ade8cd5a4979f9e61362afaa',1,'DrawShape.MainWindow.MainWindow()']]],
-  ['mode',['Mode',['../class_draw_shape_1_1_main_window.html#ad511286f70336eadfd98f87d4ba5f452',1,'DrawShape::MainWindow']]]
+  ['name',['Name',['../class_draw_shape_1_1_classes_1_1_hexagon.html#ad36bb82dcf9ca3fb5e8334fd3bcf88da',1,'DrawShape::Classes::Hexagon']]]
 ];
