@@ -29,6 +29,19 @@ namespace DrawShape.Test.Utils
             Assert.True(Util.AreSidesIntersected(firstSidePointOne,firstSidePointTwo,secondSidePointOne,secondSidePointTwo));
         }
 
+
+        [Theory]
+        [MemberData(nameof(ConstructorData.SuccessDataLine), MemberType = typeof(ConstructorData))]
+        public void TestGetLine(Point start, Point end, Brush brush)
+        {
+            var line = Util.GetLine(start, end, brush);
+            Assert.Equal(line.X1, start.X);
+            Assert.Equal(line.Y1, start.Y);
+            Assert.Equal(line.X2, end.X);
+            Assert.Equal(line.Y2, end.Y);
+
+        }
+
         private class ConstructorData
         {
             public static IEnumerable<object[]> SuccessData => new List<object[]>
@@ -90,6 +103,34 @@ namespace DrawShape.Test.Utils
                     new System.Windows.Point(15,-12)
                 }
 
+            };
+
+            public static IEnumerable<object[]> SuccessDataLine => new List<object[]>
+            {
+                new object[]
+                {
+                    new Point(10,10),
+                    new Point(23,17),
+                    //   new Brush(Colors.Aqua),
+                },
+                new object[]
+                {
+                    new Point(0,10),
+                    new Point(-23,17),
+                    //   new Brush(Colors.Aqua),
+                },
+                new object[]
+                {
+                    new Point(1002,340),
+                    new Point(54,57),
+                    //   new Brush(Colors.Aqua),
+                },
+                new object[]
+                {
+                    new Point(102,42),
+                    new Point(64,71),
+                    //   new Brush(Colors.Aqua),
+                },
             };
 
 
