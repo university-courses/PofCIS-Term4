@@ -44,6 +44,18 @@ namespace DrawShape.Test.Utils
                     new System.Windows.Point(0,10),
                     new System.Windows.Point(0,18),
                     new System.Windows.Point(0,30)
+                },
+                new object[]
+                {
+                    new System.Windows.Point(-10,10),
+                    new System.Windows.Point(0,0),
+                    new System.Windows.Point(10,-30)
+                },
+                new object[]
+                {
+                    new System.Windows.Point(-10,10),
+                    new System.Windows.Point(5,5),
+                    new System.Windows.Point(10,-30)
                 }
             };
 
