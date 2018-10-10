@@ -44,7 +44,7 @@ namespace DrawShape
 		private Brush _currentBorderColor;
 
 		/// <summary>
-		/// 
+		/// Dispatcher timer to draw interactive line on canvas.
 		/// </summary>
 		private readonly DispatcherTimer _dhsTimer = new DispatcherTimer();
 
@@ -133,23 +133,23 @@ namespace DrawShape
 			SaveDialogCommand.InputGestures.Add(new KeyGesture(Key.S, ModifierKeys.Control));
 			OpenDialogCommand.InputGestures.Add(new KeyGesture(Key.O, ModifierKeys.Control));
 		}
-		
-		/// <summary>
-		/// Event handler for mouse button release.
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void DrawingPanel_MouseUp(object sender, MouseButtonEventArgs e)
+
+        /// <summary>
+        /// Event handler for mouse button release.
+        /// </summary>
+        /// <param name="sender">The <see cref="DrawingPanel"/> that the action is for.</param>
+        /// <param name="e"></param>
+        private void DrawingPanel_MouseUp(object sender, MouseButtonEventArgs e)
 		{
 			_dragging = false;
 		}
 
-		/// <summary>
-		/// Event handler for mouse button click.
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void NewButton_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Event handler for mouse button click.
+        /// </summary>
+        /// <param name="sender">The button New that the action is for.</param>
+        /// <param name="e">Arguments that the implementor of this event may find useful.</param>
+        private void NewButton_Click(object sender, RoutedEventArgs e)
 		{
 			if (!_pictureIsSaved)
 			{
@@ -162,8 +162,8 @@ namespace DrawShape
         /// <summary>
         /// Event handler for save button click.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The button Save that the action is for.</param>
+        /// <param name="e">Arguments that the implementor of this event may find useful.</param>
         private void SaveButton_Click(object sender, RoutedEventArgs e)
 		{
 			if (DrawingPanel.Children.Count > 0 && !_pictureIsSaved)
@@ -176,8 +176,8 @@ namespace DrawShape
         /// <summary>
         /// Event handler for open button click.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The button Open that the action is for.</param>
+        /// <param name="e">Arguments that the implementor of this event may find useful.</param>
         private void OpenButton_Click(object sender, RoutedEventArgs e)
 		{
 			try
@@ -207,12 +207,12 @@ namespace DrawShape
 			}
 		}
 
-		/// <summary>
+        /// <summary>
         /// Sets selected hexagon from hexagons menu.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-		private void SetCurrentHexagonFromMenu(object sender, RoutedEventArgs e)
+        /// <param name="sender">The Hexagon menu that the action is for.</param>
+        /// <param name="e">Arguments that the implementor of this event may find useful.</param>
+        private void SetCurrentHexagonFromMenu(object sender, RoutedEventArgs e)
 		{
 			var menuItem = e.OriginalSource as MenuItem;
 			try
@@ -228,28 +228,28 @@ namespace DrawShape
 			}
 		}
 
-		/// <summary>
+        /// <summary>
         /// Sets selected filling colour from <see cref="System.Windows.Forms.ColorDialog"/>
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-		private void SetFillColor(object sender, RoutedEventArgs e)
+        /// <param name="sender">The Rectangle that the action is for.</param>
+        /// <param name="e">Arguments that the implementor of this event may find useful.</param>
+        private void SetFillColor(object sender, RoutedEventArgs e)
 		{
 			FormBl.SetColor(ref _currentFillColor, ref ColorPickerFill);
 		}
 
-		/// <summary>
-		/// Sets selected border colour from <see cref="System.Windows.Forms.ColorDialog"/>
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void SetBorderColor(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Sets selected border colour from <see cref="System.Windows.Forms.ColorDialog"/>
+        /// </summary>
+        /// <param name="sender">The rectangle that the action is for.</param>
+        /// <param name="e">Arguments that the implementor of this event may find useful.</param>
+        private void SetBorderColor(object sender, RoutedEventArgs e)
 		{
 			FormBl.SetColor(ref _currentBorderColor, ref ColorPickerBorder);
 		}
 		
 		/// <summary>
-        /// 
+        /// Starts the timer to draw the interactive line on canvas.
         /// </summary>
 		private void StartDrawingTicker()
 		{
@@ -257,13 +257,13 @@ namespace DrawShape
 			_dhsTimer.Tick += DrawingHexagonSide;
 			_dhsTimer.Start();
 		}
-	
-		/// <summary>
+
+        /// <summary>
         /// Draws current hexagons side.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-		private void DrawingHexagonSide(object sender, EventArgs e)
+        /// <param name="sender">The <see cref="Canvas"/> that the action is for.</param>
+        /// <param name="e">Arguments that the implementor of this event may find useful.</param>
+        private void DrawingHexagonSide(object sender, EventArgs e)
 		{
 			if (_currentDrawingHexagon.Count > 0)
 			{
@@ -274,33 +274,33 @@ namespace DrawShape
 				_expectedLine.Y2 = _mouseLoc.Y;
 			}
 		}
-		
-		/// <summary>
+
+        /// <summary>
         /// Changes action mode to drawing.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-		private void SetDrawingMode(object sender, RoutedEventArgs e)
+        /// <param name="sender">The Mode menu button that the action is for</param>
+        /// <param name="e">Arguments that the implementor of this event may find useful.</param>
+        private void SetDrawingMode(object sender, RoutedEventArgs e)
 		{
 			_currentMode = Mode.Drawing;
 		}
 
-		/// <summary>
-		/// Changes action mode to moving.
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
+        /// <summary>
+        /// Changes action mode to moving.
+        /// </summary>
+        /// <param name="sender">The Mode menu button that the action is for.</param>
+        /// <param name="e">Arguments that the implementor of this event may find useful.</param>
         private void SetMovingMode(object sender, RoutedEventArgs e)
 		{
 			_currentMode = Mode.Moving;
 		}
 
-		/// <summary>
+        /// <summary>
         /// Function to draw hexagon on canvas point by point.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-		private void ProcessDrawingOfHexagon(object sender, MouseButtonEventArgs e)
+        /// <param name="sender">The <see cref="Canvas"/> that the action is for</param>
+        /// <param name="e">Arguments that the implementor of this event may find useful.</param>
+        private void ProcessDrawingOfHexagon(object sender, MouseButtonEventArgs e)
 		{
 			if (_currentMode == Mode.Drawing)
 			{
@@ -397,13 +397,13 @@ namespace DrawShape
 				}
 			}
 		}
-		
-		/// <summary>
+
+        /// <summary>
         /// Function to move hexagon on canvas using arrow keys.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-		private void MoveHexagonWithKeys(object sender, KeyEventArgs e)
+        /// <param name="sender">The <see cref="Canvas"/> that the action is for</param>
+        /// <param name="e">Arguments that the implementor of this event may find useful.</param>
+        private void MoveHexagonWithKeys(object sender, KeyEventArgs e)
 		{
 			try
 			{
@@ -468,13 +468,13 @@ namespace DrawShape
 				FormBl.MessageBoxFatal(exc.ToString());
 			}
 		}
-		
-		/// <summary>
+
+        /// <summary>
         /// Event handler for mouse movement on canvas.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-		private void DrawingPanel_MouseMove(object sender, MouseEventArgs e)
+        /// <param name="sender">The <see cref="Canvas"/> that the action is for</param>
+        /// <param name="e">Arguments that the implementor of this event may find useful.</param>
+        private void DrawingPanel_MouseMove(object sender, MouseEventArgs e)
 		{
 			if (_dragging && _currentMode == Mode.Moving)
 			{
@@ -495,12 +495,12 @@ namespace DrawShape
 			}
 		}
 
-		/// <summary>
+        /// <summary>
         /// Event handler for mouse click on canvas.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-		private void myPoly_MouseDown(object sender, MouseButtonEventArgs e)
+        /// <param name="sender">The <see cref="Canvas"/> that the action is for</param>
+        /// <param name="e">Arguments that the implementor of this event may find useful.</param>
+        private void myPoly_MouseDown(object sender, MouseButtonEventArgs e)
 		{
 			if (_currentChosenHexagonId > -1 && _currentMode == Mode.Moving)
 			{
@@ -518,6 +518,9 @@ namespace DrawShape
 			}
 		}
 
+		/// <summary>
+        /// Function to clear stored properties of currently drawn hexagon.
+        /// </summary>
 		private void ClearExpectedHexagon()
 		{
 			_currentDrawingHexagon.Clear();
