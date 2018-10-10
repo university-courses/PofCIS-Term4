@@ -57,12 +57,15 @@ namespace DrawShape.Test.Classes
 						new Point(7, 8), new Point(9, 10), new Point(11, 12)
 					},
 					(byte)1, (byte)1, (byte)1,
-					new Hexagon("Hexagon 1", new List<Point>
-					{
-						new Point(1, 2), new Point(3, 4), new Point(5, 6),
-						new Point(7, 8), new Point(9, 10), new Point(11, 12)
-					}, new SolidColorBrush(Color.FromRgb(1, 1, 1)),
-						new SolidColorBrush(Color.FromRgb(1, 1, 1))) 
+					new Hexagon(
+                        "Hexagon 1",
+                        new List<Point>
+					    {
+						    new Point(1, 2), new Point(3, 4), new Point(5, 6),
+						    new Point(7, 8), new Point(9, 10), new Point(11, 12)
+					    },
+                    new SolidColorBrush(Color.FromRgb(1, 1, 1)),
+				    new SolidColorBrush(Color.FromRgb(1, 1, 1))) 
 				},
 				new object[]
 				{
@@ -72,12 +75,15 @@ namespace DrawShape.Test.Classes
 						new Point(6, 5), new Point(4, 3), new Point(2, 1)   
 					},
 					(byte)255, (byte)255, (byte)255,
-					new Hexagon("Hexagon 2", new List<Point>
-					{
-						new Point(12, 11), new Point(10, 9), new Point(8, 7),
-						new Point(6, 5), new Point(4, 3), new Point(2, 1)
-					}, new SolidColorBrush(Color.FromRgb(255, 255, 255)),
-						new SolidColorBrush(Color.FromRgb(255, 255, 255)))
+					new Hexagon(
+                        "Hexagon 2",
+                        new List<Point>
+					    {
+						    new Point(12, 11), new Point(10, 9), new Point(8, 7),
+						    new Point(6, 5), new Point(4, 3), new Point(2, 1)
+					    },
+                    new SolidColorBrush(Color.FromRgb(255, 255, 255)),
+					new SolidColorBrush(Color.FromRgb(255, 255, 255)))
 				},
 				new object[]
 				{
@@ -87,12 +93,15 @@ namespace DrawShape.Test.Classes
 						new Point(7.7, 8.8), new Point(9.9, 10.10), new Point(11.11, 12.12)   
 					},
 					(byte)0, (byte)111, (byte)222,
-					new Hexagon("Super Hexagon", new List<Point>
-					{
-						new Point(1.1, 2.2), new Point(3.3, 4.4), new Point(5.5, 6.6),
-						new Point(7.7, 8.8), new Point(9.9, 10.10), new Point(11.11, 12.12)
-					}, new SolidColorBrush(Color.FromRgb(0, 111, 222)),
-						new SolidColorBrush(Color.FromRgb(0, 111, 222)))
+					new Hexagon(
+                        "Super Hexagon",
+                        new List<Point>
+					    {
+						    new Point(1.1, 2.2), new Point(3.3, 4.4), new Point(5.5, 6.6),
+						    new Point(7.7, 8.8), new Point(9.9, 10.10), new Point(11.11, 12.12)
+					    },
+                    new SolidColorBrush(Color.FromRgb(0, 111, 222)),
+					new SolidColorBrush(Color.FromRgb(0, 111, 222)))
 				}
 			};
 

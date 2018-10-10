@@ -19,21 +19,21 @@ namespace DrawShape.Classes
 		public class BorderColor
 		{
 			/// <summary>
-			/// Amount of red colour in RGB specification.
+			/// Gets/Sets an amount of red colour in RGB specification.
 			/// </summary>
 			[XmlAttribute]
 			public int R { get; set; }
 
-			/// <summary>
-			/// Amount of green colour in RGB specification.
-			/// </summary>
-			[XmlAttribute]
+            /// <summary>
+            /// Gets/Sets an amount of green colour in RGB specification.
+            /// </summary>
+            [XmlAttribute]
 			public int G { get; set; }
 
-			/// <summary>
-			/// Amount of blue colour in RGB specification.
-			/// </summary>
-			[XmlAttribute]
+            /// <summary>
+            /// Gets/Sets an amount of blue colour in RGB specification.
+            /// </summary>
+            [XmlAttribute]
 			public int B { get; set; }
 
 			/// <summary>
@@ -62,22 +62,22 @@ namespace DrawShape.Classes
 		/// </summary>
 		public class FillColor
 		{
-			/// <summary>
-			/// Amount of red colour in RGB specification.
-			/// </summary>
-			[XmlAttribute]
+            /// <summary>
+            /// Gets/Sets an amount of red colour in RGB specification.
+            /// </summary>
+            [XmlAttribute]
 			public int R { get; set; }
 
-			/// <summary>
-			/// Amount of green colour in RGB specification.
-			/// </summary>
-			[XmlAttribute]
+            /// <summary>
+            /// Gets/Sets an amount of green colour in RGB specification.
+            /// </summary>
+            [XmlAttribute]
 			public int G { get; set; }
 
-			/// <summary>
-			/// Amount of blue colour in RGB specification.
-			/// </summary>
-			[XmlAttribute]
+            /// <summary>
+            /// Gets/Sets an amount of blue colour in RGB specification.
+            /// </summary>
+            [XmlAttribute]
 			public int B { get; set; }
 
 			/// <summary>
@@ -100,29 +100,29 @@ namespace DrawShape.Classes
 				B = b;
 			}
 		}
-		
-		/// <summary>
-		/// Name of hexagon.
-		/// </summary>
-		[XmlAttribute]
+
+        /// <summary>
+        /// Gets/Sets a name of hexagon.
+        /// </summary>
+        [XmlAttribute]
 		public string Name { get; set; }
 
-		/// <summary>
-		/// Colour of the hexagon.
-		/// </summary>
-		[XmlElement]
+        /// <summary>
+        /// Gets/Sets a colour of the hexagon.
+        /// </summary>
+        [XmlElement]
 		public FillColor ColorFill { get; set; }
 
-		/// <summary>
-		/// Colour of the hexagon border.
-		/// </summary>
-		[XmlElement]
+        /// <summary>
+        /// Gets/Sets a colour of the hexagon border.
+        /// </summary>
+        [XmlElement]
 		public BorderColor ColorBorder { get; set; }
-		
-		/// <summary>
-		/// Array of points of hexagon.
-		/// </summary>
-		[XmlArray]
+
+        /// <summary>
+        /// Gets/Sets an array of points of hexagon.
+        /// </summary>
+        [XmlArray]
 		public Point[] Points { get; set; }
 
 		/// <summary>
@@ -153,9 +153,9 @@ namespace DrawShape.Classes
 			
 			Name = name;
 			Points = points.ToArray();
-			var colorFill = ((SolidColorBrush) fillBrush).Color;
+            var colorFill = ((SolidColorBrush)fillBrush).Color;
 			ColorFill = new FillColor(colorFill.R, colorFill.G, colorFill.B);
-			var colorBorder = ((SolidColorBrush) borderBrush).Color;
+            var colorBorder = ((SolidColorBrush)borderBrush).Color;
 			ColorBorder = new BorderColor(colorBorder.R, colorBorder.G, colorBorder.B);
 		}
 

@@ -41,7 +41,7 @@ namespace DrawShape.BL
 		/// <returns>Hexagons read.</returns>
 		public static IEnumerable<Hexagon> ReadHexagons()
 		{
-			var ofd = new OpenFileDialog { Filter = @"Xml files (*.xml)|*.xml", DefaultExt = "xml", AddExtension = true};
+            var ofd = new OpenFileDialog { Filter = @"Xml files (*.xml)|*.xml", DefaultExt = "xml", AddExtension = true };
 			return ofd.ShowDialog() == true ? Serialization.DeserializeHexagons(ofd.FileName) : null;
 		}
 
@@ -51,7 +51,7 @@ namespace DrawShape.BL
 		/// <param name="canvas">Canvas from which hexagons are to be saved.</param>
 		public static void SaveHexagons(ref Canvas canvas)
 		{
-			var sfd = new SaveFileDialog {Filter = @"Xml files (*.xml)|*.xml", DefaultExt = "xml", FileName = "Rectangles", AddExtension = true};
+            var sfd = new SaveFileDialog { Filter = @"Xml files (*.xml)|*.xml", DefaultExt = "xml", FileName = "Rectangles", AddExtension = true };
 			if (sfd.ShowDialog() != true)
 			{
 				return;
@@ -76,7 +76,7 @@ namespace DrawShape.BL
 		/// <returns>True if colour was picked.</returns>
 		public static bool GetColorFromColorDilog(out Brush brush)
 		{
-			var colorDialog = new ColorDialog {AllowFullOpen = true};
+            var colorDialog = new ColorDialog { AllowFullOpen = true };
 			var dialogResult = colorDialog.ShowDialog();
 			brush = new SolidColorBrush();
 			if (dialogResult != DialogResult.OK)

@@ -39,12 +39,16 @@ namespace DrawShape.Utils
 					// then check if it lies on segment. If it lies, return true, 
 					// otherwise false 
 					if (Orientation(hexagon.Points[i], new System.Windows.Point(point.X, point.Y), hexagon.Points[next]) == 0)
-						return OnSegment(hexagon.Points[i], new System.Windows.Point(point.X, point.Y), hexagon.Points[next]);
+                    {
+                        return OnSegment(hexagon.Points[i], new System.Windows.Point(point.X, point.Y), hexagon.Points[next]);
+                    }
 
 					count++;
 				}
+
 				i = next;
-			} while (i != 0);
+			}
+            while (i != 0);
 
 			// Return true if count is odd, false otherwise 
 			return count % 2 == 1;
@@ -58,14 +62,20 @@ namespace DrawShape.Utils
 			       && q.Y >= Math.Min(p.Y, r.Y);
 		}
 
-        // To find orientation of ordered triplet (p, q, r). 
-        // The function returns following values 
-        // 0 --> p, q and r are collinear 
-        // 1 --> Clockwise 
-        // 2 --> Counterclockwise 
+        /// <summary>
+        /// To find orientation of ordered triplet (p, q, r). 
+        /// The function returns following values 
+        /// 0 --> p, q and r are collinear 
+        /// 1 --> Clockwise 
+        /// 2 --> Counterclockwise 
+        /// </summary>
+        /// <param name="p"></param>
+        /// <param name="q"></param>
+        /// <param name="r"></param>
+        /// <returns></returns>
 		public static int Orientation(System.Windows.Point p, System.Windows.Point q, System.Windows.Point r)
 		{
-			var val = (q.Y - p.Y) * (r.X - q.X) - (q.X - p.X) * (r.Y - q.Y);
+			var val = ((q.Y - p.Y) * (r.X - q.X)) - ((q.X - p.X) * (r.Y - q.Y));
 			if (val.Equals(0))
 			{
 				return 0; // collinear 
@@ -75,9 +85,10 @@ namespace DrawShape.Utils
 		}
 
 		public static bool AreSidesIntersected(
-			System.Windows.Point firstSidePointOne, System.Windows.Point firstSidePointTwo,
-			System.Windows.Point secondSidePointOne, System.Windows.Point secondSidePointTwo
-		)
+			System.Windows.Point firstSidePointOne,
+            System.Windows.Point firstSidePointTwo,
+			System.Windows.Point secondSidePointOne,
+            System.Windows.Point secondSidePointTwo)
 		{
 			var o1 = Orientation(firstSidePointOne, firstSidePointTwo, secondSidePointOne);
 			var o2 = Orientation(firstSidePointOne, firstSidePointTwo, secondSidePointTwo);
@@ -86,20 +97,34 @@ namespace DrawShape.Utils
 
 			// General case 
 			if (o1 != o2 && o3 != o4)
-				return true;
+            {
+                return true;
+            }
 
-			// Special Cases 
-			// p1, q1 and p2 are collinear and p2 lies on segment p1q1 
-			if (o1 == 0 && OnSegment(firstSidePointOne, secondSidePointOne, firstSidePointTwo)) return true;
+            // Special Cases 
+            // p1, q1 and p2 are collinear and p2 lies on segment p1q1 
+            if (o1 == 0 && OnSegment(firstSidePointOne, secondSidePointOne, firstSidePointTwo))
+            {
+                return true;
+            }
 
-			// p1, q1 and p2 are collinear and q2 lies on segment p1q1 
-			if (o2 == 0 && OnSegment(firstSidePointOne, secondSidePointTwo, firstSidePointTwo)) return true;
+            // p1, q1 and p2 are collinear and q2 lies on segment p1q1 
+            if (o2 == 0 && OnSegment(firstSidePointOne, secondSidePointTwo, firstSidePointTwo))
+            {
+                return true;
+            }
 
-			// p2, q2 and p1 are collinear and p1 lies on segment p2q2 
-			if (o3 == 0 && OnSegment(secondSidePointOne, firstSidePointOne, secondSidePointTwo)) return true;
+            // p2, q2 and p1 are collinear and p1 lies on segment p2q2 
+            if (o3 == 0 && OnSegment(secondSidePointOne, firstSidePointOne, secondSidePointTwo))
+            {
+                return true;
+            }
 
-			// p2, q2 and q1 are collinear and q1 lies on segment p2q2 
-			if (o4 == 0 && OnSegment(secondSidePointOne, firstSidePointTwo, secondSidePointTwo)) return true;
+            // p2, q2 and q1 are collinear and q1 lies on segment p2q2 
+            if (o4 == 0 && OnSegment(secondSidePointOne, firstSidePointTwo, secondSidePointTwo))
+            {
+                return true;
+            }
 
 			return false;
 		}
@@ -135,7 +160,7 @@ namespace DrawShape.Utils
 		/// <returns></returns>
 		public static Line GetLine(Point start, Point end, Brush brush)
 		{
-			var line = new Line { X1 = start.X, Y1 = start.Y, X2 = end.X, Y2 = end.Y, StrokeThickness = 1, Stroke = brush, SnapsToDevicePixels = true};
+            var line = new Line { X1 = start.X, Y1 = start.Y, X2 = end.X, Y2 = end.Y, StrokeThickness = 1, Stroke = brush, SnapsToDevicePixels = true };
 			line.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
 			return line;
 		}

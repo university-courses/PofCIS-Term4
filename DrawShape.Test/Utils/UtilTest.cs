@@ -20,12 +20,13 @@ namespace DrawShape.Test.Utils
 
 		[Theory]
 		[MemberData(nameof(ConstructorData.SuccessDataPoints), MemberType = typeof(ConstructorData))]
-		public void TestAreSidesIntersected(System.Windows.Point firstSidePointOne,
-											System.Windows.Point firstSidePointTwo,
-											System.Windows.Point secondSidePointOne,
-											System.Windows.Point secondSidePointTwo)
+		public void TestAreSidesIntersected(
+            System.Windows.Point firstSidePointOne,
+			System.Windows.Point firstSidePointTwo,
+			System.Windows.Point secondSidePointOne,
+			System.Windows.Point secondSidePointTwo)
 		{
-			Assert.True(Util.AreSidesIntersected(firstSidePointOne,firstSidePointTwo,secondSidePointOne,secondSidePointTwo));
+            Assert.True(Util.AreSidesIntersected(firstSidePointOne, firstSidePointTwo, secondSidePointOne, secondSidePointTwo));
 		}
 
 		[Theory]
@@ -49,27 +50,27 @@ namespace DrawShape.Test.Utils
 			{
 				new object[]
 				{
-				   new System.Windows.Point(10,0),
-				   new System.Windows.Point(18,0),
-				   new System.Windows.Point(30,0)
+				   new System.Windows.Point(10, 0),
+				   new System.Windows.Point(18, 0),
+				   new System.Windows.Point(30, 0)
 				},
 				new object[]
 				{
-					new System.Windows.Point(0,10),
-					new System.Windows.Point(0,18),
-					new System.Windows.Point(0,30)
+					new System.Windows.Point(0, 10),
+					new System.Windows.Point(0, 18),
+					new System.Windows.Point(0, 30)
 				},
 				new object[]
 				{
-					new System.Windows.Point(-10,10),
-					new System.Windows.Point(0,0),
-					new System.Windows.Point(10,-30)
+					new System.Windows.Point(-10, 10),
+					new System.Windows.Point(0, 0),
+					new System.Windows.Point(10, -30)
 				},
 				new object[]
 				{
-					new System.Windows.Point(-10,10),
-					new System.Windows.Point(5,5),
-					new System.Windows.Point(10,-30)
+					new System.Windows.Point(-10, 10),
+					new System.Windows.Point(5, 5),
+					new System.Windows.Point(10, -30)
 				}
 			};
 
@@ -77,59 +78,58 @@ namespace DrawShape.Test.Utils
 			{
 				new object[]
 				{
-					new System.Windows.Point(0,0),
-					new System.Windows.Point(30,0),
-					new System.Windows.Point(2,12),
-					new System.Windows.Point(5,-12)
+					new System.Windows.Point(0, 0),
+					new System.Windows.Point(30, 0),
+					new System.Windows.Point(2, 12),
+					new System.Windows.Point(5, -12)
 				},
 				new object[]
 				{
-					new System.Windows.Point(-10,0),
-					new System.Windows.Point(30,0),
-					new System.Windows.Point(2,12),
-					new System.Windows.Point(5,-12)
+					new System.Windows.Point(-10, 0),
+					new System.Windows.Point(30, 0),
+					new System.Windows.Point(2, 12),
+					new System.Windows.Point(5, -12)
 				},
 				new object[]
 				{
-					new System.Windows.Point(-12,12),
-					new System.Windows.Point(3,-12),
-					new System.Windows.Point(12,12),
-					new System.Windows.Point(-12,-12)
+					new System.Windows.Point(-12, 12),
+					new System.Windows.Point(3, -12),
+					new System.Windows.Point(12, 12),
+					new System.Windows.Point(-12, -12)
 				},
 				new object[]
 				{
-					new System.Windows.Point(0,0),
-					new System.Windows.Point(30,12),
-					new System.Windows.Point(12,12),
-					new System.Windows.Point(15,-12)
+					new System.Windows.Point(0, 0),
+					new System.Windows.Point(30, 12),
+					new System.Windows.Point(12, 12),
+					new System.Windows.Point(15, -12)
 				}
-
 			};
 
 			public static IEnumerable<object[]> SuccessDataLine => new List<object[]>
 			{
 				new object[]
 				{
-					new Point(10,10),
-					new Point(23,17),
+					new Point(10, 10),
+					new Point(23, 17),
 					new SolidColorBrush(Colors.Aqua) 
 				},
 				new object[]
 				{
-					new Point(0,10),
-					new Point(-23,17),
+					new Point(0, 10),
+					new Point(-23, 17),
 					new SolidColorBrush(Colors.Aqua),
 				},
 				new object[]
 				{
-					new Point(1002,340),
-					new Point(54,57),
+					new Point(1002, 340),
+					new Point(54, 57),
 					new SolidColorBrush(Colors.Aqua),
 				},
 				new object[]
 				{
-					new Point(102,42),
-					new Point(64,71),
+					new Point(102, 42),
+					new Point(64, 71),
 					new SolidColorBrush(Colors.Aqua),
 				},
 			};

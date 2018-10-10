@@ -68,8 +68,7 @@ namespace DrawShape.Test.Utils
 								new Point(360.8, 54.2),
 							},
 							new SolidColorBrush(Color.FromRgb(0, 255, 0)),
-							new SolidColorBrush(Color.FromRgb(255, 0, 0))
-						),
+							new SolidColorBrush(Color.FromRgb(255, 0, 0))),
 						new Hexagon(
 							"Hexagon0",
 							new List<Point>
@@ -82,8 +81,7 @@ namespace DrawShape.Test.Utils
 								new Point(360.8, 54.2),
 							},
 							new SolidColorBrush(Color.FromRgb(0, 255, 0)),
-							new SolidColorBrush(Color.FromRgb(255, 0, 0))
-						),
+							new SolidColorBrush(Color.FromRgb(255, 0, 0))),
 						new Hexagon(
 							"Hexagon0",
 							new List<Point>
@@ -96,8 +94,7 @@ namespace DrawShape.Test.Utils
 								new Point(360.8, 54.2),
 							},
 							new SolidColorBrush(Color.FromRgb(0, 255, 0)),
-							new SolidColorBrush(Color.FromRgb(255, 0, 0))
-						)
+							new SolidColorBrush(Color.FromRgb(255, 0, 0)))
 					},
 					"TestFile.xml",
 					"<?xml version=\"1.0\"?>" + Environment.NewLine +

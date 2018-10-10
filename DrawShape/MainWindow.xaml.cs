@@ -43,9 +43,6 @@ namespace DrawShape
 		/// </summary>
 		private Brush _currentBorderColor;
 
-		/// <summary>
-		/// 
-		/// </summary>
 		private readonly DispatcherTimer _dhsTimer = new DispatcherTimer();
 
 		/// <summary>
@@ -193,7 +190,7 @@ namespace DrawShape
 				foreach (var hexagon in hexagons)
 				{
 					DrawingPanel.Children.Add(hexagon.ToPolygon());
-					var newMenuItem = new MenuItem {Header = hexagon.Name};
+                    var newMenuItem = new MenuItem { Header = hexagon.Name };
 					newMenuItem.Click += SetCurrentHexagonFromMenu;
 					ShapesMenu.Items.Add(newMenuItem);
 				}
@@ -248,9 +245,6 @@ namespace DrawShape
 			FormBl.SetColor(ref _currentBorderColor, ref ColorPickerBorder);
 		}
 		
-		/// <summary>
-        /// 
-        /// </summary>
 		private void StartDrawingTicker()
 		{
 			_dhsTimer.Interval = TimeSpan.FromMilliseconds(10);
@@ -323,8 +317,7 @@ namespace DrawShape
 					
 					for (var i = _currentDrawingHexagon.Count - 1; i >= 0; i--)
 					{
-						if (new System.Windows.Point(mousePos.X, mousePos.Y)==
-							_expectedHexagon.Points[i])
+						if (new System.Windows.Point(mousePos.X, mousePos.Y) == _expectedHexagon.Points[i])
 						{
 							return;
 						}
@@ -382,15 +375,17 @@ namespace DrawShape
 				if (_currentDrawingHexagon.Count == 6)
 				{
 					var hexagon = new Hexagon(
-						$"Hexagon_{_currentChosenHexagonId + 1}", _currentDrawingHexagon, _currentFillColor, _currentBorderColor
-					).ToPolygon();
+						$"Hexagon_{_currentChosenHexagonId + 1}",
+                        _currentDrawingHexagon,
+                        _currentFillColor,
+                        _currentBorderColor).ToPolygon();
 					_currentChosenHexagonId++;
 					_pictureIsSaved = false;
 					hexagon.KeyDown += MoveHexagonWithKeys;
 					DrawingPanel.Children.Add(hexagon);
 					Canvas.SetLeft(hexagon, 0);
 					Canvas.SetTop(hexagon, 0);
-					var newMenuItem = new MenuItem {Header = hexagon.Name};
+                    var newMenuItem = new MenuItem { Header = hexagon.Name };
 					newMenuItem.Click += SetCurrentHexagonFromMenu;
 					ShapesMenu.Items.Add(newMenuItem);
 					ClearExpectedHexagon();
@@ -500,7 +495,7 @@ namespace DrawShape
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-		private void myPoly_MouseDown(object sender, MouseButtonEventArgs e)
+		private void MyPoly_MouseDown(object sender, MouseButtonEventArgs e)
 		{
 			if (_currentChosenHexagonId > -1 && _currentMode == Mode.Moving)
 			{

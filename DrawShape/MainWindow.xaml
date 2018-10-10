@@ -91,7 +91,7 @@
 		        Background="White"
 				MouseUp="DrawingPanel_MouseUp"
 				MouseMove="DrawingPanel_MouseMove"
-				MouseDown="myPoly_MouseDown"
+				MouseDown="MyPoly_MouseDown"
 		        KeyDown="MoveHexagonWithKeys"
 		        MouseLeftButtonUp="ProcessDrawingOfHexagon"
 				HorizontalAlignment="Center"
