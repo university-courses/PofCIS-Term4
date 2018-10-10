@@ -1,12 +1,9 @@
-﻿using System;
-using Xunit;
+﻿using Xunit;
 
 using System.Windows.Media;
-using System.Windows.Shapes;
-using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
+using System.Collections.Generic;
+
 using DrawShape.Utils;
 using Point = DrawShape.Classes.Point;
 
@@ -19,16 +16,6 @@ namespace DrawShape.Test.Utils
 		public void TestOnSegment(System.Windows.Point p, System.Windows.Point q, System.Windows.Point r)
 		{
 			Assert.True(Util.OnSegment(p, q, r));
-		}
-
-		[Theory]
-		[MemberData(nameof(ConstructorData.SuccessDataHexagon), MemberType = typeof(ConstructorData))]
-		public void TestPointIsInHexagon(Point point, Polygon hexagon)
-		{
-			Task.Run(() =>
-			{
-				Assert.True(Util.PointIsInHexagon(point, hexagon));
-			});
 		}
 
 		[Theory]
@@ -145,21 +132,6 @@ namespace DrawShape.Test.Utils
 					new Point(64,71),
 					new SolidColorBrush(Colors.Aqua),
 				},
-			};
-
-			public static IEnumerable<object[]> SuccessDataHexagon => new List<object[]>
-			{
-				new object[]
-				{
-					new Point(5,5),
-					new Polygon
-					{
-						Points = new PointCollection
-						{
-							// TODO: add points.
-						}
-					}
-				}
 			};
 		}
 	}
