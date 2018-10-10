@@ -159,12 +159,12 @@ namespace DrawShape
 			DrawingPanel.Children.Clear();
 		}
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void SaveButton_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Event handler for save button click.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
 		{
 			if (DrawingPanel.Children.Count > 0 && !_pictureIsSaved)
 			{
@@ -173,7 +173,12 @@ namespace DrawShape
 			}
 		}
 
-		private void OpenButton_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Event handler for open button click.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OpenButton_Click(object sender, RoutedEventArgs e)
 		{
 			try
 			{
@@ -202,6 +207,11 @@ namespace DrawShape
 			}
 		}
 
+		/// <summary>
+        /// Sets selected hexagon from hexagons menu.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
 		private void SetCurrentHexagonFromMenu(object sender, RoutedEventArgs e)
 		{
 			var menuItem = e.OriginalSource as MenuItem;
@@ -218,16 +228,29 @@ namespace DrawShape
 			}
 		}
 
+		/// <summary>
+        /// Sets selected filling colour from <see cref="System.Windows.Forms.ColorDialog"/>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
 		private void SetFillColor(object sender, RoutedEventArgs e)
 		{
 			FormBl.SetColor(ref _currentFillColor, ref ColorPickerFill);
 		}
 
+		/// <summary>
+		/// Sets selected border colour from <see cref="System.Windows.Forms.ColorDialog"/>
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void SetBorderColor(object sender, RoutedEventArgs e)
 		{
 			FormBl.SetColor(ref _currentBorderColor, ref ColorPickerBorder);
 		}
 		
+		/// <summary>
+        /// 
+        /// </summary>
 		private void StartDrawingTicker()
 		{
 			_dhsTimer.Interval = TimeSpan.FromMilliseconds(10);
@@ -235,6 +258,11 @@ namespace DrawShape
 			_dhsTimer.Start();
 		}
 	
+		/// <summary>
+        /// Draws current hexagons side.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
 		private void DrawingHexagonSide(object sender, EventArgs e)
 		{
 			if (_currentDrawingHexagon.Count > 0)
@@ -247,16 +275,31 @@ namespace DrawShape
 			}
 		}
 		
+		/// <summary>
+        /// Changes action mode to drawing.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
 		private void SetDrawingMode(object sender, RoutedEventArgs e)
 		{
 			_currentMode = Mode.Drawing;
 		}
 
-		private void SetMovingMode(object sender, RoutedEventArgs e)
+		/// <summary>
+		/// Changes action mode to moving.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+        private void SetMovingMode(object sender, RoutedEventArgs e)
 		{
 			_currentMode = Mode.Moving;
 		}
 
+		/// <summary>
+        /// Function to draw hexagon on canvas point by point.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
 		private void ProcessDrawingOfHexagon(object sender, MouseButtonEventArgs e)
 		{
 			if (_currentMode == Mode.Drawing)
@@ -359,6 +402,11 @@ namespace DrawShape
 			}
 		}
 		
+		/// <summary>
+        /// Function to move hexagon on canvas using arrow keys.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
 		private void MoveHexagonWithKeys(object sender, KeyEventArgs e)
 		{
 			try
@@ -423,6 +471,11 @@ namespace DrawShape
 			}
 		}
 		
+		/// <summary>
+        /// Event handler for mouse movement on canvas.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
 		private void DrawingPanel_MouseMove(object sender, MouseEventArgs e)
 		{
 			if (_dragging && _currentMode == Mode.Moving)
@@ -444,6 +497,11 @@ namespace DrawShape
 			}
 		}
 
+		/// <summary>
+        /// Event handler for mouse click on canvas.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
 		private void myPoly_MouseDown(object sender, MouseButtonEventArgs e)
 		{
 			if (_currentChosenHexagonId > -1 && _currentMode == Mode.Moving)
