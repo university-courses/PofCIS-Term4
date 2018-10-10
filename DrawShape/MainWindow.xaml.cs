@@ -292,6 +292,7 @@ namespace DrawShape
 		/// <param name="e">Arguments that the implementor of this event may find useful.</param>
 		private void SetMovingMode(object sender, RoutedEventArgs e)
 		{
+			ClearExpectedHexagon();
 			_currentMode = Mode.Moving;
 		}
 
