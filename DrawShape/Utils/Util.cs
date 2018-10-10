@@ -53,6 +53,8 @@ namespace DrawShape.Utils
 			return count % 2 == 1;
 		}
 
+
+
 		public static bool OnSegment(System.Windows.Point p, System.Windows.Point q, System.Windows.Point r)
 		{
 			return q.X <= Math.Max(p.X, r.X)
@@ -63,7 +65,7 @@ namespace DrawShape.Utils
 
         // To find orientation of ordered triplet (p, q, r). 
         // The function returns following values 
-        // 0 --> p, q and r are colinear 
+        // 0 --> p, q and r are collinear 
         // 1 --> Clockwise 
         // 2 --> Counterclockwise 
 		public static int Orientation(System.Windows.Point p, System.Windows.Point q, System.Windows.Point r)
@@ -71,10 +73,10 @@ namespace DrawShape.Utils
 			var val = (q.Y - p.Y) * (r.X - q.X) - (q.X - p.X) * (r.Y - q.Y);
 			if (val.Equals(0))
 			{
-				return 0; // colinear 
-			}
+				return 0; // collinear 
+            }
 
-			return (val > 0) ? 1 : 2; // clock or counterclock wise 
+			return (val > 0) ? 1 : 2; // clock or counterclockwise
 		}
 
 		public static bool AreSidesIntersected(
