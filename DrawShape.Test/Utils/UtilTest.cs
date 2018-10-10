@@ -17,9 +17,17 @@ namespace DrawShape.Test.Utils
         public void TestOnSegment(System.Windows.Point p, System.Windows.Point q, System.Windows.Point r)
         {
             Assert.True(Util.OnSegment(p, q, r));
-
         }
 
+        [Theory]
+        [MemberData(nameof(ConstructorData.SuccessDataPoints), MemberType = typeof(ConstructorData))]
+        public void TestAreSidesIntersected(System.Windows.Point firstSidePointOne,
+                                            System.Windows.Point firstSidePointTwo,
+                                            System.Windows.Point secondSidePointOne,
+                                            System.Windows.Point secondSidePointTwo)
+        {
+            Assert.True(Util.AreSidesIntersected(firstSidePointOne,firstSidePointTwo,secondSidePointOne,secondSidePointTwo));
+        }
 
         private class ConstructorData
         {
@@ -37,6 +45,18 @@ namespace DrawShape.Test.Utils
                     new System.Windows.Point(0,18),
                     new System.Windows.Point(0,30)
                 }
+            };
+
+            public static IEnumerable<object[]> SuccessDataPoints => new List<object[]>
+            {
+                new object[]
+                {
+                    new System.Windows.Point(0,0),
+                    new System.Windows.Point(30,0),
+                    new System.Windows.Point(2,12),
+                    new System.Windows.Point(5,-12)
+                }
+
             };
 
 
