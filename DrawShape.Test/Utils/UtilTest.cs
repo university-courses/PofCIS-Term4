@@ -12,9 +12,15 @@ namespace DrawShape.Test.Utils
 {
     public class UtilTest
     {
-        
+        [Theory]
+        [MemberData(nameof(ConstructorData.SuccessData), MemberType = typeof(ConstructorData))]
+        public void TestOnSegment(System.Windows.Point p, System.Windows.Point q, System.Windows.Point r)
+        {
+            Assert.True(Util.OnSegment(p, q, r));
 
-        
+        }
+
+
         private class ConstructorData
         {
             public static IEnumerable<object[]> SuccessData => new List<object[]>
