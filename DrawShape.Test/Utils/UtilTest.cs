@@ -20,6 +20,14 @@ namespace DrawShape.Test.Utils
         }
 
         [Theory]
+        [MemberData(nameof(ConstructorData.SuccessDataHexagon), MemberType = typeof(ConstructorData))]
+        public void TestPointIsInHexagon(Point point, Polygon hexagon)
+        {
+            Assert.True(Util.PointIsInHexagon(point,hexagon));
+        }
+
+
+        [Theory]
         [MemberData(nameof(ConstructorData.SuccessDataPoints), MemberType = typeof(ConstructorData))]
         public void TestAreSidesIntersected(System.Windows.Point firstSidePointOne,
                                             System.Windows.Point firstSidePointTwo,
@@ -133,7 +141,14 @@ namespace DrawShape.Test.Utils
                 },
             };
 
-
+            public static IEnumerable<object[]> SuccessDataHexagon => new List<object[]>
+            {
+                new object[]
+                {
+                    new Point(5,5),
+                    //new Polygon()
+                }
+            };
         }
     }
 }
