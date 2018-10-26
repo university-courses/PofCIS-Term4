@@ -9,7 +9,7 @@
 Варіант 11. «Послуги по перевезенню вантажу» (для водія).
 
 ### Docs
-[Task 3 WPF Shapes documentation](https://lnupmi11.github.io/PofCIS_Team1/task3-wpf-service/index.html)
+[Task 3 WPF Service documentation](https://lnupmi11.github.io/PofCIS_Team1/task3-wpf-service/index.html)
 
 #### Team 1:
 * [Angela Seleman](https://github.com/selemanka)
