@@ -1,11 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Xunit;
 
 namespace CargoDelivery.Test
 {
-	[TestClass]
 	public class UnitTest
 	{
-		[TestMethod]
+		[Theory]
 		public void TestMethod()
 		{
 		}
