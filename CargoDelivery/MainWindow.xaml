@@ -26,8 +26,8 @@
 
 
         <ListBox Margin="103,102,0,0" x:Name="SenderCity_ListBox1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="194" Height="66" SelectionChanged="SenderCity_ListBox1_SelectionChanged">
-            <ListBoxItem Content="Lviv" Selected="ListBoxItem_Selected"></ListBoxItem>
-            <ListBoxItem x:Name="SenderCity_ListBox" Content="Kyiv"></ListBoxItem>
+            <ListBoxItem Content="Lviv"></ListBoxItem>
+            <ListBoxItem Content="Kyiv"></ListBoxItem>
             <ListBoxItem Content="Ternopil"></ListBoxItem>
             <ListBoxItem Content="Lutsk"></ListBoxItem>
             <ListBoxItem Content="Odessa"></ListBoxItem>
