@@ -6,7 +6,7 @@
 		xmlns:local="clr-namespace:CargoDelivery"
 		mc:Ignorable="d"
 		Title="Cargo Delivery" Height="450" Width="800">
-    <Grid>
+    <Grid Margin="-1,0,1,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="183*"/>
             <ColumnDefinition Width="8*"/>
@@ -44,5 +44,11 @@
             <ListBoxItem Content="Kharkiv"></ListBoxItem>
         </ListBox>
         <Label Content="City:" HorizontalAlignment="Left" Height="25" Margin="15,108,0,0" VerticalAlignment="Top" Width="88" Grid.Column="2"/>
+        <Label Content="Weight of package:" HorizontalAlignment="Left" Height="25" Margin="10,241,0,0" VerticalAlignment="Top" Width="118"/>
+        <DockPanel VerticalAlignment="Center" Margin="130,247,5,148">
+            <TextBox Text="{Binding Value, ElementName=Weight_Slider, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Right" Width="40" />
+            <Slider Maximum="50" TickPlacement="BottomRight" TickFrequency="5" IsSnapToTickEnabled="True" x:Name="Weight_Slider" Width="182" ValueChanged="slValue_ValueChanged" />
+        </DockPanel>
+
     </Grid>
 </Window>
