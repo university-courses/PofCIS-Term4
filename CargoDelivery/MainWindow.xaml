@@ -15,18 +15,18 @@
         <Label Content="Write information about you :" HorizontalAlignment="Left" Height="51" Margin="58,10,0,0" VerticalAlignment="Top" Width="266" RenderTransformOrigin="0.59,0.431"/>
         <Label Content="Your Name:" HorizontalAlignment="Left" Height="25" Margin="10,61,0,0" VerticalAlignment="Top" Width="88"/>
         <Label Content=" Name:" HorizontalAlignment="Left" Height="25" Margin="10,61,0,0" VerticalAlignment="Top" Width="88" Grid.Column="2"/>
-        <TextBox x:Name="SenderName_TextBox" HorizontalAlignment="Left" Height="21" Margin="103,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.325,0.565" TextChanged="TextBox_TextChanged"/>
-        <TextBox x:Name="ReceiverName_TextBox" HorizontalAlignment="Left" Height="21" Margin="103,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.325,0.565" TextChanged="TextBox_TextChanged" Grid.Column="2"/>
+        <TextBox x:Name="SenderName_TextBox" HorizontalAlignment="Left" Height="21" Margin="103,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.325,0.565" TextChanged="SenderName_TextBox_TextChanged" />
+        <TextBox x:Name="ReceiverName_TextBox" HorizontalAlignment="Left" Height="21" Margin="103,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.325,0.565" Grid.Column="2" TextChanged="ReceiverName_TextBox_TextChanged"/>
         <Label Content="Write information about receiver:" HorizontalAlignment="Left" Height="51" Margin="78,10,0,0" VerticalAlignment="Top" Width="266" Grid.Column="2"/>
         <Label Content="Your Address:" HorizontalAlignment="Left" Height="25" Margin="10,178,0,0" VerticalAlignment="Top" Width="88"/>
-        <TextBox x:Name="SenderAddress_TextBox" HorizontalAlignment="Left" Height="21" Margin="103,182,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.325,0.565" TextChanged="TextBox_TextChanged"/>
+        <TextBox x:Name="SenderAddress_TextBox" HorizontalAlignment="Left" Height="21" Margin="103,182,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.325,0.565" TextChanged="SenderAddress_TextBox_TextChanged" />
         <Label Content=" Address" HorizontalAlignment="Left" Height="25" Margin="10,178,0,0" VerticalAlignment="Top" Width="88" Grid.Column="2"/>
-        <TextBox x:Name="SenderAddress_TextBox_Copy" HorizontalAlignment="Left" Height="21" Margin="103,182,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.325,0.565" TextChanged="TextBox_TextChanged" Grid.Column="2"/>
+        <TextBox x:Name="SenderAddress_TextBox_Copy" HorizontalAlignment="Left" Height="21" Margin="103,182,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.325,0.565" Grid.Column="2"/>
         <Label Content="Your city:" HorizontalAlignment="Left" Height="25" Margin="10,108,0,0" VerticalAlignment="Top" Width="88"/>
 
 
-        <ListBox Margin="103,102,0,0" x:Name="SenderCity_ListBox1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="194" Height="66" SelectionChanged="listBox1_SelectionChanged">
-            <ListBoxItem Content="Lviv"></ListBoxItem>
+        <ListBox Margin="103,102,0,0" x:Name="SenderCity_ListBox1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="194" Height="66" SelectionChanged="SenderCity_ListBox1_SelectionChanged">
+            <ListBoxItem Content="Lviv" Selected="ListBoxItem_Selected"></ListBoxItem>
             <ListBoxItem x:Name="SenderCity_ListBox" Content="Kyiv"></ListBoxItem>
             <ListBoxItem Content="Ternopil"></ListBoxItem>
             <ListBoxItem Content="Lutsk"></ListBoxItem>
@@ -35,7 +35,7 @@
         </ListBox>
 
 
-        <ListBox Margin="103,102,0,0" x:Name="ReceiverCity_ListBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="194" Height="66" SelectionChanged="listBox1_SelectionChanged" Grid.Column="2">
+        <ListBox Margin="103,102,0,0" x:Name="ReceiverCity_ListBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="194" Height="66" Grid.Column="2">
             <ListBoxItem Content="Lviv"></ListBoxItem>
             <ListBoxItem Content="Kyiv"></ListBoxItem>
             <ListBoxItem Content="Ternopil"></ListBoxItem>
@@ -47,7 +47,7 @@
         <Label Content="Weight of package:" HorizontalAlignment="Left" Height="25" Margin="10,241,0,0" VerticalAlignment="Top" Width="118"/>
         <DockPanel VerticalAlignment="Center" Margin="130,247,5,148">
             <TextBox Text="{Binding Value, ElementName=Weight_Slider, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Right" Width="40" />
-            <Slider Maximum="50" TickPlacement="BottomRight" TickFrequency="5" IsSnapToTickEnabled="True" x:Name="Weight_Slider" Width="182" ValueChanged="slValue_ValueChanged" />
+            <Slider Maximum="50" TickPlacement="BottomRight" TickFrequency="5" IsSnapToTickEnabled="True" x:Name="Weight_Slider" Width="182" ValueChanged="Weight_Slider_ValueChanged"  />
         </DockPanel>
 
     </Grid>
