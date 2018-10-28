@@ -34,5 +34,15 @@
         {
 
         }
+
+        private void ReceiverCity_ListBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void SenderAddress_TextBox_Copy_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+
+        }
     }
 }
