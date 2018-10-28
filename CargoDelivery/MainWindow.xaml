@@ -53,7 +53,7 @@
             <TextBox Text="{Binding Value, ElementName=Weight_Slider, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Right" Width="40" />
             <Slider Maximum="50" TickPlacement="BottomRight" TickFrequency="5" IsSnapToTickEnabled="True" x:Name="Weight_Slider" Width="182" ValueChanged="Weight_Slider_ValueChanged"  />
         </DockPanel>
-        <Button x:Name="CreateOrder_Button" Grid.ColumnSpan="3" Content="Create an Order" HorizontalAlignment="Left" Margin="267,287,0,0" VerticalAlignment="Top" Width="218" Height="45" FontFamily="Garamond" FontSize="24" Grid.Row="1">
+        <Button x:Name="CreateOrder_Button" Grid.ColumnSpan="3" Content="Create an Order" HorizontalAlignment="Left" Margin="267,287,0,0" VerticalAlignment="Top" Width="218" Height="45" FontFamily="Garamond" FontSize="24" Grid.Row="1" Click="CreateOrder_Button_Click">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FFB4E4FF"/>
