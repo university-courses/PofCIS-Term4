@@ -4,9 +4,10 @@ namespace CargoDelivery.Test
 {
 	public class UnitTest
 	{
-		[Theory]
+		/*[Theory]
 		public void TestMethod()
 		{
 		}
+        */
 	}
 }
