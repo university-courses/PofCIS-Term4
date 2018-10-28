@@ -1,4 +1,6 @@
-﻿namespace CargoDelivery
+﻿using System.Windows;
+
+namespace CargoDelivery
 {
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
@@ -47,7 +49,7 @@
 
         private void CreateOrder_Button_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-
+            MessageBox.Show("Thank you for your order!");
         }
     }
 }
