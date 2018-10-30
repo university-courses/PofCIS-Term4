@@ -63,6 +63,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classes\Order.cs" />
+    <Compile Include="Classes\OrderData\Address.cs" />
+    <Compile Include="Classes\OrderData\ClientData.cs" />
+    <Compile Include="Classes\OrderData\GoodsData.cs" />
+    <Compile Include="Classes\OrderData\ShopData.cs" />
     <Compile Include="Classes\OrdersStorage.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
