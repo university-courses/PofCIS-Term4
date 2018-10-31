@@ -52,5 +52,10 @@ namespace CargoDelivery
 		{
 			MessageBox.Show("Thank you for your order!");
 		}
-	}
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+    }
 }
