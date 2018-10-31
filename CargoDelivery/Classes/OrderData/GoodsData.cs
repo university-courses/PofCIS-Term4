@@ -13,13 +13,13 @@ namespace CargoDelivery.Classes.OrderData
 		public uint Code { get; set; }
 		
 		[XmlAttribute]
-		public uint Weight { get; set; }
+		public double Weight { get; set; }
 
 		public GoodsData()
 		{
 		}
 
-		public GoodsData(uint code, uint weight)
+		public GoodsData(uint code, double weight)
 		{
 			Code = code;
 			Weight = weight;
@@ -38,7 +38,7 @@ namespace CargoDelivery.Classes.OrderData
 			}
 
 			Code = code;
-			if (!uint.TryParse(source["Weight"].Value, out var weight))
+			if (!double.TryParse(source["Weight"].Value, out var weight))
 			{
 				throw new InvalidDataException("GoodsData.Weight must be of type 'uint'");
 			}
