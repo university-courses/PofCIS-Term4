@@ -38,22 +38,30 @@ namespace CargoDelivery
 
 		}
 
-		private void ReceiverCity_ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-
-		}
-
-		private void SenderAddress_TextBox_Copy_TextChanged(object sender, TextChangedEventArgs e)
-		{
-
-		}
+		
 
 		private void CreateOrder_Button_Click(object sender, RoutedEventArgs e)
 		{
 			MessageBox.Show("Thank you for your order!");
 		}
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+
+        private void ViewOrders_Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void PackageId_TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void ShopStreet_TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void ShopCity_ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }

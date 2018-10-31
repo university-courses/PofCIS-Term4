@@ -56,23 +56,16 @@
                     <GradientStop Color="#FFB9AEFF" Offset="1"/>
                 </LinearGradientBrush>
             </Menu.Background>
-            <ComboBox x:Name="OrdersList_ComboBox" Width="120" Height="30" SelectionChanged="ComboBox_SelectionChanged">
-                <ComboBox.Background>
-                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                        <GradientStop Color="#FFF0F0F0" Offset="0"/>
-                        <GradientStop Color="#FF4E85B2" Offset="1"/>
-                    </LinearGradientBrush>
-                </ComboBox.Background>
-            </ComboBox>
+            <MenuItem x:Name="ViewOrders_Button" Header="View orders" Height="30" Width="100" Click="ViewOrders_Button_Click"/>
         </Menu>
         <Label Content="Last Name:" HorizontalAlignment="Left" Height="25" Margin="3,74,0,0" VerticalAlignment="Top" Width="88" Grid.Row="1" Grid.Column="1"/>
         <TextBox x:Name="SenderLastName_TextBox_Copy" HorizontalAlignment="Left" Height="21" Margin="96,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.325,0.565" TextChanged="SenderName_TextBox_TextChanged" Grid.Row="1" Grid.Column="1" />
         <Label Content="Number:" HorizontalAlignment="Left" Height="25" Margin="3,215,0,0" VerticalAlignment="Top" Width="88" Grid.Row="1" Grid.Column="1"/>
-        <TextBox x:Name="AddressNumber_TextBox" HorizontalAlignment="Left" Height="21" Margin="96,219,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.325,0.565" TextChanged="SenderAddress_TextBox_TextChanged" Grid.Row="1" Grid.Column="1" />
+        <TextBox x:Name="AddressNumber_TextBox" HorizontalAlignment="Left" Height="21" Margin="96,219,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.325,0.565"  Grid.Row="1" Grid.Column="1" />
         <Label Content="Street:" HorizontalAlignment="Left" Height="25" Margin="14,162,0,0" VerticalAlignment="Top" Width="83" Grid.Row="1" Grid.Column="2"/>
-        <TextBox x:Name="SenderAddress_TextBox_Copy" HorizontalAlignment="Left" Height="21" Margin="102,166,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="113" RenderTransformOrigin="0.325,0.565" TextChanged="SenderAddress_TextBox_TextChanged" Grid.Row="1" Grid.Column="2" />
+        <TextBox x:Name="ShopStreet_TextBox" HorizontalAlignment="Left" Height="21" Margin="102,166,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="113" RenderTransformOrigin="0.325,0.565"  Grid.Row="1" Grid.Column="2" TextChanged="ShopStreet_TextBox_TextChanged" />
         <Label Content="City:" HorizontalAlignment="Left" Height="25" Margin="16,88,0,0" VerticalAlignment="Top" Width="83" Grid.Row="1" Grid.Column="2"/>
-        <ListBox Margin="104,84,0,0" x:Name="SenderCity_ListBox1_Copy" HorizontalAlignment="Left" VerticalAlignment="Top" Width="182" Height="66" SelectionChanged="SenderCity_ListBox1_SelectionChanged" Grid.Row="1" Grid.Column="2">
+        <ListBox Margin="104,84,0,0" x:Name="ShopCity_ListBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="182" Height="66"  Grid.Row="1" Grid.Column="2" SelectionChanged="ShopCity_ListBox_SelectionChanged">
             <ListBoxItem Content="Lviv"/>
             <ListBoxItem Content="Kyiv"/>
             <ListBoxItem Content="Ternopil"/>
@@ -81,9 +74,9 @@
             <ListBoxItem Content="Kharkiv"/>
         </ListBox>
         <Label Content="Number:" HorizontalAlignment="Left" Height="25" Margin="14,195,0,0" VerticalAlignment="Top" Width="83" Grid.Row="1" Grid.Column="2"/>
-        <TextBox x:Name="AddressNumber_TextBox_Copy" HorizontalAlignment="Left" Height="21" Margin="102,199,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="113" RenderTransformOrigin="0.325,0.565" TextChanged="SenderAddress_TextBox_TextChanged" Grid.Row="1" Grid.Column="2" />
+        <TextBox x:Name="AddressNumber_TextBox1" HorizontalAlignment="Left" Height="21" Margin="102,199,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="113" RenderTransformOrigin="0.325,0.565" TextChanged="SenderAddress_TextBox_TextChanged" Grid.Row="1" Grid.Column="2" />
         <Label Content="Package ID:" HorizontalAlignment="Left" Height="35" Margin="14,232,0,0" VerticalAlignment="Top" Width="83" Grid.Row="1" Grid.Column="2"/>
-        <TextBox x:Name="PackageId_TextBox" HorizontalAlignment="Left" Height="21" Margin="102,236,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="113" RenderTransformOrigin="0.325,0.565" TextChanged="SenderAddress_TextBox_TextChanged" Grid.Row="1" Grid.Column="2" />
+        <TextBox x:Name="PackageId_TextBox" HorizontalAlignment="Left" Height="21" Margin="102,236,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="113" RenderTransformOrigin="0.325,0.565"  Grid.Row="1" Grid.Column="2" TextChanged="PackageId_TextBox_TextChanged" />
         <Rectangle Grid.Column="1" Fill="#FFDFDFFB" HorizontalAlignment="Center" Height="292" Margin="383,30,382,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="10" Grid.ColumnSpan="2"/>
 
     </Grid>
