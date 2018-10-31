@@ -54,7 +54,7 @@
             <TextBox Text="{Binding Value, ElementName=Weight_Slider, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Right" Width="40" Margin="0,10,0,26" RenderTransformOrigin="0.525,0.875" />
             <Slider Maximum="50" TickPlacement="BottomRight" TickFrequency="5" IsSnapToTickEnabled="True" x:Name="Weight_Slider" Width="170" ValueChanged="Weight_Slider_ValueChanged" RenderTransformOrigin="0.5,0.5" Margin="0,10,0,0"  />
         </DockPanel>
-        <Button x:Name="CreateOrder_Button" Grid.ColumnSpan="3" Content="Create an Order" Margin="265,292,0,0" VerticalAlignment="Top" Width="218" Height="45" FontFamily="Garamond" FontSize="24" Grid.Row="1" Click="CreateOrder_Button_Click" Grid.Column="1" HorizontalAlignment="Left">
+        <Button x:Name="CreateOrder_Button" Grid.ColumnSpan="3" Content="Create an Order" Margin="0,0,0,34" Width="218" Height="45" FontFamily="Garamond" FontSize="24" Grid.Row="1" Click="CreateOrder_Button_Click" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FFB4E4FF"/>
@@ -62,7 +62,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Menu Grid.ColumnSpan="4" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="792">
+        <Menu Grid.ColumnSpan="4" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="100000">
             <Menu.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FF9EE0DA" Offset="0"/>
@@ -70,7 +70,7 @@
                 </LinearGradientBrush>
             </Menu.Background>
         </Menu>
-        <Rectangle Grid.Column="2" Fill="#FFDFDFFB" Height="293" Margin="23,30,8,0" Grid.RowSpan="2" Width="5" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Rectangle Grid.Column="2" Fill="#FFDFDFFB" Height="293" Margin="0,30,0,0" Width="5" HorizontalAlignment="Center" VerticalAlignment="Top"/>
         <Label Content="Last Name:" HorizontalAlignment="Left" Height="25" Margin="3,74,0,0" VerticalAlignment="Top" Width="88" Grid.Row="1" Grid.Column="1"/>
         <TextBox x:Name="SenderLastName_TextBox_Copy" HorizontalAlignment="Left" Height="21" Margin="96,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.325,0.565" TextChanged="SenderName_TextBox_TextChanged" Grid.Row="1" Grid.Column="1" />
         <Label Content="Last Name:" HorizontalAlignment="Left" Height="25" Margin="10,73,0,0" VerticalAlignment="Top" Width="88" Grid.Column="3" Grid.Row="1"/>
