@@ -13,16 +13,16 @@ namespace CargoDelivery.Classes.OrderData
 		public uint Code { get; set; }
 		
 		[XmlAttribute]
-		public uint Amount { get; set; }
+		public uint Weight { get; set; }
 
 		public GoodsData()
 		{
 		}
 
-		public GoodsData(uint code, uint amount)
+		public GoodsData(uint code, uint weight)
 		{
 			Code = code;
-			Amount = amount;
+			Weight = weight;
 		}
 
 		public GoodsData(XmlAttributeCollection source)
@@ -38,19 +38,19 @@ namespace CargoDelivery.Classes.OrderData
 			}
 
 			Code = code;
-			if (!uint.TryParse(source["Amount"].Value, out var amount))
+			if (!uint.TryParse(source["Weight"].Value, out var weight))
 			{
-				throw new InvalidDataException("GoodsData.Amount must be of type 'uint'");
+				throw new InvalidDataException("GoodsData.Weight must be of type 'uint'");
 			}
 
-			Amount = amount;
+			Weight = weight;
 		}
 
 		public XElement ToXml()
 		{
 			return new XElement("GoodsData",
 				new XAttribute("Code", Code),
-				new XAttribute("Amount", Amount)
+				new XAttribute("Weight", Weight)
 			);
 		}
 	}

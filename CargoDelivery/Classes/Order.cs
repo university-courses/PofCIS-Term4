@@ -142,7 +142,7 @@ namespace CargoDelivery.Classes
 			}
 
 			goodsData.Attributes["Code"].Value = @new.GoodsData.Code.ToString();
-			goodsData.Attributes["Amount"].Value = @new.GoodsData.Amount.ToString();
+			goodsData.Attributes["Weight"].Value = @new.GoodsData.Weight.ToString();
 		}
 	}
 }

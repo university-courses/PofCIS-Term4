@@ -111,7 +111,7 @@ namespace CargoDelivery.Classes
 			{
 				if (iterator.Current is XmlNode current)
 				{
-					if (current.Attributes != null || current.Attributes["Id"].Value.Equals(id.ToString()))
+					if (current.Attributes != null && (current.Attributes != null || current.Attributes["Id"].Value.Equals(id.ToString())))
 					{
 						current.ParentNode?.RemoveChild(current);
 						doc.Save(_path);
