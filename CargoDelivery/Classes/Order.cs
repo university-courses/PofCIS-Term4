@@ -2,7 +2,9 @@
 using System.IO;
 using System.Xml;
 using System.Xml.Linq;
+using System.Globalization;
 using System.Xml.Serialization;
+
 using CargoDelivery.Classes.OrderData;
 
 namespace CargoDelivery.Classes
@@ -142,7 +144,7 @@ namespace CargoDelivery.Classes
 			}
 
 			goodsData.Attributes["Code"].Value = @new.GoodsData.Code.ToString();
-			goodsData.Attributes["Weight"].Value = @new.GoodsData.Weight.ToString();
+			goodsData.Attributes["Weight"].Value = @new.GoodsData.Weight.ToString(CultureInfo.InvariantCulture);
 		}
 	}
 }
