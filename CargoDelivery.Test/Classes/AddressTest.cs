@@ -1,9 +1,10 @@
-﻿using System;
-using Xunit;
+﻿using Xunit;
 
+using System;
+using System.IO;
 using System.Xml;
 using System.Collections.Generic;
-using System.IO;
+
 using CargoDelivery.Classes.OrderData;
 
 namespace CargoDelivery.Test.Classes
@@ -11,7 +12,7 @@ namespace CargoDelivery.Test.Classes
 	public class AddressTest
 	{
 		[Theory]
-		[MemberData(nameof(TestData.MultParamsData), MemberType = typeof(TestData))]
+		[MemberData(nameof(TestData.Data), MemberType = typeof(TestData))]
 		public void TestConstructorWithMultParams(string city, string street, uint bNum)
 		{
 			var actual = new Address(city, street, bNum);
@@ -21,7 +22,7 @@ namespace CargoDelivery.Test.Classes
 		}
 		
 		[Theory]
-		[MemberData(nameof(TestData.XmlParamData), MemberType = typeof(TestData))]
+		[MemberData(nameof(TestData.Data), MemberType = typeof(TestData))]
 		public void TestConstructorXmlParam(string city, string street, uint bNum)
 		{
 			var doc = new XmlDocument();
@@ -68,7 +69,7 @@ namespace CargoDelivery.Test.Classes
 		}
 		
 		[Theory]
-		[MemberData(nameof(TestData.ToXmlData), MemberType = typeof(TestData))]
+		[MemberData(nameof(TestData.Data), MemberType = typeof(TestData))]
 		public void TestToXml(string city, string street, uint bNum)
 		{
 			var addr = new Address(city, street, bNum);
@@ -99,95 +100,7 @@ namespace CargoDelivery.Test.Classes
 
 		private class TestData
 		{
-			public static IEnumerable<object[]> MultParamsData => new List<object[]>
-			{
-				new object[]
-				{
-					"City1", "Street1", 10
-				},
-				new object[]
-				{
-					"City2", "Street2", 11
-				},
-				new object[]
-				{
-					"City3", "Street3", 12
-				},
-				new object[]
-				{
-					"City4", "Street4", 13
-				},
-				new object[]
-				{
-					"City5", "Street5", 14
-				},
-				new object[]
-				{
-					"City6", "Street6", 15
-				},
-				new object[]
-				{
-					"City7", "Street7", 16
-				},
-				new object[]
-				{
-					"City8", "Street8", 17
-				},
-				new object[]
-				{
-					"City9", "Street9", 18
-				},
-				new object[]
-				{
-					"City10", "Street10", 19
-				}
-			};
-
-			public static IEnumerable<object[]> XmlParamData => new List<object[]>
-			{
-				new object[]
-				{
-					"City1", "Street1", 10
-				},
-				new object[]
-				{
-					"City2", "Street2", 11
-				},
-				new object[]
-				{
-					"City3", "Street3", 12
-				},
-				new object[]
-				{
-					"City4", "Street4", 13
-				},
-				new object[]
-				{
-					"City5", "Street5", 14
-				},
-				new object[]
-				{
-					"City6", "Street6", 15
-				},
-				new object[]
-				{
-					"City7", "Street7", 16
-				},
-				new object[]
-				{
-					"City8", "Street8", 17
-				},
-				new object[]
-				{
-					"City9", "Street9", 18
-				},
-				new object[]
-				{
-					"City10", "Street10", 19
-				}
-			};
-
-			public static IEnumerable<object[]> ToXmlData => new List<object[]>
+			public static IEnumerable<object[]> Data => new List<object[]>
 			{
 				new object[]
 				{
