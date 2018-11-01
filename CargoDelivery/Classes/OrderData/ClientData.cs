@@ -5,18 +5,33 @@ using System.Xml.Serialization;
 
 namespace CargoDelivery.Classes.OrderData
 {
+	/// <summary>
+	/// Class to represent Orders.
+	/// </summary>
 	[Serializable]
 	public class ClientData
 	{
+		/// <summary>
+		/// FirstName a name of the first name.
+		/// </summary>
 		[XmlAttribute]
 		public string FirstName { get; set; }
 		
+		/// <summary>
+		/// LasttName a name of the last name.
+		/// </summary>
 		[XmlAttribute]
 		public string LastName { get; set; }
 		
+		/// <summary>
+		/// Email a name of the email.
+		/// </summary>
 		[XmlAttribute]
 		public string Email { get; set; }
 		
+		/// <summary>
+		/// PhoneNumber a phone number.
+		/// </summary>
 		[XmlAttribute]
 		public string PhoneNumber { get; set; }
 		
@@ -26,6 +41,13 @@ namespace CargoDelivery.Classes.OrderData
 		{
 		}
 
+		/// <summary>
+		/// Function to set data.
+		/// </summary>
+		/// <param name="firstName">A name of the first name.</param>
+		/// <param name="lastName">A name of the last name.</param>
+		/// <param name="email">A name of the email.</param>
+		/// <param name="phoneNumber">A phone number.</param>
 		public ClientData(
 			string firstName,
 			string lastName,
@@ -41,6 +63,9 @@ namespace CargoDelivery.Classes.OrderData
 			Address = clientAddress;
 		}
 
+		/// <summary>
+		/// An OrderData class constructor creates its object using data of type XmlAttributeCollection.
+		/// </summary>
 		public ClientData(XmlNode source)
 		{
 			if (source == null)
@@ -66,6 +91,9 @@ namespace CargoDelivery.Classes.OrderData
 			Address = new Address(addressNode.Attributes);
 		}
 
+		/// <summary>
+		/// Transfer the OrderData object to Xml Element.
+		/// </summary>
 		public XElement ToXml()
 		{
 			return new XElement("ClientData",
