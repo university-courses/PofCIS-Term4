@@ -1,7 +1,5 @@
 ﻿using Xunit;
 
-using System.IO;
-using System.Xml;
 using System.Linq;
 using System.Collections.Generic;
 
@@ -16,15 +14,12 @@ namespace CargoDelivery.Test.Classes
 		public void TestCreateIfNotExists()
 		{
 			const string storagePath = "storage.xml";
-			if (File.Exists(storagePath))
-			{
-				File.Delete(storagePath);
-			}
 			var storage = new OrdersStorage(storagePath);
 			Assert.False(storage.StorageExists());
 			storage.CreateIfNotExists();
 			Assert.True(storage.StorageExists());
-			File.Delete(storagePath);
+			storage.DeleteIfExists();
+			Assert.False(storage.StorageExists());
 		}
 		
 		[Theory]
@@ -32,15 +27,12 @@ namespace CargoDelivery.Test.Classes
 		public void TestAdd(Order order)
 		{
 			const string storagePath = "storage.xml";
-			if (File.Exists(storagePath))
-			{
-				File.Delete(storagePath);
-			}
 			var storage = new OrdersStorage(storagePath);
+			storage.DeleteIfExists();
 			storage.CreateIfNotExists();
 			storage.Add(order);
 			var actual = storage.Retrieve(order.Id);
-			File.Delete(storagePath);
+			storage.DeleteIfExists();
 			Assert.Equal(order.Id, actual.Id);
 			Assert.Equal(order.ShopData.Name, actual.ShopData.Name);
 			Assert.Equal(order.ShopData.Address.City, actual.ShopData.Address.City);
@@ -62,11 +54,8 @@ namespace CargoDelivery.Test.Classes
 		public void TestRetrieveAllIds(List<Order> orders)
 		{
 			const string storagePath = "storage.xml";
-			if (File.Exists(storagePath))
-			{
-				File.Delete(storagePath);
-			}
 			var storage = new OrdersStorage(storagePath);
+			storage.DeleteIfExists();
 			storage.CreateIfNotExists();
 			foreach (var order in orders)
 			{
@@ -74,7 +63,7 @@ namespace CargoDelivery.Test.Classes
 			}
 
 			var ls = storage.RetrieveAllIds();
-			File.Delete(storagePath);
+			storage.DeleteIfExists();
 			var ids = ls.Keys.ToArray();
 			var owners = ls.Values.ToArray();
 			for (var i = 0; i < orders.Count; i++)
@@ -89,11 +78,8 @@ namespace CargoDelivery.Test.Classes
 		public void TestUpdate(Order order, Order newOrder)
 		{
 			const string storagePath = "storage.xml";
-			if (File.Exists(storagePath))
-			{
-				File.Delete(storagePath);
-			}
 			var storage = new OrdersStorage(storagePath);
+			storage.DeleteIfExists();
 			storage.CreateIfNotExists();
 			storage.Add(order);
 			var actual = storage.Retrieve(order.Id);
@@ -127,19 +113,16 @@ namespace CargoDelivery.Test.Classes
 			Assert.Equal(newOrder.ClientData.Address.City, actual.ClientData.Address.City);
 			Assert.Equal(newOrder.ClientData.Address.Street, actual.ClientData.Address.Street);
 			Assert.Equal(newOrder.ClientData.Address.BuildingNumber, actual.ClientData.Address.BuildingNumber);
-			File.Delete(storagePath);
+			storage.DeleteIfExists();
 		}
 		
 		[Theory]
 		[MemberData(nameof(TestData.RemoveData), MemberType = typeof(TestData))]
-		public void TestRmove(Order order)
+		public void TestRemove(Order order)
 		{
 			const string storagePath = "storage.xml";
-			if (File.Exists(storagePath))
-			{
-				File.Delete(storagePath);
-			}
 			var storage = new OrdersStorage(storagePath);
+			storage.DeleteIfExists();
 			storage.CreateIfNotExists();
 			storage.Add(order);
 			var actual = storage.Retrieve(order.Id);
@@ -158,10 +141,8 @@ namespace CargoDelivery.Test.Classes
 			Assert.Equal(order.ClientData.Address.Street, actual.ClientData.Address.Street);
 			Assert.Equal(order.ClientData.Address.BuildingNumber, actual.ClientData.Address.BuildingNumber);
 			storage.Remove(order.Id);
-			var doc = new XmlDocument();
-			var nullObj = storage.FindNode(order.Id, ref doc);
-			Assert.Null(nullObj);
-			File.Delete(storagePath);
+			Assert.False(storage.OrderExists(order.Id));
+			storage.DeleteIfExists();
 		}
 
 		private class TestData

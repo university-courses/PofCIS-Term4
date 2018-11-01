@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using System.Collections.Generic;
 
 namespace CargoDelivery.Classes
 {
@@ -150,6 +150,21 @@ namespace CargoDelivery.Classes
 		public bool StorageExists()
 		{
 			return File.Exists(_path);
+		}
+
+		public void DeleteIfExists()
+		{
+			if (StorageExists())
+			{
+				File.Delete(_path);
+			}
+		}
+		
+		public bool OrderExists(uint id)
+		{
+			var doc = new XmlDocument();
+			doc.Load(_path);
+			return FindNode(id, ref doc) != null;
 		}
 	}
 }
