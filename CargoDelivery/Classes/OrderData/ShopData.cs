@@ -5,9 +5,15 @@ using System.Xml.Serialization;
 
 namespace CargoDelivery.Classes.OrderData
 {
+	/// <summary>
+	/// Class to represent an ShopData.
+	/// </summary>
 	[Serializable]
 	public class ShopData
 	{
+		/// <summary>
+		/// Name.
+		/// </summary>
 		[XmlAttribute]
 		public string Name { get; set; }
 		
@@ -17,12 +23,20 @@ namespace CargoDelivery.Classes.OrderData
 		{
 		}
 
+		/// <summary>
+		/// Function to set data.
+		/// </summary>
+		/// <param name="name">A name.</param>
+		/// <param name="shopAddress">An object of the class Address.</param>
 		public ShopData(string name, Address shopAddress)
 		{
 			Name = name;
 			Address = shopAddress;
 		}
 
+		/// <summary>
+		/// An ShopData class constructor creates its object using data of type XmlAttributeCollection.
+		/// </summary>
 		public ShopData(XmlNode source)
 		{
 			if (source == null)
@@ -45,6 +59,9 @@ namespace CargoDelivery.Classes.OrderData
 			Address = new Address(addressElement.Attributes);
 		}
 
+		/// <summary>
+		/// Transfer the ShopData object to Xml Element.
+		/// </summary>
 		public XElement ToXml()
 		{
 			return new XElement("ShopData",
