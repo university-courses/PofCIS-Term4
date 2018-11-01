@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 namespace CargoDelivery.Classes.OrderData
 {
 	/// <summary>
-	/// Class to represent Orders.
+	/// Class to represent ClientData.
 	/// </summary>
 	[Serializable]
 	public class ClientData
@@ -64,7 +64,7 @@ namespace CargoDelivery.Classes.OrderData
 		}
 
 		/// <summary>
-		/// An OrderData class constructor creates its object using data of type XmlAttributeCollection.
+		/// An ClientData class constructor creates its object using data of type XmlAttributeCollection.
 		/// </summary>
 		public ClientData(XmlNode source)
 		{
@@ -92,7 +92,7 @@ namespace CargoDelivery.Classes.OrderData
 		}
 
 		/// <summary>
-		/// Transfer the OrderData object to Xml Element.
+		/// Transfer the ClientData object to Xml Element.
 		/// </summary>
 		public XElement ToXml()
 		{
