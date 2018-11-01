@@ -59,6 +59,7 @@
     <Compile Include="Classes\AddressTest.cs" />
     <Compile Include="Classes\ClientDataTest.cs" />
     <Compile Include="Classes\GoodsDataTest.cs" />
+    <Compile Include="Classes\OrdersStorageTest.cs" />
     <Compile Include="Classes\ShopDataTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
