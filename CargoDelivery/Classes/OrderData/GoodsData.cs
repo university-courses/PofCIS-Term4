@@ -6,12 +6,21 @@ using System.Xml.Serialization;
 
 namespace CargoDelivery.Classes.OrderData
 {
+	/// <summary>
+	/// Class to represent an GoodsData.
+	/// </summary>
 	[Serializable]
 	public class GoodsData
 	{
+		/// <summary>
+		/// Code a code number.
+		/// </summary>
 		[XmlAttribute]
 		public uint Code { get; set; }
 		
+		/// <summary>
+		/// An amount of weight.
+		/// </summary>
 		[XmlAttribute]
 		public double Weight { get; set; }
 
@@ -19,12 +28,20 @@ namespace CargoDelivery.Classes.OrderData
 		{
 		}
 
+		/// <summary>
+		/// Function to set data.
+		/// </summary>
+		/// <param name="code">A code number.</param>
+		/// <param name="weight">An amount of weight.</param>
 		public GoodsData(uint code, double weight)
 		{
 			Code = code;
 			Weight = weight;
 		}
 
+		/// <summary>
+		/// An GoodsData class constructor creates its object using data of type XmlAttributeCollection.
+		/// </summary>
 		public GoodsData(XmlAttributeCollection source)
 		{
 			if (source == null)
@@ -46,6 +63,9 @@ namespace CargoDelivery.Classes.OrderData
 			Weight = weight;
 		}
 
+		/// <summary>
+		/// Transfer the GoodsData object to Xml Element.
+		/// </summary>
 		public XElement ToXml()
 		{
 			return new XElement("GoodsData",
