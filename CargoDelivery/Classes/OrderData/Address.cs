@@ -8,39 +8,42 @@ namespace CargoDelivery.Classes.OrderData
 {
 
 	/// <summary>
-	/// Class to represent an Address.
+	/// Class to represent an address.
 	/// </summary>
 	[Serializable]
 	public class Address
 	{
 		/// <summary>
-		/// City a name of the city.
+		/// A name of the city.
 		/// </summary>
 		[XmlAttribute]
 		public string City { get; set; }
 		
 		/// <summary>
-		/// Street a name of the street.
+		/// A name of the street.
 		/// </summary>
 		[XmlAttribute]
 		public string Street { get; set; }
 		
 		/// <summary>
-		/// BuildingNumber a number of the building.
+		/// A number of building.
 		/// </summary>
 		[XmlAttribute]
 		public uint BuildingNumber { get; set; }
 
+		/// <summary>
+		/// Default constructor is used for xml serialization/deserialization. 
+		/// </summary>
 		public Address()
 		{
 		}
 
 		/// <summary>
-		/// Function to set data.
+		/// Constructor to set data from multiple parameters.
 		/// </summary>
 		/// <param name="city">A name of the city.</param>
 		/// <param name="street">A name of the street.</param>
-		/// <param name="buildingNumber">A number of the building.</param>
+		/// <param name="buildingNumber">A number of building.</param>
 		public Address(string city, string street, uint buildingNumber)
 		{
 			City = city;
@@ -49,7 +52,7 @@ namespace CargoDelivery.Classes.OrderData
 		}
 
 		/// <summary>
-		/// An Address class constructor creates its object using data of type XmlAttributeCollection.
+		/// Constructor creates its object using XmlAttributeCollection data.
 		/// </summary>
 		public Address(XmlAttributeCollection source)
 		{
@@ -69,7 +72,7 @@ namespace CargoDelivery.Classes.OrderData
 		}
 
 		/// <summary>
-		/// Transfer the Address object to Xml Element.
+		/// Transfers the Address object to XElement.
 		/// </summary>
 		public XElement ToXml()
 		{

@@ -6,28 +6,34 @@ using System.Xml.Serialization;
 namespace CargoDelivery.Classes.OrderData
 {
 	/// <summary>
-	/// Class to represent an ShopData.
+	/// Class to represent a shop data.
 	/// </summary>
 	[Serializable]
 	public class ShopData
 	{
 		/// <summary>
-		/// Name.
+		/// A name of the shop.
 		/// </summary>
 		[XmlAttribute]
 		public string Name { get; set; }
 		
+		/// <summary>
+		/// An address of the shop.
+		/// </summary>
 		public Address Address { get; set; }
 
+		/// <summary>
+		/// Default constructor is used for xml serialization/deserialization. 
+		/// </summary>
 		public ShopData()
 		{
 		}
 
 		/// <summary>
-		/// Function to set data.
+		/// Constructor to set data from multiple parameters.
 		/// </summary>
-		/// <param name="name">A name.</param>
-		/// <param name="shopAddress">An object of the class Address.</param>
+		/// <param name="name">A name of the shop</param>
+		/// <param name="shopAddress">An address of the shop.</param>
 		public ShopData(string name, Address shopAddress)
 		{
 			Name = name;
@@ -35,7 +41,7 @@ namespace CargoDelivery.Classes.OrderData
 		}
 
 		/// <summary>
-		/// An ShopData class constructor creates its object using data of type XmlAttributeCollection.
+		/// Constructor creates its object using XmlNode data.
 		/// </summary>
 		public ShopData(XmlNode source)
 		{
@@ -60,7 +66,7 @@ namespace CargoDelivery.Classes.OrderData
 		}
 
 		/// <summary>
-		/// Transfer the ShopData object to Xml Element.
+		/// Transfers ShopData object to XElement.
 		/// </summary>
 		public XElement ToXml()
 		{

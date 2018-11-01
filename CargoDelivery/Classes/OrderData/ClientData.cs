@@ -6,48 +6,55 @@ using System.Xml.Serialization;
 namespace CargoDelivery.Classes.OrderData
 {
 	/// <summary>
-	/// Class to represent ClientData.
+	/// Class to represent client data.
 	/// </summary>
 	[Serializable]
 	public class ClientData
 	{
 		/// <summary>
-		/// FirstName a name of the first name.
+		/// The first name of a client.
 		/// </summary>
 		[XmlAttribute]
 		public string FirstName { get; set; }
 		
 		/// <summary>
-		/// LasttName a name of the last name.
+		/// The second name of a client.
 		/// </summary>
 		[XmlAttribute]
 		public string LastName { get; set; }
 		
 		/// <summary>
-		/// Email a name of the email.
+		/// An email of the client.
 		/// </summary>
 		[XmlAttribute]
 		public string Email { get; set; }
 		
 		/// <summary>
-		/// PhoneNumber a phone number.
+		/// Client's phone number.
 		/// </summary>
 		[XmlAttribute]
 		public string PhoneNumber { get; set; }
 		
+		/// <summary>
+		/// Client's address.
+		/// </summary>
 		public Address Address { get; set; }
-
+		
+		/// <summary>
+		/// Default constructor is used for xml serialization/deserialization. 
+		/// </summary>
 		public ClientData()
 		{
 		}
 
 		/// <summary>
-		/// Function to set data.
+		/// Constructor to set data from multiple parameters.
 		/// </summary>
-		/// <param name="firstName">A name of the first name.</param>
-		/// <param name="lastName">A name of the last name.</param>
-		/// <param name="email">A name of the email.</param>
-		/// <param name="phoneNumber">A phone number.</param>
+		/// <param name="firstName">The first name of a client.</param>
+		/// <param name="lastName">The second name of a client.</param>
+		/// <param name="email">An email of the client.</param>
+		/// <param name="phoneNumber">Client's phone number.</param>
+		/// <param name="clientAddress">An address of a client.</param>
 		public ClientData(
 			string firstName,
 			string lastName,
@@ -64,7 +71,7 @@ namespace CargoDelivery.Classes.OrderData
 		}
 
 		/// <summary>
-		/// An ClientData class constructor creates its object using data of type XmlAttributeCollection.
+		/// Constructor creates its object using XmlNode data.
 		/// </summary>
 		public ClientData(XmlNode source)
 		{
@@ -92,7 +99,7 @@ namespace CargoDelivery.Classes.OrderData
 		}
 
 		/// <summary>
-		/// Transfer the ClientData object to Xml Element.
+		/// Transfers the ClientData object to XElement.
 		/// </summary>
 		public XElement ToXml()
 		{
