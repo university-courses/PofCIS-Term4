@@ -64,7 +64,7 @@ namespace CargoDelivery.Classes
 			);
 		}
 
-		public static void Edit(ref XmlNode node, Order @new)
+		public static void EditXmlNode(ref XmlNode node, Order @new)
 		{
 			if (node == null)
 			{

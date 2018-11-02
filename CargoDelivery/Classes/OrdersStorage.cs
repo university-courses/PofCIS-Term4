@@ -98,7 +98,7 @@ namespace CargoDelivery.Classes
 			{
 				return;
 			}
-			Order.Edit(ref node, newOrder);
+			Order.EditXmlNode(ref node, newOrder);
 			doc.Save(_path);
 		}
 
