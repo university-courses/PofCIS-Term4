@@ -27,6 +27,7 @@ namespace CargoDelivery.Classes.OrderData
 		/// </summary>
 		public ShopData()
 		{
+			Address = new Address();
 		}
 
 		/// <summary>

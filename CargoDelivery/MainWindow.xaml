@@ -1,15 +1,16 @@
 ﻿<Window x:Class="CargoDelivery.MainWindow"
-	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	mc:Ignorable="d"
-	x:Name="WindowMain"
-	Title="Cargo Delivery"
-	Height="660"
-	Width="830"
-	MinHeight="660"
-	MinWidth="830">
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		mc:Ignorable="d"
+		x:Name="WindowMain"
+		Title="Cargo Delivery"
+		Height="660"
+		Width="830"
+		MinHeight="660"
+		MinWidth="830"
+        d:DataContext="{d:_order }">
 		<DockPanel
 			Margin="10"
 			Height="690"
@@ -26,7 +27,8 @@
 					Background="Azure"
 					Cursor="Hand"
 					Height="40"
-					Width="120">
+					Width="120"
+					Click="DiscoverOrders">
 					<Button.Resources>
 						<Style TargetType="{x:Type Border}">
 							<Setter Property="CornerRadius" Value="5"/>
@@ -44,7 +46,8 @@
 					Cursor="Hand"
 					Background="Azure"
 					Height="40"
-					Width="120">
+					Width="120"
+					Click="CreateOrder">
 					<Button.Resources>
 						<Style TargetType="{x:Type Border}">
 							<Setter Property="CornerRadius" Value="5"/>
@@ -86,6 +89,9 @@
 							FontSize="14"
 							MaxLines="1"
 							FontWeight="Normal"
+							Text="{Binding Path=ClientData.FirstName}"
+							GotMouseCapture="InputFocused"
+							GotKeyboardFocus="InputFocused"
 							Width="354"/>
 					</GroupBox>
 					<GroupBox
@@ -111,6 +117,9 @@
 							FontSize="14"
 							MaxLines="1"
 							FontWeight="Normal"
+							Text="{Binding Path=ClientData.LastName}"
+							GotMouseCapture="InputFocused"
+							GotKeyboardFocus="InputFocused"
 							Width="354"/>
 					</GroupBox>
 					<GroupBox
@@ -136,11 +145,14 @@
 							FontSize="14"
 							MaxLines="1"
 							FontWeight="Normal"
+							Text="{Binding Path=ClientData.Email}"
+							GotMouseCapture="InputFocused"
+							GotKeyboardFocus="InputFocused"
 							Width="354"/>
 					</GroupBox>
 					<GroupBox
 						DockPanel.Dock="Top"
-						Header="Phone Number" 
+						Header="Phone Number"
 						Height="50"
 						FontSize="13"
 						HorizontalAlignment="Right"
@@ -161,6 +173,9 @@
 							FontSize="14"
 							MaxLines="1"
 							FontWeight="Normal"
+							Text="{Binding Path=ClientData.PhoneNumber}"
+							GotMouseCapture="InputFocused"
+							GotKeyboardFocus="InputFocused"
 							Width="354"/>
 					</GroupBox>
 					<GroupBox
@@ -196,6 +211,9 @@
 									FontSize="14"
 									MaxLines="1"
 									FontWeight="Normal"
+									Text="{Binding Path=ClientData.Address.City}"
+									GotMouseCapture="InputFocused"
+									GotKeyboardFocus="InputFocused"
 									Width="187"/>
 							</GroupBox>
 							<GroupBox
@@ -221,6 +239,9 @@
 									FontSize="14"
 									MaxLines="1"
 									FontWeight="Normal"
+									Text="{Binding Path=ClientData.Address.Street}"
+									GotMouseCapture="InputFocused"
+									GotKeyboardFocus="InputFocused"
 									Width="187"/>
 							</GroupBox>
 							<GroupBox
@@ -246,6 +267,9 @@
 									FontSize="14"
 									MaxLines="1"
 									FontWeight="Normal"
+									Text="{Binding Path=ClientData.Address.BuildingNumber}"
+									GotMouseCapture="InputFocused"
+									GotKeyboardFocus="InputFocused"
 									Width="187"/>
 							</GroupBox>
 						</Grid>
@@ -285,6 +309,9 @@
 							FontSize="14"
 							MaxLines="1"
 							FontWeight="Normal"
+							Text="{Binding Path=ShopData.Name}"
+							GotMouseCapture="InputFocused"
+							GotKeyboardFocus="InputFocused"
 							Width="354"/>
 					</GroupBox>
 					<GroupBox
@@ -299,7 +326,7 @@
 						<Grid>
 							<GroupBox
 								DockPanel.Dock="Top"
-								Header="City" 
+								Header="City"
 								Height="50"
 								FontSize="13"
 								HorizontalAlignment="Left"
@@ -320,6 +347,9 @@
 									FontSize="14"
 									MaxLines="1"
 									FontWeight="Normal"
+									Text="{Binding Path=ShopData.Address.City}"
+									GotMouseCapture="InputFocused"
+									GotKeyboardFocus="InputFocused"
 									Width="187"/>
 							</GroupBox>
 							<GroupBox
@@ -345,6 +375,9 @@
 									FontSize="14"
 									MaxLines="1"
 									FontWeight="Normal"
+									Text="{Binding Path=ShopData.Address.Street}"
+									GotMouseCapture="InputFocused"
+									GotKeyboardFocus="InputFocused"
 									Width="187"/>
 							</GroupBox>
 							<GroupBox
@@ -370,6 +403,9 @@
 									FontSize="14"
 									MaxLines="1"
 									FontWeight="Normal"
+									Text="{Binding Path=ShopData.Address.BuildingNumber}"
+									GotMouseCapture="InputFocused"
+									GotKeyboardFocus="InputFocused"
 									Width="187"/>
 							</GroupBox>
 						</Grid>
@@ -409,6 +445,9 @@
 							FontSize="14"
 							MaxLines="1"
 							FontWeight="Normal"
+							Text="{Binding Path=GoodsData.Code}"
+							GotMouseCapture="InputFocused"
+							GotKeyboardFocus="InputFocused"
 							Width="187"/>
 					</GroupBox>
 					<GroupBox
@@ -434,6 +473,9 @@
 							FontSize="14"
 							MaxLines="1"
 							FontWeight="Normal"
+							Text="{Binding Path=GoodsData.Weight}"
+							GotMouseCapture="InputFocused"
+							GotKeyboardFocus="InputFocused"
 							Width="187"/>
 					</GroupBox>
 				</Grid>

@@ -55,6 +55,9 @@ namespace CargoDelivery.Classes
 		
 		public Order()
 		{
+			ClientData = new ClientData();
+			ShopData = new ShopData();
+			GoodsData = new GoodsData();
 		}
 
 		public XElement ToXml()

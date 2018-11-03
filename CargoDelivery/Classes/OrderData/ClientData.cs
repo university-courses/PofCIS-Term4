@@ -45,6 +45,7 @@ namespace CargoDelivery.Classes.OrderData
 		/// </summary>
 		public ClientData()
 		{
+			Address = new Address();
 		}
 
 		/// <summary>
