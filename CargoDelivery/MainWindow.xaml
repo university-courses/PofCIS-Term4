@@ -11,46 +11,55 @@
 		MinHeight="660"
 		MinWidth="830"
         d:DataContext="{d:_order }">
-		<DockPanel
-			Margin="10"
+    <DockPanel 
+            Name="DockPanel"
+            Margin="10"
 			Height="690"
 			Width="800">
-			<Popup x:Name="OrdersExplorer" 
-			      IsOpen="False"
-			       AllowsTransparency="True"  
-			       PopupAnimation="Scroll"
-			       Placement="Center">
-				<Border
+        <Popup x:Name="OrdersExplorer" 
+				  IsOpen="False"
+				   AllowsTransparency="True"  
+				   PopupAnimation="Scroll"
+				   Placement="Center">
+            <Border
 					Background="FloralWhite" 
 					BorderBrush="Black" 
-					BorderThickness="1" 
-					Height="600"
+					BorderThickness="1"
 					CornerRadius="5,5,5,5" 
 					HorizontalAlignment="Center" 
-					VerticalAlignment="Center">
-					<StackPanel>
-						<Label>Here the list will be displayed</Label>
-						<StackPanel Orientation="Horizontal"
-						            HorizontalAlignment="Center">
-							<Button x:Name="OkButton"
-							        Margin="5" 
-							        Content="Ok" 
-							        Background="WhiteSmoke" 
-							        Click="Ok"/>
-							<Button x:Name="CancelButton" 
-							        Margin="5"
-							        Content="Cancel"
-							        Background="WhiteSmoke"
-							        Click="Cancel" />
-						</StackPanel>
-					</StackPanel>
-				</Border>
-				
-			</Popup>
-			<Grid
-			   	DockPanel.Dock="Top">
-			   	<Button
-				   	Content="Explore Orders"
+					VerticalAlignment="Center" MinWidth="300" MinHeight="100">
+                <StackPanel>
+                    <Label HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <ListView Name ="OrdersList" BorderBrush="#FF302B5B" HorizontalAlignment="Center" VerticalAlignment="Top" MinWidth="290" FontSize="18" Cursor="Hand">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Id"/>
+                                    <GridViewColumn Header="Owner"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </Label>
+                    <StackPanel Orientation="Horizontal"
+									HorizontalAlignment="Center" Height="35.96" Width="88.456" VerticalAlignment="Bottom">
+                        <Button x:Name="OkButton"
+									Margin="5" 
+									Content="Ok" 
+									Background="WhiteSmoke" 
+									Click="Ok" FontFamily="Calibri" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16"/>
+                        <Button x:Name="CancelButton" 
+									Margin="5"
+									Content="Cancel"
+									Background="WhiteSmoke"
+									Click="Cancel" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontFamily="Calibri" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+        </Popup>
+        <Grid
+				DockPanel.Dock="Top">
+            <Button
+					Content="Explore Orders"
 					HorizontalAlignment="Center"
 					Margin="0,0,140,0"
 					VerticalAlignment="Center"
@@ -61,14 +70,14 @@
 					Height="40"
 					Width="120"
 					Click="DiscoverOrders">
-					<Button.Resources>
-						<Style TargetType="{x:Type Border}">
-							<Setter Property="CornerRadius" Value="5"/>
-							<Setter Property="BorderThickness" Value="0"/>
-						</Style>
-					</Button.Resources>
-				</Button>
-				<Button
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="5"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button
 					Content="Create Order"
 					HorizontalAlignment="Center"
 					Margin="140,0,0,0"
@@ -80,15 +89,15 @@
 					Height="40"
 					Width="120"
 					Click="CreateOrder">
-					<Button.Resources>
-						<Style TargetType="{x:Type Border}">
-							<Setter Property="CornerRadius" Value="5"/>
-							<Setter Property="BorderThickness" Value="0"/>
-						</Style>
-					</Button.Resources>
-				</Button>
-			</Grid>
-			<GroupBox
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="5"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </Grid>
+        <GroupBox
 				x:Name="PersonalData"
 				DockPanel.Dock="Top"
 				FontSize="18"
@@ -97,8 +106,8 @@
 				Height="250"
 				Margin="10,10,10,0"
 				Width="774">
-				<Grid>
-					<GroupBox
+            <Grid>
+                <GroupBox
 						DockPanel.Dock="Top"
 						Header="First name" 
 						Height="50"
@@ -107,7 +116,7 @@
 						VerticalAlignment="Top"
 						Margin="10,10,0,0"
 						Width="366">
-						<TextBox
+                    <TextBox
 							x:Name="FirstName"
 							HorizontalAlignment="Left"
 							Height="30"
@@ -125,8 +134,8 @@
 							GotMouseCapture="InputFocused"
 							GotKeyboardFocus="InputFocused"
 							Width="354"/>
-					</GroupBox>
-					<GroupBox
+                </GroupBox>
+                <GroupBox
 						DockPanel.Dock="Top"
 						Header="Last name" 
 						Height="50"
@@ -135,7 +144,7 @@
 						VerticalAlignment="Top"
 						Margin="0,10,10,0"
 						Width="366">
-						<TextBox
+                    <TextBox
 							x:Name="LastName"
 							HorizontalAlignment="Left"
 							Height="30"
@@ -153,8 +162,8 @@
 							GotMouseCapture="InputFocused"
 							GotKeyboardFocus="InputFocused"
 							Width="354"/>
-					</GroupBox>
-					<GroupBox
+                </GroupBox>
+                <GroupBox
 						DockPanel.Dock="Top"
 						Header="Email" 
 						Height="50"
@@ -163,7 +172,7 @@
 						VerticalAlignment="Top"
 						Margin="10,70,0,0"
 						Width="366">
-						<TextBox
+                    <TextBox
 							x:Name="Email"
 							HorizontalAlignment="Left"
 							Height="30"
@@ -181,8 +190,8 @@
 							GotMouseCapture="InputFocused"
 							GotKeyboardFocus="InputFocused"
 							Width="354"/>
-					</GroupBox>
-					<GroupBox
+                </GroupBox>
+                <GroupBox
 						DockPanel.Dock="Top"
 						Header="Phone Number"
 						Height="50"
@@ -191,7 +200,7 @@
 						VerticalAlignment="Top"
 						Margin="0,70,10,0"
 						Width="366">
-						<TextBox
+                    <TextBox
 							x:Name="PhoneNumber"
 							HorizontalAlignment="Left"
 							Height="30"
@@ -209,8 +218,8 @@
 							GotMouseCapture="InputFocused"
 							GotKeyboardFocus="InputFocused"
 							Width="354"/>
-					</GroupBox>
-					<GroupBox
+                </GroupBox>
+                <GroupBox
 						x:Name="ClientAddress"
 						Header="Address"
 						HorizontalAlignment="Left"
@@ -219,8 +228,8 @@
 						Margin="50,130,0,0"
 						VerticalAlignment="Top"
 						Width="660">
-						<Grid>
-							<GroupBox
+                    <Grid>
+                        <GroupBox
 								DockPanel.Dock="Top"
 								Header="City" 
 								Height="50"
@@ -229,7 +238,7 @@
 								VerticalAlignment="Top"
 								Margin="10,0,0,0"
 								Width="200">
-								<TextBox
+                            <TextBox
 									x:Name="ClientAddressCity"
 									HorizontalAlignment="Left"
 									Height="30"
@@ -247,8 +256,8 @@
 									GotMouseCapture="InputFocused"
 									GotKeyboardFocus="InputFocused"
 									Width="187"/>
-							</GroupBox>
-							<GroupBox
+                        </GroupBox>
+                        <GroupBox
 								DockPanel.Dock="Top"
 								Header="Street" 
 								Height="50"
@@ -257,7 +266,7 @@
 								VerticalAlignment="Top"
 								Margin="10,0,0,0"
 								Width="200">
-								<TextBox
+                            <TextBox
 									x:Name="ClientAddressStreet"
 									HorizontalAlignment="Left"
 									Height="30"
@@ -275,8 +284,8 @@
 									GotMouseCapture="InputFocused"
 									GotKeyboardFocus="InputFocused"
 									Width="187"/>
-							</GroupBox>
-							<GroupBox
+                        </GroupBox>
+                        <GroupBox
 								DockPanel.Dock="Top"
 								Header="Building Number" 
 								Height="50"
@@ -285,7 +294,7 @@
 								VerticalAlignment="Top"
 								Margin="10,0,10,0"
 								Width="200">
-								<TextBox
+                            <TextBox
 									x:Name="ClientAddressBuildingNumber"
 									HorizontalAlignment="Left"
 									Height="30"
@@ -303,12 +312,12 @@
 									GotMouseCapture="InputFocused"
 									GotKeyboardFocus="InputFocused"
 									Width="187"/>
-							</GroupBox>
-						</Grid>
-					</GroupBox>
-				</Grid>
-			</GroupBox>
-			<GroupBox
+                        </GroupBox>
+                    </Grid>
+                </GroupBox>
+            </Grid>
+        </GroupBox>
+        <GroupBox
 				x:Name="ShopData"
 				DockPanel.Dock="Top"
 				Header="Shop Info"
@@ -317,8 +326,8 @@
 				FontSize="18"
 				Margin="10,20,10,0"
 				VerticalAlignment="Top">
-				<Grid>
-					<GroupBox
+            <Grid>
+                <GroupBox
 						DockPanel.Dock="Top"
 						Header="Shop Name" 
 						Height="50"
@@ -327,7 +336,7 @@
 						VerticalAlignment="Top"
 						Margin="0,0,0,0"
 						Width="366">
-						<TextBox
+                    <TextBox
 							x:Name="ShopName"
 							HorizontalAlignment="Left"
 							Height="30"
@@ -345,8 +354,8 @@
 							GotMouseCapture="InputFocused"
 							GotKeyboardFocus="InputFocused"
 							Width="354"/>
-					</GroupBox>
-					<GroupBox
+                </GroupBox>
+                <GroupBox
 						x:Name="ShopAddress"
 						Header="Address"
 						HorizontalAlignment="Center"
@@ -355,8 +364,8 @@
 						Margin="10,50,0,0"
 						VerticalAlignment="Top"
 						Width="660">
-						<Grid>
-							<GroupBox
+                    <Grid>
+                        <GroupBox
 								DockPanel.Dock="Top"
 								Header="City"
 								Height="50"
@@ -365,7 +374,7 @@
 								VerticalAlignment="Top"
 								Margin="10,0,0,0"
 								Width="200">
-								<TextBox
+                            <TextBox
 									x:Name="ShopAddressCity"
 									HorizontalAlignment="Left"
 									Height="30"
@@ -383,8 +392,8 @@
 									GotMouseCapture="InputFocused"
 									GotKeyboardFocus="InputFocused"
 									Width="187"/>
-							</GroupBox>
-							<GroupBox
+                        </GroupBox>
+                        <GroupBox
 								DockPanel.Dock="Top"
 								Header="Street" 
 								Height="50"
@@ -393,7 +402,7 @@
 								VerticalAlignment="Top"
 								Margin="10,0,0,0"
 								Width="200">
-								<TextBox
+                            <TextBox
 									x:Name="ShopAddressStreet"
 									HorizontalAlignment="Left"
 									Height="30"
@@ -411,8 +420,8 @@
 									GotMouseCapture="InputFocused"
 									GotKeyboardFocus="InputFocused"
 									Width="187"/>
-							</GroupBox>
-							<GroupBox
+                        </GroupBox>
+                        <GroupBox
 								DockPanel.Dock="Top"
 								Header="Building Number" 
 								Height="50"
@@ -421,7 +430,7 @@
 								VerticalAlignment="Top"
 								Margin="10,0,10,0"
 								Width="200">
-								<TextBox
+                            <TextBox
 									x:Name="ShopAddressBuildingNumber"
 									HorizontalAlignment="Left"
 									Height="30"
@@ -439,12 +448,12 @@
 									GotMouseCapture="InputFocused"
 									GotKeyboardFocus="InputFocused"
 									Width="187"/>
-							</GroupBox>
-						</Grid>
-					</GroupBox>
-				</Grid>
-			</GroupBox>
-			<GroupBox
+                        </GroupBox>
+                    </Grid>
+                </GroupBox>
+            </Grid>
+        </GroupBox>
+        <GroupBox
 				x:Name="GoodsData"
 				DockPanel.Dock="Top"
 				Header="Goods Info"
@@ -453,8 +462,8 @@
 				FontSize="18"
 				Margin="10,20,10,0"
 				VerticalAlignment="Top">
-				<Grid>
-					<GroupBox
+            <Grid>
+                <GroupBox
 						DockPanel.Dock="Top"
 						Header="Code" 
 						Height="50"
@@ -463,7 +472,7 @@
 						VerticalAlignment="Top"
 						Margin="70,0,0,0"
 						Width="300">
-						<TextBox
+                    <TextBox
 							x:Name="GoodsCode"
 							HorizontalAlignment="Left"
 							Height="30"
@@ -481,8 +490,8 @@
 							GotMouseCapture="InputFocused"
 							GotKeyboardFocus="InputFocused"
 							Width="187"/>
-					</GroupBox>
-					<GroupBox
+                </GroupBox>
+                <GroupBox
 						DockPanel.Dock="Top"
 						Header="Weight (kg)"
 						Height="50"
@@ -491,7 +500,7 @@
 						VerticalAlignment="Top"
 						Margin="10,0,70,0"
 						Width="300">
-						<TextBox
+                    <TextBox
 							x:Name="GoodsWeight"
 							HorizontalAlignment="Left"
 							Height="30"
@@ -509,12 +518,12 @@
 							GotMouseCapture="InputFocused"
 							GotKeyboardFocus="InputFocused"
 							Width="187"/>
-					</GroupBox>
-				</Grid>
-			</GroupBox>
-			
-			
-			
-		</DockPanel>
-	
+                </GroupBox>
+            </Grid>
+        </GroupBox>
+
+
+
+    </DockPanel>
+
 </Window>
