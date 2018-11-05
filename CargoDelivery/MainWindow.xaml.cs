@@ -33,6 +33,8 @@ namespace CargoDelivery
 		/// An object for storage connection.
 		/// </summary>
 		private readonly OrdersStorage _storage;
+
+		private bool popupActive = false;
 		
 		/// <summary>
 		/// Parameterless constructor of application's main window.
@@ -76,7 +78,11 @@ namespace CargoDelivery
 			{
 				OrdersList.ItemsSource = orders; 
 				OrdersExplorer.IsOpen = true;
+				popupActive = true;
 				ResetOrderInstance();
+				WindowMain.IsEnabled = false;
+				EditOrderButton.IsEnabled = true;
+				DeletOrderButton.IsEnabled = true;
 			}
 			else
 			{
@@ -109,6 +115,8 @@ namespace CargoDelivery
 			OrdersExplorer.IsOpen = false;
 			EditOrderButton.IsEnabled = false;
 			DeletOrderButton.IsEnabled = false;
+			popupActive = false;
+			WindowMain.IsEnabled = true;
 		}
 
 		/// <summary>
@@ -121,6 +129,8 @@ namespace CargoDelivery
 			OrdersExplorer.IsOpen = false;
 			EditOrderButton.IsEnabled = false;
 			DeletOrderButton.IsEnabled = false;
+			popupActive = false;
+			WindowMain.IsEnabled = true;
 		}
 
 		/// <summary>
