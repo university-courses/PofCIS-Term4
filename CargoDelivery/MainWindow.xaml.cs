@@ -39,6 +39,11 @@ namespace CargoDelivery
 		private void DiscoverOrders(object sender, RoutedEventArgs e)
 		{
 			OrdersExplorer.IsOpen = true;
+			var allOrders = _storage.RetrieveAllIds();
+			foreach (var order in allOrders)
+			{
+				OrdersList.Resources.Add(order.Key, order.Value);
+			}
 		}
 
 

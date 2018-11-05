@@ -3,6 +3,7 @@
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
 		mc:Ignorable="d"
 		x:Name="WindowMain"
 		Title="Cargo Delivery"
@@ -30,13 +31,25 @@
 					VerticalAlignment="Center" MinWidth="300" MinHeight="100">
                 <StackPanel>
                     <Label HorizontalAlignment="Center" VerticalAlignment="Top">
-                        <ListView Name ="OrdersList" BorderBrush="#FF302B5B" HorizontalAlignment="Center" VerticalAlignment="Top" MinWidth="290" FontSize="18" Cursor="Hand">
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn Header="Id"/>
-                                    <GridViewColumn Header="Owner"/>
-                                </GridView>
-                            </ListView.View>
+                        <ListView 
+	                        Name ="OrdersList"
+	                        BorderBrush="#FF302B5B"
+	                        HorizontalAlignment="Center"
+	                        VerticalAlignment="Top"
+	                        MinWidth="290"
+	                        FontSize="18"
+	                        Cursor="Hand"
+	                        ItemsSource="{DynamicResource ResourceKey=allOrders}">
+	                        <ListView.View>
+		                        <GridView>
+			                        <GridViewColumn DisplayMemberBinding="{Binding Path=dict.Key}" Width="50">Id</GridViewColumn>
+			                        <GridViewColumn DisplayMemberBinding="{Binding Path=dict.Value}" Width="100">Owner</GridViewColumn>
+		                        </GridView>
+	                        </ListView.View>
+	                        <ListView.Resources>
+		                        <collections:ArrayList x:Key="allOrders">
+		                        </collections:ArrayList>
+	                        </ListView.Resources>
                         </ListView>
                     </Label>
                     <StackPanel Orientation="Horizontal"
