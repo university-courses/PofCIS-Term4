@@ -13,7 +13,7 @@ namespace CargoDelivery.Classes
 	public class Order
 	{
 		[XmlAttribute]
-		public uint Id { get; set; }
+		public long Id { get; set; }
 		
 		public ClientData ClientData { get; set; }
 		
@@ -45,7 +45,7 @@ namespace CargoDelivery.Classes
 			GoodsData = new GoodsData(goodsData.Attributes);
 		}
 		
-		public Order(uint id, ClientData clientData, ShopData shopData, GoodsData goodsData)
+		public Order(long id, ClientData clientData, ShopData shopData, GoodsData goodsData)
 		{
 			Id = id;
 			ClientData = clientData;

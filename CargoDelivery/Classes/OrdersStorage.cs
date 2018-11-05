@@ -27,7 +27,7 @@ namespace CargoDelivery.Classes
 			stream.Close();
 		}
 
-		public Order Retrieve(uint id)
+		public Order Retrieve(long id)
 		{
 			var doc = new XmlDocument();
 			var node = FindNode(id, ref doc);
@@ -38,9 +38,9 @@ namespace CargoDelivery.Classes
 			return new Order(node);
 		}
 
-		public Dictionary<string, string> RetrieveAllIds()
+		public Dictionary<long, string> RetrieveAllIds()
 		{
-			var dict = new Dictionary<string, string>();
+			var dict = new Dictionary<long, string>();
 			var doc = new XmlDocument();
 			doc.Load(_path);
 			var iterator = doc.SelectNodes("/ArrayOfOrder/Order")?.GetEnumerator();
@@ -64,7 +64,7 @@ namespace CargoDelivery.Classes
 						continue;
 					}
 
-					dict[current.Attributes["Id"].Value] =
+					dict[long.Parse(current.Attributes["Id"].Value)] =
 						owner.Attributes["FirstName"].Value + " " + owner.Attributes["LastName"].Value;
 				}
 				else
@@ -90,7 +90,7 @@ namespace CargoDelivery.Classes
 			doc.Save(_path);
 		}
 		
-		public void Update(uint oldOrderId, Order newOrder)
+		public void Update(long oldOrderId, Order newOrder)
 		{
 			var doc = new XmlDocument();
 			var node = FindNode(oldOrderId, ref doc);
@@ -98,11 +98,12 @@ namespace CargoDelivery.Classes
 			{
 				return;
 			}
+
 			Order.EditXmlNode(ref node, newOrder);
 			doc.Save(_path);
 		}
 
-		public void Remove(uint id)
+		public void Remove(long id)
 		{
 			var doc = new XmlDocument();
 			doc.Load(_path);
@@ -125,7 +126,7 @@ namespace CargoDelivery.Classes
 			}
 		}
 
-		public XmlNode FindNode(uint id, ref XmlDocument document)
+		public XmlNode FindNode(long id, ref XmlDocument document)
 		{
 			document.Load(_path);
 			var iterator = document.SelectNodes("/ArrayOfOrder/Order")?.GetEnumerator();
@@ -160,7 +161,7 @@ namespace CargoDelivery.Classes
 			}
 		}
 		
-		public bool OrderExists(uint id)
+		public bool OrderExists(long id)
 		{
 			var doc = new XmlDocument();
 			doc.Load(_path);

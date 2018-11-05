@@ -68,7 +68,7 @@ namespace CargoDelivery.Test.Classes
 			var owners = ls.Values.ToArray();
 			for (var i = 0; i < orders.Count; i++)
 			{
-				Assert.Equal(orders[i].Id, uint.Parse(ids[i]));
+				Assert.Equal(orders[i].Id, ids[i]);
 				Assert.Equal(orders[i].ClientData.FirstName + " " + orders[i].ClientData.LastName, owners[i]);
 			}
 		}
