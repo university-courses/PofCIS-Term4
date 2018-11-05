@@ -11,6 +11,7 @@
 	MinHeight="660"
 	MinWidth="830"
 	d:DataContext="{d:_order}">
+	
 	<DockPanel
 		Margin="10"
 		Height="690"
@@ -31,28 +32,24 @@
 				MaxWidth="370"
 				MinHeight="100">
 				<StackPanel>
-					<Label 
+					<ListView
+						Name ="OrdersList"
+						BorderThickness="0"
 						HorizontalAlignment="Center"
-						VerticalAlignment="Top">
-						<ListView
-							Name ="OrdersList"
-							BorderThickness="0"
-							HorizontalAlignment="Center"
-							VerticalAlignment="Top"
-							MinWidth="200"
-							MaxWidth="210"
-							FontSize="16"
-							SelectionMode="Single"
-							SelectionChanged="ItemIsSelected"
-							MaxHeight="{Binding ElementName=WindowMain, Path=ActualHeight}">
-							<ListView.View>
-								<GridView>
-									<GridViewColumn DisplayMemberBinding="{Binding Path=Key}" Width="50">Id</GridViewColumn>
-									<GridViewColumn DisplayMemberBinding="{Binding Path=Value}" Width="150">Owner</GridViewColumn>
-								</GridView>
-							</ListView.View>
-						</ListView>
-					</Label>
+						VerticalAlignment="Top"
+						MinWidth="200"
+						MaxWidth="210"
+						FontSize="16"
+						SelectionMode="Single"
+						SelectionChanged="ItemIsSelected"
+						MaxHeight="{Binding ElementName=WindowMain, Path=ActualHeight}">
+						<ListView.View>
+							<GridView>
+								<GridViewColumn DisplayMemberBinding="{Binding Path=Key}" Width="50">Id</GridViewColumn>
+								<GridViewColumn DisplayMemberBinding="{Binding Path=Value}" Width="150">Owner</GridViewColumn>
+							</GridView>
+						</ListView.View>
+					</ListView>
 					<StackPanel
 						Orientation="Horizontal"
 						HorizontalAlignment="Center" 
@@ -121,6 +118,7 @@
 				</StackPanel>
 			</Border>
 		</Popup>
+		
 		<Grid
 			DockPanel.Dock="Top">
 			<Button
@@ -600,5 +598,6 @@
 				</GroupBox>
 			</Grid>
 		</GroupBox>
+	
 	</DockPanel>
 </Window>
