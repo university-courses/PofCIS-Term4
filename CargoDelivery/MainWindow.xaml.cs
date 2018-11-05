@@ -113,7 +113,7 @@ namespace CargoDelivery
 			{
 				if (OrdersList.SelectedItems.Count == 1)
 				{
-					var selectedItem = (dynamic) OrdersList.SelectedItems[0];
+					var selectedItem = (dynamic)OrdersList.SelectedItems[0];
 					_order = _storage.Retrieve(selectedItem.Key);
 					DataContext = _order;
 				}
@@ -224,7 +224,7 @@ namespace CargoDelivery
 					return;
 				}
 
-				var selectedItem = (dynamic) OrdersList.SelectedItems[0];
+				var selectedItem = (dynamic)OrdersList.SelectedItems[0];
 				_storage.Remove(selectedItem.Key);
 				OrdersList.SelectedItem = null;
 				EditOrderButton.IsEnabled = false;
@@ -253,7 +253,7 @@ namespace CargoDelivery
 		/// </summary>
 		private void ResetOrderInstance()
 		{
-			_order = new Order {Id = -1};
+			_order = new Order { Id = -1 };
 			DataContext = _order;
 		}
 	}
