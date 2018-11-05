@@ -14,11 +14,29 @@ namespace CargoDelivery
 	/// </summary>
 	public partial class MainWindow
 	{
+		/// <summary>
+		/// Holds an id number of the next order.
+		/// </summary>
 		private long _nextId;
+		
+		/// <summary>
+		/// Contains information of current creating/editing order.
+		/// </summary>
 		private Order _order;
+		
+		/// <summary>
+		/// Validator instance.
+		/// </summary>
 		private readonly Validator _validator;
+		
+		/// <summary>
+		/// An object for storage connection.
+		/// </summary>
 		private readonly OrdersStorage _storage;
 		
+		/// <summary>
+		/// Parameterless constructor of application's main window.
+		/// </summary>
 		public MainWindow()
 		{
 			InitializeComponent();
@@ -45,6 +63,11 @@ namespace CargoDelivery
 			ResetOrderInstance();
 		}
 
+		/// <summary>
+		/// Fires when user opens pop-up window with a list of available oredrs.
+		/// </summary>
+		/// <param name="sender">The button New that the action is for.</param>
+		/// <param name="e">Arguments that the implementor of this event may find useful.</param>
 		private void ExploreOrders(object sender, RoutedEventArgs e)
 		{
 			var orders = _storage.RetrieveAllIds();
@@ -60,6 +83,11 @@ namespace CargoDelivery
 			}
 		}
 		
+		/// <summary>
+		/// Fires when user presses 'Edit' button on pop-up window.
+		/// </summary>
+		/// <param name="sender">The button New that the action is for.</param>
+		/// <param name="e">Arguments that the implementor of this event may find useful.</param>
 		private void SetTargetEditingOrder(object sender, RoutedEventArgs e)
 		{
 			try
@@ -82,6 +110,11 @@ namespace CargoDelivery
 			DeletOrderButton.IsEnabled = false;
 		}
 
+		/// <summary>
+		/// Fires when user rejects pop-up window by pressing 'Cancel' button.
+		/// </summary>
+		/// <param name="sender">The button New that the action is for.</param>
+		/// <param name="e">Arguments that the implementor of this event may find useful.</param>
 		private void Cancel(object sender, RoutedEventArgs e)
 		{
 			OrdersExplorer.IsOpen = false;
@@ -89,7 +122,12 @@ namespace CargoDelivery
 			DeletOrderButton.IsEnabled = false;
 		}
 
-		private void CreateOrder(object sender, RoutedEventArgs e)
+		/// <summary>
+		/// Fires when user creates or updates an order.
+		/// </summary>
+		/// <param name="sender">The button New that the action is for.</param>
+		/// <param name="e">Arguments that the implementor of this event may find useful.</param>
+		private void SaveOrder(object sender, RoutedEventArgs e)
 		{
 			try
 			{
@@ -112,6 +150,11 @@ namespace CargoDelivery
 			}
 		}
 
+		/// <summary>
+		/// Fires when user selects some input field.
+		/// </summary>
+		/// <param name="sender">The button New that the action is for.</param>
+		/// <param name="e">Arguments that the implementor of this event may find useful.</param>
 		private void InputFocused(object sender, RoutedEventArgs e)
 		{
 			if (e.OriginalSource is TextBox textBox)
@@ -120,18 +163,33 @@ namespace CargoDelivery
 			}
 		}
 
+		/// <summary>
+		/// Fires when user presses on items in pop-up window's list view.
+		/// </summary>
+		/// <param name="sender">The button New that the action is for.</param>
+		/// <param name="e">Arguments that the implementor of this event may find useful.</param>
 		private void ItemIsSelected(object sender, RoutedEventArgs e)
 		{
 			EditOrderButton.IsEnabled = true;
 			DeletOrderButton.IsEnabled = true;
 		}
 
+		/// <summary>
+		/// Fires when user resets input fields for creating new order by pressing 'New' button.
+		/// </summary>
+		/// <param name="sender">The button New that the action is for.</param>
+		/// <param name="e">Arguments that the implementor of this event may find useful.</param>
 		private void NewOrder(object sender, RoutedEventArgs e)
 		{
 			_order = new Order {Id = -1};
 			DataContext = _order;
 		}
 
+		/// <summary>
+		/// Fires when user deletes order by pressing 'Delete' button on pop-up window.
+		/// </summary>
+		/// <param name="sender">The button New that the action is for.</param>
+		/// <param name="e">Arguments that the implementor of this event may find useful.</param>
 		private void DeleteOrder(object sender, RoutedEventArgs e)
 		{
 			try
@@ -162,6 +220,9 @@ namespace CargoDelivery
 			}
 		}
 
+		/// <summary>
+		/// Resets _order field: set _order to new Order with id = -1.
+		/// </summary>
 		private void ResetOrderInstance()
 		{
 			_order = new Order {Id = -1};

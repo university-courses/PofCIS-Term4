@@ -153,7 +153,7 @@
 				Background="Azure"
 				Height="40"
 				Width="120"
-				Click="CreateOrder">
+				Click="SaveOrder">
 				<Button.Resources>
 					<Style TargetType="{x:Type Border}">
 						<Setter Property="CornerRadius" Value="5"/>

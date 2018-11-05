@@ -4,15 +4,29 @@ using System.Collections.Generic;
 
 namespace CargoDelivery.BL
 {
+	/// <summary>
+	/// Represents input fields validator.
+	/// </summary>
 	public class Validator
 	{
+		/// <summary>
+		/// A list of inputs to validate.
+		/// </summary>
 		private readonly List<TextBox> _inputs;
 		
+		/// <summary>
+		/// Constructs a new validator object with given input fields.
+		/// </summary>
+		/// <param name="inputs">A list of inputs.</param>
 		public Validator(List<TextBox> inputs)
 		{
 			_inputs = inputs;
 		}
 
+		/// <summary>
+		/// Validates input fields given in constructor.
+		/// </summary>
+		/// <exception cref="InvalidDataException">Throws if some field(s) contains errors.</exception>
 		public void Validate()
 		{
 			foreach (var input in _inputs)
