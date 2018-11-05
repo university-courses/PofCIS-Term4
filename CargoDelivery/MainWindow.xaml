@@ -27,8 +27,8 @@
 				CornerRadius="5,5,5,5" 
 				HorizontalAlignment="Center" 
 				VerticalAlignment="Center"
-				MinWidth="300"
-				MaxWidth="300"
+				MinWidth="370"
+				MaxWidth="370"
 				MinHeight="100">
 				<StackPanel>
 					<Label 
@@ -57,11 +57,11 @@
 						Orientation="Horizontal"
 						HorizontalAlignment="Center" 
 						Height="50"
-						Width="210"
+						Width="330"
 						VerticalAlignment="Bottom">
 						<Button
-							Name="SelectOrderButton"
-							Content="Select"
+							Name="EditOrderButton"
+							Content="Edit"
 							HorizontalAlignment="Left"
 							VerticalAlignment="Center"
 							FontSize="14"
@@ -71,6 +71,26 @@
 							Height="35"
 							Width="100"
 							Click="SetTargetEditingOrder">
+							<Button.Resources>
+								<Style TargetType="{x:Type Border}">
+									<Setter Property="CornerRadius" Value="5"/>
+									<Setter Property="BorderThickness" Value="0"/>
+								</Style>
+							</Button.Resources>
+						</Button>
+						<Button
+							Name="DeletOrderButton"
+							Content="Delete"
+							HorizontalAlignment="Center"
+							VerticalAlignment="Center"
+							FontSize="14"
+							FontWeight="Bold"
+							Background="Azure"
+							Cursor="Hand"
+							Height="35"
+							Width="100"
+							Margin="10,0,0,0"
+							Click="DeleteOrder">
 							<Button.Resources>
 								<Style TargetType="{x:Type Border}">
 									<Setter Property="CornerRadius" Value="5"/>
@@ -104,9 +124,9 @@
 		<Grid
 			DockPanel.Dock="Top">
 			<Button
-				Content="Explore Orders"
+				Content="New"
 				HorizontalAlignment="Center"
-				Margin="0,0,140,0"
+				Margin="0,0,280,0"
 				VerticalAlignment="Center"
 				FontSize="14"
 				FontWeight="Bold"
@@ -114,7 +134,7 @@
 				Cursor="Hand"
 				Height="40"
 				Width="120"
-				Click="DiscoverOrders">
+				Click="NewOrder">
 				<Button.Resources>
 					<Style TargetType="{x:Type Border}">
 						<Setter Property="CornerRadius" Value="5"/>
@@ -123,9 +143,9 @@
 				</Button.Resources>
 			</Button>
 			<Button
-				Content="Save Order"
+				Content="Save"
 				HorizontalAlignment="Center"
-				Margin="140,0,0,0"
+				Margin="280,0,280,0"
 				VerticalAlignment="Center"
 				FontSize="14"
 				FontWeight="Bold"
@@ -134,6 +154,25 @@
 				Height="40"
 				Width="120"
 				Click="CreateOrder">
+				<Button.Resources>
+					<Style TargetType="{x:Type Border}">
+						<Setter Property="CornerRadius" Value="5"/>
+						<Setter Property="BorderThickness" Value="0"/>
+					</Style>
+				</Button.Resources>
+			</Button>
+			<Button
+				Content="Explore"
+				HorizontalAlignment="Center"
+				Margin="280,0,0,0"
+				VerticalAlignment="Center"
+				FontSize="14"
+				FontWeight="Bold"
+				Background="Azure"
+				Cursor="Hand"
+				Height="40"
+				Width="120"
+				Click="ExploreOrders">
 				<Button.Resources>
 					<Style TargetType="{x:Type Border}">
 						<Setter Property="CornerRadius" Value="5"/>

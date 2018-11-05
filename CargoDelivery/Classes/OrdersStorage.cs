@@ -4,6 +4,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using System.Collections.Generic;
+using CargoDelivery.BL;
 
 namespace CargoDelivery.Classes
 {
@@ -83,7 +84,7 @@ namespace CargoDelivery.Classes
 			{
 				throw new InvalidDataException("order already exists");
 			}
-
+			
 			var doc = XDocument.Load(_path);
 			var orders = doc.Element("ArrayOfOrder");
 			orders?.Add(order.ToXml());

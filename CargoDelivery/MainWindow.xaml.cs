@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Collections.Generic;
+
 using CargoDelivery.BL;
 using CargoDelivery.Classes;
 
@@ -14,21 +15,21 @@ namespace CargoDelivery
 	public partial class MainWindow
 	{
 		private long _nextId;
-		private readonly Order _order;
+		private Order _order;
 		private readonly Validator _validator;
 		private readonly OrdersStorage _storage;
-		private readonly Dictionary<long, string> _ordersList;
 		
 		public MainWindow()
 		{
 			InitializeComponent();
-			SelectOrderButton.IsEnabled = false;
+			EditOrderButton.IsEnabled = false;
+			DeletOrderButton.IsEnabled = false;
 			try
 			{
 				_storage = new OrdersStorage("storage.xml");
 				_storage.CreateIfNotExists();
-				_ordersList = _storage.RetrieveAllIds();
-				_nextId = _ordersList.Count != 0 ? _ordersList.Keys.Last() + 1 : 0;
+				var ordersList = _storage.RetrieveAllIds();
+				_nextId = ordersList.Count != 0 ? ordersList.Keys.Last() + 1 : 0;
 			}
 			catch (NullReferenceException e)
 			{
@@ -41,29 +42,33 @@ namespace CargoDelivery
 				ClientAddressBuildingNumber, ShopName, ShopAddressCity, ShopAddressStreet,
 				ShopAddressBuildingNumber, GoodsCode, GoodsWeight
 			});
-			_order = new Order {Id = -1};
-			DataContext = _order;
+			ResetOrderInstance();
 		}
 
-		private void DiscoverOrders(object sender, RoutedEventArgs e)
+		private void ExploreOrders(object sender, RoutedEventArgs e)
 		{
-			OrdersList.ItemsSource = _ordersList;
-			OrdersExplorer.IsOpen = true;
+			var orders = _storage.RetrieveAllIds();
+			if (orders.Count > 0)
+			{
+				OrdersList.ItemsSource = orders; 
+				OrdersExplorer.IsOpen = true;
+				ResetOrderInstance();
+			}
+			else
+			{
+				Util.Info("Explore orders", "Orders database is empty!");
+			}
 		}
 		
 		private void SetTargetEditingOrder(object sender, RoutedEventArgs e)
 		{
-			if (OrdersList.SelectedItems.Count < 1)
-			{
-				return;
-			}
-
 			try
 			{
 				if (OrdersList.SelectedItems.Count == 1)
 				{
 					var selectedItem = (dynamic)OrdersList.SelectedItems[0];
-					DataContext = _storage.Retrieve(selectedItem.Key);	
+					_order = _storage.Retrieve(selectedItem.Key);
+					DataContext = _order;
 				}
 			}
 			catch (Exception exc)
@@ -73,13 +78,15 @@ namespace CargoDelivery
 
 			OrdersList.SelectedItem = null;
 			OrdersExplorer.IsOpen = false;
-			SelectOrderButton.IsEnabled = false;
+			EditOrderButton.IsEnabled = false;
+			DeletOrderButton.IsEnabled = false;
 		}
 
 		private void Cancel(object sender, RoutedEventArgs e)
 		{
 			OrdersExplorer.IsOpen = false;
-			SelectOrderButton.IsEnabled = false;
+			EditOrderButton.IsEnabled = false;
+			DeletOrderButton.IsEnabled = false;
 		}
 
 		private void CreateOrder(object sender, RoutedEventArgs e)
@@ -91,17 +98,17 @@ namespace CargoDelivery
 				{
 					_order.Id = _nextId++;
 					_storage.Add(_order);
+					ResetOrderInstance();
 				}
 				else
 				{
 					_storage.Update(_order.Id, _order);
 				}
-				_ordersList[_order.Id] = _order.ClientData.FirstName + " " + _order.ClientData.LastName;
-				Util.Info("Cargo Delivery", "An order was created successfully!");
+				Util.Info("Cargo Delivery", "An order was saved successfully!");
 			}
 			catch (Exception exc)
 			{
-				Util.Error("Order error", exc.ToString());
+				Util.Error("Order error", exc.Message);
 			}
 		}
 
@@ -115,7 +122,50 @@ namespace CargoDelivery
 
 		private void ItemIsSelected(object sender, RoutedEventArgs e)
 		{
-			SelectOrderButton.IsEnabled = true;
+			EditOrderButton.IsEnabled = true;
+			DeletOrderButton.IsEnabled = true;
+		}
+
+		private void NewOrder(object sender, RoutedEventArgs e)
+		{
+			_order = new Order {Id = -1};
+			DataContext = _order;
+		}
+
+		private void DeleteOrder(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				if (OrdersList.SelectedItems.Count != 1)
+				{
+					return;
+				}
+
+				var selectedItem = (dynamic) OrdersList.SelectedItems[0];
+				_storage.Remove(selectedItem.Key);
+				OrdersList.SelectedItem = null;
+				EditOrderButton.IsEnabled = false;
+				DeletOrderButton.IsEnabled = false;
+				var orders = _storage.RetrieveAllIds();
+				if (orders.Count < 1)
+				{
+					OrdersExplorer.IsOpen = false;
+				}
+				else
+				{
+					OrdersList.ItemsSource = orders;
+				}
+			}
+			catch (Exception exc)
+			{
+				Util.Error("Order deleting error", exc.Message);
+			}
+		}
+
+		private void ResetOrderInstance()
+		{
+			_order = new Order {Id = -1};
+			DataContext = _order;
 		}
 	}
 }
