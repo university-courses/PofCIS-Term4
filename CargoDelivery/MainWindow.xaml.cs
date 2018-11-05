@@ -3,7 +3,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Collections.Generic;
-
+using System.Windows.Media.Effects;
 using CargoDelivery.BL;
 using CargoDelivery.Classes;
 
@@ -18,24 +18,24 @@ namespace CargoDelivery
 		/// Holds an id number of the next order.
 		/// </summary>
 		private long _nextId;
-		
+
 		/// <summary>
 		/// Contains information of current creating/editing order.
 		/// </summary>
 		private Order _order;
-		
+
 		/// <summary>
 		/// Validator instance.
 		/// </summary>
 		private readonly Validator _validator;
-		
+
 		/// <summary>
 		/// An object for storage connection.
 		/// </summary>
 		private readonly OrdersStorage _storage;
 
-		private bool popupActive = false;
-		
+		private bool _popupActive = false;
+
 		/// <summary>
 		/// Parameterless constructor of application's main window.
 		/// </summary>
@@ -59,9 +59,19 @@ namespace CargoDelivery
 
 			_validator = new Validator(new List<TextBox>
 			{
-				FirstName, LastName, Email, PhoneNumber, ClientAddressCity, ClientAddressStreet,
-				ClientAddressBuildingNumber, ShopName, ShopAddressCity, ShopAddressStreet,
-				ShopAddressBuildingNumber, GoodsCode, GoodsWeight
+				FirstName,
+				LastName,
+				Email,
+				PhoneNumber,
+				ClientAddressCity,
+				ClientAddressStreet,
+				ClientAddressBuildingNumber,
+				ShopName,
+				ShopAddressCity,
+				ShopAddressStreet,
+				ShopAddressBuildingNumber,
+				GoodsCode,
+				GoodsWeight
 			});
 			ResetOrderInstance();
 		}
@@ -76,20 +86,22 @@ namespace CargoDelivery
 			var orders = _storage.RetrieveAllIds();
 			if (orders.Count > 0)
 			{
-				OrdersList.ItemsSource = orders; 
+				OrdersList.ItemsSource = orders;
 				OrdersExplorer.IsOpen = true;
-				popupActive = true;
+				_popupActive = true;
 				ResetOrderInstance();
 				WindowMain.IsEnabled = false;
 				EditOrderButton.IsEnabled = true;
 				DeletOrderButton.IsEnabled = true;
+				Opacity = 0.5;
+				Effect = new BlurEffect();
 			}
 			else
 			{
 				Util.Info("Explore orders", "Orders database is empty!");
 			}
 		}
-		
+
 		/// <summary>
 		/// Fires when user presses 'Edit' button on pop-up window.
 		/// </summary>
@@ -101,7 +113,7 @@ namespace CargoDelivery
 			{
 				if (OrdersList.SelectedItems.Count == 1)
 				{
-					var selectedItem = (dynamic)OrdersList.SelectedItems[0];
+					var selectedItem = (dynamic) OrdersList.SelectedItems[0];
 					_order = _storage.Retrieve(selectedItem.Key);
 					DataContext = _order;
 				}
@@ -115,8 +127,10 @@ namespace CargoDelivery
 			OrdersExplorer.IsOpen = false;
 			EditOrderButton.IsEnabled = false;
 			DeletOrderButton.IsEnabled = false;
-			popupActive = false;
+			_popupActive = false;
 			WindowMain.IsEnabled = true;
+			Opacity = 1;
+			Effect = null;
 		}
 
 		/// <summary>
@@ -129,8 +143,10 @@ namespace CargoDelivery
 			OrdersExplorer.IsOpen = false;
 			EditOrderButton.IsEnabled = false;
 			DeletOrderButton.IsEnabled = false;
-			popupActive = false;
+			_popupActive = false;
 			WindowMain.IsEnabled = true;
+			Opacity = 1;
+			Effect = null;
 		}
 
 		/// <summary>
@@ -210,7 +226,10 @@ namespace CargoDelivery
 					return;
 				}
 
-				var selectedItem = (dynamic)OrdersList.SelectedItems[0];
+				var selectedItem = (dynamic) OrdersList.SelectedItems[0];
+
+				MessageBox.Show(selectedItem.Key.ToString());
+
 				_storage.Remove(selectedItem.Key);
 				OrdersList.SelectedItem = null;
 				EditOrderButton.IsEnabled = false;
@@ -219,6 +238,8 @@ namespace CargoDelivery
 				if (orders.Count < 1)
 				{
 					OrdersExplorer.IsOpen = false;
+					Opacity = 1;
+					Effect = null;
 				}
 				else
 				{
@@ -236,7 +257,7 @@ namespace CargoDelivery
 		/// </summary>
 		private void ResetOrderInstance()
 		{
-			_order = new Order { Id = -1 };
+			_order = new Order {Id = -1};
 			DataContext = _order;
 		}
 	}

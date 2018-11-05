@@ -155,9 +155,15 @@ namespace CargoDelivery.Classes
 			{
 				if (iterator.Current is XmlNode current)
 				{
-					if (current.Attributes != null && (current.Attributes != null || current.Attributes["Id"].Value.Equals(id.ToString())))
+					if (current.Attributes != null && current.Attributes["Id"].Value.Equals(id.ToString()))
 					{
-						current.ParentNode?.RemoveChild(current);
+						var parentNode = current.ParentNode;
+						if (parentNode == null)
+						{
+							throw new NullReferenceException("storage data is corrupted");
+						}
+
+						parentNode.RemoveChild(current);
 						doc.Save(_path);
 						return;
 					}

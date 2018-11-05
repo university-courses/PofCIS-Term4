@@ -11,7 +11,6 @@
 	MinHeight="660"
 	MinWidth="830"
 	d:DataContext="{d:_order}">
-	
 	<DockPanel
 		Margin="10"
 		Height="690"
@@ -118,7 +117,6 @@
 				</StackPanel>
 			</Border>
 		</Popup>
-		
 		<Grid
 			DockPanel.Dock="Top">
 			<Button
@@ -598,6 +596,5 @@
 				</GroupBox>
 			</Grid>
 		</GroupBox>
-	
 	</DockPanel>
 </Window>
