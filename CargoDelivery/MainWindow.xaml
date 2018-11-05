@@ -15,6 +15,37 @@
 			Margin="10"
 			Height="690"
 			Width="800">
+			<Popup x:Name="OrdersExplorer" 
+			      IsOpen="False"
+			       AllowsTransparency="True"  
+			       PopupAnimation="Slide"
+			       Placement="Center">
+				<Border
+					Background="Wheat" 
+					BorderBrush="Black" 
+					BorderThickness="1" 
+					CornerRadius="5,5,5,5" 
+					HorizontalAlignment="Center" 
+					VerticalAlignment="Center">
+					<StackPanel>
+						<Label>Here the list will be displayed</Label>
+						<StackPanel Orientation="Horizontal"
+						            HorizontalAlignment="Center">
+							<Button x:Name="OkButton"
+							        Margin="5" 
+							        Content="Ok" 
+							        Background="WhiteSmoke" 
+							        Click="Ok"/>
+							<Button x:Name="CancelButton" 
+							        Margin="5"
+							        Content="Cancel"
+							        Background="WhiteSmoke"
+							        Click="Cancel" />
+						</StackPanel>
+					</StackPanel>
+				</Border>
+				
+			</Popup>
 			<Grid
 			   	DockPanel.Dock="Top">
 			   	<Button
@@ -480,5 +511,9 @@
 					</GroupBox>
 				</Grid>
 			</GroupBox>
+			
+			
+			
 		</DockPanel>
+	
 </Window>
