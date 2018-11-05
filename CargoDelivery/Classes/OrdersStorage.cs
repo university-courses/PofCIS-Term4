@@ -4,19 +4,31 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using System.Collections.Generic;
-using CargoDelivery.BL;
 
 namespace CargoDelivery.Classes
 {
+	/// <summary>
+	/// Represents an order storage object.
+	/// </summary>
 	public class OrdersStorage
 	{
+		/// <summary>
+		/// Holds storage path.
+		/// </summary>
 		private readonly string _path;
 		
+		/// <summary>
+		/// Constructs an object which can connect with storage file.
+		/// </summary>
+		/// <param name="path"></param>
 		public OrdersStorage(string path)
 		{
 			_path = path;
 		}
 		
+		/// <summary>
+		/// Creates new storage file if it does not already exist.
+		/// </summary>
 		public void CreateIfNotExists()
 		{
 			if (StorageExists())
@@ -28,6 +40,12 @@ namespace CargoDelivery.Classes
 			stream.Close();
 		}
 
+		/// <summary>
+		/// Retrieves oredr object by its id.
+		/// </summary>
+		/// <param name="id">Order id.</param>
+		/// <returns>Order object.</returns>
+		/// <exception cref="Exception">Throws if object with given id does not exist.</exception>
 		public Order Retrieve(long id)
 		{
 			var doc = new XmlDocument();
@@ -39,6 +57,13 @@ namespace CargoDelivery.Classes
 			return new Order(node);
 		}
 
+		/// <summary>
+		/// Retrieve orders basic data from the storage.
+		/// </summary>
+		/// <returns>
+		/// Dictionary where key is an id and value is the concatenation of the first and last name of order's author.
+		/// </returns>
+		/// <exception cref="NullReferenceException">Throws if storage file is broken.</exception>
 		public Dictionary<long, string> RetrieveAllIds()
 		{
 			var dict = new Dictionary<long, string>();
@@ -77,6 +102,11 @@ namespace CargoDelivery.Classes
 			return dict;
 		}
 
+		/// <summary>
+		/// Appends new order to the storage.
+		/// </summary>
+		/// <param name="order">An order to be appended.</param>
+		/// <exception cref="InvalidDataException">Throws if the order with given id already exists.</exception>
 		public void Add(Order order)
 		{
 			var xmlDoc = new XmlDocument();
@@ -91,6 +121,11 @@ namespace CargoDelivery.Classes
 			doc.Save(_path);
 		}
 		
+		/// <summary>
+		/// Updates existent order by its id.
+		/// </summary>
+		/// <param name="oldOrderId">An id of editable order.</param>
+		/// <param name="newOrder">New order data.</param>
 		public void Update(long oldOrderId, Order newOrder)
 		{
 			var doc = new XmlDocument();
@@ -104,6 +139,11 @@ namespace CargoDelivery.Classes
 			doc.Save(_path);
 		}
 
+		/// <summary>
+		/// Deletes order from the storage by its id.
+		/// </summary>
+		/// <param name="id">Order id.</param>
+		/// <exception cref="NullReferenceException">Throws if storage file is broken.</exception>
 		public void Remove(long id)
 		{
 			var doc = new XmlDocument();
@@ -127,6 +167,13 @@ namespace CargoDelivery.Classes
 			}
 		}
 
+		/// <summary>
+		/// Searches for xml order node by its id.
+		/// </summary>
+		/// <param name="id">An id of the order.</param>
+		/// <param name="document">Storage document.</param>
+		/// <returns>Order in XmlNode representation.</returns>
+		/// <exception cref="NullReferenceException">Throws if storage file is broken.</exception>
 		public XmlNode FindNode(long id, ref XmlDocument document)
 		{
 			document.Load(_path);
@@ -149,11 +196,18 @@ namespace CargoDelivery.Classes
 			return null;
 		}
 		
+		/// <summary>
+		/// Checks if storage exists.
+		/// </summary>
+		/// <returns>True if storage exists, otherwise returns false.</returns>
 		public bool StorageExists()
 		{
 			return File.Exists(_path);
 		}
 
+		/// <summary>
+		/// Deletes storage file if it exists.
+		/// </summary>
 		public void DeleteIfExists()
 		{
 			if (StorageExists())
@@ -162,6 +216,11 @@ namespace CargoDelivery.Classes
 			}
 		}
 		
+		/// <summary>
+		/// Checks if an order exists by its id. 
+		/// </summary>
+		/// <param name="id">Order id.</param>
+		/// <returns>True if order with given id exists, otherwise returns false.</returns>
 		public bool OrderExists(long id)
 		{
 			var doc = new XmlDocument();

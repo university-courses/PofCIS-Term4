@@ -9,18 +9,40 @@ using CargoDelivery.Classes.OrderData;
 
 namespace CargoDelivery.Classes
 {
+	/// <summary>
+	/// Represents an order.
+	/// </summary>
 	[Serializable]
 	public class Order
 	{
+		/// <summary>
+		/// Holds an id of the order.
+		/// </summary>
 		[XmlAttribute]
 		public long Id { get; set; }
 		
+		/// <summary>
+		/// Contains client personal information.
+		/// </summary>
 		public ClientData ClientData { get; set; }
 		
+		/// <summary>
+		/// Represents shop data.
+		/// </summary>
 		public ShopData ShopData { get; set; }
 		
+		/// <summary>
+		/// Holds an information about ordered goods.
+		/// </summary>
 		public GoodsData GoodsData { get; set; }
 
+		/// <summary>
+		/// Constructs order object from xml node source.
+		/// </summary>
+		/// <param name="source">Xml node object which contains order data.</param>
+		/// <exception cref="InvalidDataException">
+		/// Throws if xml node attricutes is null or if id value is not long type.
+		/// </exception>
 		public Order(XmlNode source)
 		{
 			if (source.Attributes == null)
@@ -28,7 +50,7 @@ namespace CargoDelivery.Classes
 				throw new InvalidDataException("invalid xml source content");
 			}
 			
-			if (!uint.TryParse(source.Attributes["Id"].Value, out var id))
+			if (!long.TryParse(source.Attributes["Id"].Value, out var id))
 			{
 				throw new InvalidDataException("Order.Id must be of type 'uint'");
 			}
@@ -45,6 +67,13 @@ namespace CargoDelivery.Classes
 			GoodsData = new GoodsData(goodsData.Attributes);
 		}
 		
+		/// <summary>
+		/// Constructor with parameters.
+		/// </summary>
+		/// <param name="id">An id of the order.</param>
+		/// <param name="clientData">Client data object.</param>
+		/// <param name="shopData">Shop data object.</param>
+		/// <param name="goodsData">Goods data object.</param>
 		public Order(long id, ClientData clientData, ShopData shopData, GoodsData goodsData)
 		{
 			Id = id;
@@ -53,6 +82,9 @@ namespace CargoDelivery.Classes
 			GoodsData = goodsData;
 		}
 		
+		/// <summary>
+		/// Parameterless constructor.
+		/// </summary>
 		public Order()
 		{
 			ClientData = new ClientData();
@@ -60,6 +92,10 @@ namespace CargoDelivery.Classes
 			GoodsData = new GoodsData();
 		}
 
+		/// <summary>
+		/// Order to Xml object converter.
+		/// </summary>
+		/// <returns>Order representation as xml element.</returns>
 		public XElement ToXml()
 		{
 			return new XElement("Order",
@@ -67,6 +103,12 @@ namespace CargoDelivery.Classes
 			);
 		}
 
+		/// <summary>
+		/// Updates xml node by reference.
+		/// </summary>
+		/// <param name="node">Current editing xml node.</param>
+		/// <param name="new">New order to be set.</param>
+		/// <exception cref="NullReferenceException">Throws if node is null or contains invalid data.</exception>
 		public static void EditXmlNode(ref XmlNode node, Order @new)
 		{
 			if (node == null)
