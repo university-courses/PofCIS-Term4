@@ -34,8 +34,6 @@ namespace CargoDelivery
 		/// </summary>
 		private readonly OrdersStorage _storage;
 
-		private bool _popupActive = false;
-
 		/// <summary>
 		/// Parameterless constructor of application's main window.
 		/// </summary>
@@ -57,22 +55,25 @@ namespace CargoDelivery
 				Application.Current.Shutdown();
 			}
 
-			_validator = new Validator(new List<TextBox>
-			{
-				FirstName,
-				LastName,
+			_validator = new Validator(
+				new List<TextBox>
+				{
+					FirstName,
+					LastName,
+					Email,
+					PhoneNumber,
+					ClientAddressCity,
+					ClientAddressStreet,
+					ClientAddressBuildingNumber,
+					ShopName,
+					ShopAddressCity,
+					ShopAddressStreet,
+					ShopAddressBuildingNumber,
+					GoodsCode,
+					GoodsWeight
+				},
 				Email,
-				PhoneNumber,
-				ClientAddressCity,
-				ClientAddressStreet,
-				ClientAddressBuildingNumber,
-				ShopName,
-				ShopAddressCity,
-				ShopAddressStreet,
-				ShopAddressBuildingNumber,
-				GoodsCode,
-				GoodsWeight
-			});
+				PhoneNumber);
 			ResetOrderInstance();
 		}
 
@@ -88,11 +89,10 @@ namespace CargoDelivery
 			{
 				OrdersList.ItemsSource = orders;
 				OrdersExplorer.IsOpen = true;
-				_popupActive = true;
 				ResetOrderInstance();
 				WindowMain.IsEnabled = false;
-				EditOrderButton.IsEnabled = true;
-				DeletOrderButton.IsEnabled = true;
+				EditOrderButton.IsEnabled = false;
+				DeletOrderButton.IsEnabled = false;
 				Opacity = 0.5;
 				Effect = new BlurEffect();
 			}
@@ -127,7 +127,6 @@ namespace CargoDelivery
 			OrdersExplorer.IsOpen = false;
 			EditOrderButton.IsEnabled = false;
 			DeletOrderButton.IsEnabled = false;
-			_popupActive = false;
 			WindowMain.IsEnabled = true;
 			Opacity = 1;
 			Effect = null;
@@ -143,7 +142,6 @@ namespace CargoDelivery
 			OrdersExplorer.IsOpen = false;
 			EditOrderButton.IsEnabled = false;
 			DeletOrderButton.IsEnabled = false;
-			_popupActive = false;
 			WindowMain.IsEnabled = true;
 			Opacity = 1;
 			Effect = null;
@@ -227,9 +225,6 @@ namespace CargoDelivery
 				}
 
 				var selectedItem = (dynamic) OrdersList.SelectedItems[0];
-
-				MessageBox.Show(selectedItem.Key.ToString());
-
 				_storage.Remove(selectedItem.Key);
 				OrdersList.SelectedItem = null;
 				EditOrderButton.IsEnabled = false;
@@ -240,6 +235,7 @@ namespace CargoDelivery
 					OrdersExplorer.IsOpen = false;
 					Opacity = 1;
 					Effect = null;
+					WindowMain.IsEnabled = true;
 				}
 				else
 				{

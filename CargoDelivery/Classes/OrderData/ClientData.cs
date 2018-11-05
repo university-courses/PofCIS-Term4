@@ -63,10 +63,10 @@ namespace CargoDelivery.Classes.OrderData
 			string phoneNumber,
 			Address clientAddress)
 		{
-			FirstName = firstName;
-			LastName = lastName;
-			Email = email;
-			PhoneNumber = phoneNumber;
+			FirstName = firstName.Trim();
+			LastName = lastName.Trim();
+			Email = email.Trim();
+			PhoneNumber = phoneNumber.Trim();
 			Address = clientAddress;
 		}
 

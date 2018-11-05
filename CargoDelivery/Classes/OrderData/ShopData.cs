@@ -37,7 +37,7 @@ namespace CargoDelivery.Classes.OrderData
 		/// <param name="shopAddress">An address of the shop.</param>
 		public ShopData(string name, Address shopAddress)
 		{
-			Name = name;
+			Name = name.Trim();
 			Address = shopAddress;
 		}
 

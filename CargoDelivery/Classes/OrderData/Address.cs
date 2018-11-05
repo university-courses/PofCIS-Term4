@@ -45,8 +45,8 @@ namespace CargoDelivery.Classes.OrderData
 		/// <param name="buildingNumber">A number of building.</param>
 		public Address(string city, string street, uint buildingNumber)
 		{
-			City = city;
-			Street = street;
+			City = city.Trim();
+			Street = street.Trim();
 			BuildingNumber = buildingNumber;
 		}
 
