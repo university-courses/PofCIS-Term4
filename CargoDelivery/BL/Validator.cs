@@ -39,16 +39,20 @@ namespace CargoDelivery.BL
 					{
 						throw new InvalidDataException("Field '" + parent.Header + "' contains errors!");	
 					}
+
 					throw new InvalidDataException("Some fields contains errors!");
 				}
+
 				if (input.Text.Length != 0)
 				{
 					continue;
 				}
+
 				if (parent != null)
 				{
 					throw new InvalidDataException("Field '" + parent.Header + "' can't be empty!");	
 				}
+
 				throw new InvalidDataException("Check all fields if it is filled up!");
 			}
 		}

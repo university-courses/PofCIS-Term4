@@ -71,10 +71,10 @@ namespace CargoDelivery.Classes.OrderData
 		/// </summary>
 		public XElement ToXml()
 		{
-			return new XElement("GoodsData",
+			return new XElement(
+				"GoodsData",
 				new XAttribute("Code", Code),
-				new XAttribute("Weight", Weight)
-			);
+				new XAttribute("Weight", Weight));
 		}
 	}
 }

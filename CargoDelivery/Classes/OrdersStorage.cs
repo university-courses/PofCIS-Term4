@@ -35,6 +35,7 @@ namespace CargoDelivery.Classes
 			{
 				return;
 			}
+
 			Stream stream = new FileStream(_path, FileMode.Create);
 			new XmlSerializer(typeof(List<Order>)).Serialize(stream, new List<Order>());
 			stream.Close();
@@ -54,6 +55,7 @@ namespace CargoDelivery.Classes
 			{
 				throw new Exception("data not found");
 			}
+
 			return new Order(node);
 		}
 

@@ -6,7 +6,6 @@ using System.Xml.Serialization;
 
 namespace CargoDelivery.Classes.OrderData
 {
-
 	/// <summary>
 	/// Class to represent an address.
 	/// </summary>
@@ -76,11 +75,11 @@ namespace CargoDelivery.Classes.OrderData
 		/// </summary>
 		public XElement ToXml()
 		{
-			return new XElement("Address",
+			return new XElement(
+				"Address",
 				new XAttribute("City", City),
 				new XAttribute("Street", Street),
-				new XAttribute("BuildingNumber", BuildingNumber)
-			);
+				new XAttribute("BuildingNumber", BuildingNumber));
 		}
 	}
 }

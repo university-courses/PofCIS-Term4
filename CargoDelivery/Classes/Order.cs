@@ -98,9 +98,12 @@ namespace CargoDelivery.Classes
 		/// <returns>Order representation as xml element.</returns>
 		public XElement ToXml()
 		{
-			return new XElement("Order",
-				new XAttribute("Id", Id), ClientData.ToXml(), GoodsData.ToXml(), ShopData.ToXml()
-			);
+			return new XElement(
+				"Order",
+				new XAttribute("Id", Id),
+				ClientData.ToXml(),
+				GoodsData.ToXml(),
+				ShopData.ToXml());
 		}
 
 		/// <summary>

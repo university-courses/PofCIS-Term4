@@ -61,8 +61,7 @@ namespace CargoDelivery.Classes.OrderData
 			string lastName,
 			string email,
 			string phoneNumber,
-			Address clientAddress
-		)
+			Address clientAddress)
 		{
 			FirstName = firstName;
 			LastName = lastName;
@@ -104,13 +103,13 @@ namespace CargoDelivery.Classes.OrderData
 		/// </summary>
 		public XElement ToXml()
 		{
-			return new XElement("ClientData",
+			return new XElement(
+				"ClientData",
 				new XAttribute("FirstName", FirstName),
 				new XAttribute("LastName", LastName),
 				new XAttribute("Email", Email),
 				new XAttribute("PhoneNumber", PhoneNumber),
-				Address.ToXml()
-			);
+				Address.ToXml());
 		}
 	}
 }

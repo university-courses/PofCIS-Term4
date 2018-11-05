@@ -54,6 +54,7 @@ namespace CargoDelivery
 				Util.Error("Storage fatal error", e.Message);
 				Application.Current.Shutdown();
 			}
+
 			_validator = new Validator(new List<TextBox>
 			{
 				FirstName, LastName, Email, PhoneNumber, ClientAddressCity, ClientAddressStreet,
@@ -142,6 +143,7 @@ namespace CargoDelivery
 				{
 					_storage.Update(_order.Id, _order);
 				}
+
 				Util.Info("Cargo Delivery", "An order was saved successfully!");
 			}
 			catch (Exception exc)
@@ -181,8 +183,7 @@ namespace CargoDelivery
 		/// <param name="e">Arguments that the implementor of this event may find useful.</param>
 		private void NewOrder(object sender, RoutedEventArgs e)
 		{
-			_order = new Order {Id = -1};
-			DataContext = _order;
+			ResetOrderInstance();
 		}
 
 		/// <summary>
@@ -199,7 +200,7 @@ namespace CargoDelivery
 					return;
 				}
 
-				var selectedItem = (dynamic) OrdersList.SelectedItems[0];
+				var selectedItem = (dynamic)OrdersList.SelectedItems[0];
 				_storage.Remove(selectedItem.Key);
 				OrdersList.SelectedItem = null;
 				EditOrderButton.IsEnabled = false;
@@ -225,7 +226,7 @@ namespace CargoDelivery
 		/// </summary>
 		private void ResetOrderInstance()
 		{
-			_order = new Order {Id = -1};
+			_order = new Order { Id = -1 };
 			DataContext = _order;
 		}
 	}

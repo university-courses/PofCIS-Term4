@@ -56,6 +56,7 @@ namespace CargoDelivery.Classes.OrderData
 			{
 				throw new NullReferenceException("can't parse ShopData.Name");
 			}
+
 			Name = attributes["Name"].Value;
 			var addressElement = source.SelectSingleNode("Address");
 			if (addressElement == null)
@@ -71,10 +72,10 @@ namespace CargoDelivery.Classes.OrderData
 		/// </summary>
 		public XElement ToXml()
 		{
-			return new XElement("ShopData",
+			return new XElement(
+				"ShopData",
 				new XAttribute("Name", Name),
-				Address.ToXml()
-			);
+				Address.ToXml());
 		}
 	}
 }
