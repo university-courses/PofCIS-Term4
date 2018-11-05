@@ -44,13 +44,13 @@ namespace CargoDelivery
 
 		private void Ok(object sender, RoutedEventArgs e)
 		{
-			MessageBox.Show("Not implemented!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+			//MessageBox.Show("Not implemented!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 			OrdersExplorer.IsOpen = false;
 		}
 
 		private void Cancel(object sender, RoutedEventArgs e)
 		{
-			MessageBox.Show("Not implemented!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+			//MessageBox.Show("Not implemented!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 			OrdersExplorer.IsOpen = false;
 		}
 
