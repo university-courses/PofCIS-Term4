@@ -564,7 +564,7 @@
 						Text="{Binding Path=GoodsData.Code}"
 						GotMouseCapture="InputFocused"
 						GotKeyboardFocus="InputFocused"
-						Width="187"/>
+						Width="290"/>
 				</GroupBox>
 				<GroupBox
 					DockPanel.Dock="Top"
@@ -592,7 +592,7 @@
 						Text="{Binding Path=GoodsData.Weight}"
 						GotMouseCapture="InputFocused"
 						GotKeyboardFocus="InputFocused"
-						Width="187"/>
+						Width="290"/>
 				</GroupBox>
 			</Grid>
 		</GroupBox>
