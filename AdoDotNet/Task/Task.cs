@@ -14,7 +14,7 @@ namespace AdoDotNet.Task
 			_connectionString = "Persist Security Info=False;Integrated Security=true;Initial Catalog=Northwind;server=(local)";
 		}
 		
-		public bool ConnectToDatabase()
+		public bool DbConnect()
 		{
 			try
 			{
@@ -37,7 +37,7 @@ namespace AdoDotNet.Task
 			return false;
 		}
 
-		public bool DisconnectFromDatabase()
+		public bool DbDisconnect()
 		{
 			try
 			{

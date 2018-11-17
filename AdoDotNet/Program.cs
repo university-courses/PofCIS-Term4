@@ -9,10 +9,10 @@ namespace AdoDotNet
 		private static void Main(string[] args)
 		{
 			var task = new AdoTask();
-			if (task.ConnectToDatabase())
+			if (task.DbConnect())
 			{
 				Console.WriteLine("Successfully connected!");
-				if (task.DisconnectFromDatabase())
+				if (task.DbDisconnect())
 				{
 					Console.WriteLine("Successfully disconnected!");
 				}
