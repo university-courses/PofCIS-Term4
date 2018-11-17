@@ -1,10 +1,22 @@
-﻿namespace AdoDotNet
+﻿using System;
+
+using AdoTask = AdoDotNet.Task.Task;
+
+namespace AdoDotNet
 {
-	class Program
+	internal static class Program
 	{
-		static void Main(string[] args)
+		private static void Main(string[] args)
 		{
-			
+			var task = new AdoTask();
+			if (task.ConnectToDatabase())
+			{
+				Console.WriteLine("Successfully connected!");
+				if (task.DisconnectFromDatabase())
+				{
+					Console.WriteLine("Successfully disconnected!");
+				}
+			}
 		}
 	}
 }
