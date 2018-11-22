@@ -35,9 +35,11 @@ namespace AdoDotNet.Task
 			Console.WriteLine("\n" + TitleTemplate, "Successfully disconnected from the database");
 		}
 
-		private static void PrintTaskResult(string title, IEnumerable<List<string>> data, List<string> columnsNames)
+		private static void PrintTaskResult(string title, IReadOnlyCollection<List<string>> data, List<string> columnsNames)
 		{
+			
 			var table = new ConsoleTable(columnsNames.ToArray());
+
 			foreach (var row in data)
 			{
 				table.AddRow(row.ToArray<object>());
@@ -45,6 +47,10 @@ namespace AdoDotNet.Task
 			
 			Console.WriteLine(TitleTemplate + "\n", title);
 			table.Write(Format.MarkDown);
+			if (data.Count == 0)
+			{
+				Console.WriteLine(TitleTemplate + "\n", "There is no data to display, result is empty");
+			}
 		}
 		
 		public void ExecuteTask()

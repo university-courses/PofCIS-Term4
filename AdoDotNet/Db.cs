@@ -85,7 +85,7 @@ namespace AdoDotNet
 			return row;
 		}
 
-		public IEnumerable<List<string>> ExecQuery(string query, out List<string> columnsList)
+		public List<List<string>> ExecQuery(string query, out List<string> columnsList)
 		{
 			if (_connection.State != ConnectionState.Open)
 			{
@@ -97,7 +97,11 @@ namespace AdoDotNet
 			using (var reader = command.ExecuteReader())
 			{
 				columnsList = GetColumnsList(reader);
-				reader.Read();
+				if (!reader.Read())
+				{
+					return data;
+				}
+				
 				do
 				{
 					data.Add(RetrieveData(reader));
