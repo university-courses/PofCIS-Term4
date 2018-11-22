@@ -1,6 +1,4 @@
-﻿using System;
-
-using AdoTask = AdoDotNet.Task.Task;
+﻿using AdoTask = AdoDotNet.Task.Task;
 
 namespace AdoDotNet
 {
@@ -8,15 +6,7 @@ namespace AdoDotNet
 	{
 		private static void Main(string[] args)
 		{
-			var task = new AdoTask();
-			if (task.DbConnect())
-			{
-				Console.WriteLine("Successfully connected!");
-				if (task.DbDisconnect())
-				{
-					Console.WriteLine("Successfully disconnected!");
-				}
-			}
+			new AdoTask().ExecuteTask();
 		}
 	}
 }
