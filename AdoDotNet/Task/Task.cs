@@ -1,37 +1,52 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using ConsoleTables;
 
 namespace AdoDotNet.Task
 {
 	public class Task
 	{
 		private readonly Db _db;
-		private const string Title = "\n|============= {0} =============|\n";
+		private const string TitleTemplate = "|============= {0} =============|";
 
 		public Task()
 		{
 			_db = new Db("Persist Security Info=False;Integrated Security=true;Initial Catalog=Northwind;server=(local)");
 		}
 
-		public void ConnectToDatabase()
+		private void ConnectToDatabase()
 		{
 			if (!_db.Connect())
 			{
 				throw new Exception("can't connect to database");
 			}
 			
-			Console.WriteLine(Title, "Successfully connected to the database");
+			Console.WriteLine(TitleTemplate + "\n\n", "Successfully connected to the database");
 		}
 
-		public void DisconnectFromDatabase()
+		private void DisconnectFromDatabase()
 		{
 			if (!_db.Disconnect())
 			{
 				throw new Exception("can't disconnect from database");
 			}
 			
-			Console.WriteLine(Title, "Successfully disconnected from the database");
+			Console.WriteLine("\n" + TitleTemplate, "Successfully disconnected from the database");
 		}
 
+		private static void PrintTaskResult(string title, IEnumerable<List<string>> data, List<string> columnsNames)
+		{
+			var table = new ConsoleTable(columnsNames.ToArray());
+			foreach (var row in data)
+			{
+				table.AddRow(row.ToArray<object>());
+			}
+			
+			Console.WriteLine(TitleTemplate + "\n", title);
+			table.Write(Format.MarkDown);
+		}
+		
 		public void ExecuteTask()
 		{
 			try
@@ -39,6 +54,8 @@ namespace AdoDotNet.Task
 				ConnectToDatabase();
 				
 				// TODO: call all db requests here
+				
+				ExampleTask();	// TODO: remove when is redundant
 				
 				DisconnectFromDatabase();
 			}
@@ -48,23 +65,10 @@ namespace AdoDotNet.Task
 			}
 		}
 		
-		public void TestQuery()
+		public void ExampleTask()
 		{
 			var result = _db.ExecQuery("SELECT FirstName, LastName, City FROM [Employees]", out var columns);
-			foreach (var column in columns)
-			{
-				Console.Write($"{column}\t\t|");
-			}
-			Console.WriteLine("\n----------------------------------------");
-			
-			foreach (var row in result)
-			{
-				foreach (var col in row)
-				{
-					Console.Write($"{col}\t\t|");
-				}
-				Console.WriteLine();
-			}
+			PrintTaskResult("Example Task", result, columns);
 		}
 	}
 }
