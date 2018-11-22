@@ -47,7 +47,7 @@ namespace AdoDotNet
 					_connection.Close();
 				}
 
-				return true;
+				return _connection.State == ConnectionState.Closed;
 			}
 			catch (SqlException exc)
 			{

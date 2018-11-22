@@ -73,7 +73,7 @@ namespace AdoDotNet.Task
 		
 		public void ExampleTask()
 		{
-			var result = _db.ExecQuery("SELECT FirstName, LastName, City FROM [Employees]", out var columns);
+			var result = _db.ExecQuery("SELECT FirstName, LastName, City FROM Employees", out var columns);
 			PrintTaskResult("Example Task", result, columns);
 		}
 	}
