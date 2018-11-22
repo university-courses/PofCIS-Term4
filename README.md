@@ -10,7 +10,6 @@
 
 19.	Show the list of french customers’ names who have made more than one order
 20.	Show the list of customers’ names who used to order the ‘Tofu’ product.
--------------------------------------------------------------------------------------------------------------------------------
 21.	*Show the list of customers’ names who used to order the ‘Tofu’ product, along with the total amount of the product they have ordered and with the total sum for ordered product calculated.
 22.	*Show the list of french customers’ names who used to order non-french products (use left join).
 23.	*Show the list of french customers’ names who used to order non-french products.
@@ -28,4 +27,3 @@
 * [Dana Hrechyn](https://github.com/danahrechyn123)
 * [Olena Shipka](https://github.com/oshipka)
 * [Yuriy Lisovskiy](https://github.com/YuriyLisovskiy)
-
