@@ -6,9 +6,7 @@ Tasks and Documentations
 | --- | --- |
 | [Task 1 CS](https://github.com/lnupmi11/PofCIS_Team1/tree/task1-cs) | [docs](https://lnupmi11.github.io/PofCIS_Team1/task1-cs/index.html) |
 | [Task 2 WPF Shapes](https://github.com/lnupmi11/PofCIS_Team1/tree/task2-wpf-shapes) | [docs](https://lnupmi11.github.io/PofCIS_Team1/task2-wpf-shapes/index.html) |
-|
 | [Task 3 WPF Service](https://github.com/lnupmi11/PofCIS_Team1/tree/task3-wpf-service) | [docs](https://lnupmi11.github.io/PofCIS_Team1/task3-wpf-service/index.html) |
-|
 | [Task 4 ADO.NET](https://github.com/lnupmi11/PofCIS_Team1/tree/task4-ado-dotnet) | [docs](https://lnupmi11.github.io/PofCIS_Team1/task4-ado-dotnet/index.html) |
 
 #### Team 1:
