@@ -1,6 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Collections.Generic;
+
 using ConsoleTables;
 
 namespace AdoDotNet.Task
@@ -36,8 +37,7 @@ namespace AdoDotNet.Task
 		}
 
 		private static void PrintTaskResult(string title, IReadOnlyCollection<List<string>> data, List<string> columnsNames)
-		{
-			
+		{			
 			var table = new ConsoleTable(columnsNames.ToArray());
 
 			foreach (var row in data)
@@ -59,9 +59,9 @@ namespace AdoDotNet.Task
 			{
 				ConnectToDatabase();
 				
-				// TODO: call all db requests here
+				Task19();
 				
-				ExampleTask();	// TODO: remove when is redundant
+				// TODO: call all db requests here
 				
 				DisconnectFromDatabase();
 			}
@@ -71,10 +71,10 @@ namespace AdoDotNet.Task
 			}
 		}
 		
-		public void ExampleTask()
+		public void Task19()
 		{
-			var result = _db.ExecQuery("SELECT FirstName, LastName, City FROM Employees", out var columns);
-			PrintTaskResult("Example Task", result, columns);
+			var result = _db.ExecQuery(Queries.Task19, out var columnsNames);
+			PrintTaskResult("Task 19", result, columnsNames);
 		}
 	}
 }
