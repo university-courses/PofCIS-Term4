@@ -122,5 +122,47 @@ namespace AdoDotNet.Task
 			var result = _db.ExecQuery(query, out var columnsNames);
 			PrintTaskResult("Example Query", result, columnsNames);
 		}
+		
+		// Query 22: show the list of french customers’ names
+		// who used to order non-french products (use left join).
+
+		/*
+			@"SELECT DISTINCT C.ContactName
+			FROM Customers C
+			LEFT JOIN Orders O ON C.CustomerID = O.CustomerID
+			LEFT JOIN OrderDetails OD ON OD.OrderID = O.OrderID
+			LEFT JOIN Products P ON P.ProductID = OD.ProductID
+			LEFT  JOIN Suppliers S ON P.SupplierID = S.SupplierID" +
+			"HAVING C.Country = \"France\" AND S.Country <> \"France\"",
+		*/
+
+		// Query 23: show the list of french customers’ names
+		// who used to order non-french products.
+		/*
+		 @"SELECT DISTINCT C.ContactName
+			FROM Customers C
+			JOIN Orders O ON C.CustomerID = O.CustomerID
+			JOIN OrderDetails OD ON OD.OrderID = O.OrderID
+			JOIN Products P ON P.ProductID = OD.ProductID
+			JOIN Suppliers S ON P.SupplierID = S.SupplierID" +
+			"HAVING C.Country = \"France\" AND S.Country <> \"France\""
+		,
+		*/
+		// Query 24: show the list of french customers’ names
+		// who used to order french products.
+		/*
+		 	@"SELECT DISTINCT C.ContactName
+			FROM Customers C
+			JOIN Orders O ON C.CustomerID = O.CustomerID
+			JOIN OrderDetails OD ON OD.OrderID = O.OrderID
+			JOIN Products P ON P.ProductID = OD.ProductID
+			JOIN Suppliers S ON P.SupplierID = S.SupplierID" +
+			"HAVING C.Country = \"France\" AND S.Country = \"France\"" 
+		 */
 	}
+	
+
 }
+
+
+
