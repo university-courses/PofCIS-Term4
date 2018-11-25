@@ -159,6 +159,26 @@ namespace AdoDotNet.Task
 			JOIN Suppliers S ON P.SupplierID = S.SupplierID" +
 			"HAVING C.Country = \"France\" AND S.Country = \"France\"" 
 		 */
+		
+		// Query 26: show the total ordering sums calculated for each customer’s country
+// for domestic and non-domestic products separately
+// (e.g.: “France – French products ordered – Non-french products ordered” and so on for each country).
+		///Use Union!
+		/*
+		@"SELECT O.ShipCountry, Sum(Ode.ExtendedPrice) AS TotalPriceSum
+		FROM Orders O " +
+		"JOIN \"Order Details Extended\" Ode ON Ode.OrderID = O.OrderID " +
+		"GROUP BY O.ShipCountry;",
+		*/
+		
+		// Query 28: show the list of product names along with unit prices and the history of unit prices
+// taken from the orders (show ‘Product name – Unit price – Historical price’).
+// The duplicate records should be eliminated.
+// If no orders were made for a certain product, then the result for this product should look like
+// ‘Product name – Unit price – NULL’. Sort the list by the product name.
+		/*
+		@""
+		*/
 	}
 	
 
