@@ -44,6 +44,8 @@ JOIN Orders O ON O.CustomerID = C.CustomerID " +
 "JOIN \"Order Details Extended\" Ode ON Ode.OrderID = O.OrderID " +
 @"WHERE Ode.ProductName = 'Tofu';",
 
+			
+	//NOT WORKING		
 // Query 22: show the list of french customers’ names who used to order non-french products (use left join).
 @"SELECT DISTINCT C.ContactName
 FROM Customers C
@@ -53,6 +55,7 @@ LEFT JOIN Orders O ON C.CustomerID = O.CustomerID " +
 LEFT  JOIN Suppliers S ON P.SupplierID = S.SupplierID
 HAVING C.Country = 'France' AND S.Country <> 'France';",
 
+			//NOT WORKING
 // Query 23: show the list of french customers’ names who used to order non-french products.
 @"SELECT DISTINCT C.ContactName
 FROM Customers C
@@ -62,6 +65,7 @@ JOIN Orders O ON C.CustomerID = O.CustomerID " +
 JOIN Suppliers S ON P.SupplierID = S.SupplierID
 HAVING C.Country = 'France' AND S.Country <> 'France';",
 
+			//NOT WORKING
 // Query 24: show the list of french customers’ names who used to order french products.
 @"SELECT DISTINCT C.ContactName
 FROM Customers C
@@ -77,6 +81,7 @@ FROM Orders O " +
 "JOIN \"Order Details Extended\" Ode ON Ode.OrderID = O.OrderID " +
 "GROUP BY O.ShipCountry;",
 
+			//NOT WORKING
 // Query 26: show the total ordering sums calculated for each customer’s country
 // for domestic and non-domestic products separately
 // (e.g.: “France – French products ordered – Non-french products ordered” and so on for each country).
