@@ -23,7 +23,7 @@ namespace AdoDotNet.Task
 		/// </summary>
 		public Task()
 		{
-			_db = new Db("Persist Security Info=False;Integrated Security=true;Initial Catalog=Northwind;server=(local)");
+			_db = new Db("Integrated Security=true; Initial Catalog=Northwind; server=YURIYLISOVSKIY");
 		}
 
 		/// <summary>
@@ -78,121 +78,43 @@ namespace AdoDotNet.Task
 		}
 		
 		/// <summary>
-		/// Function to execute all task's queries (19-28, see their descriptions in <see cref="Queries"/>).
+		/// Function to execute all task's queries (18-27, see their descriptions in <see cref="Queries"/>).
 		/// </summary>
 		public void ExecuteTask()
 		{
 			try
 			{
 				ConnectToDatabase();
-				
-				Task19();
-				Task20();
-				Task21();
-				Task22();
-				Task23();
-				Task24();
-				Task25();
-				Task26();
-				Task27();
-				Task28();
-				
+			}
+			catch (Exception exc)
+			{
+				Console.WriteLine(exc.Message);
+			}
+
+			var taskNumber = 18;
+			foreach (var query in Queries.Data)
+			{
+				try
+				{
+					var result = _db.ExecQuery(query, out var columnsNames);
+					PrintTaskResult($"Task {taskNumber}", result, columnsNames);
+				}
+				catch (Exception exc)
+				{
+					Console.WriteLine($"Task {taskNumber}: {exc.Message}\n");
+				}
+
+				taskNumber++;
+			}
+
+			try
+			{
 				DisconnectFromDatabase();
 			}
 			catch (Exception exc)
 			{
 				Console.WriteLine(exc.Message);
 			}
-		}
-		
-		/// <summary>
-		/// Function to execute task's query #19
-		/// </summary>
-		public void Task19()
-		{
-			var result = _db.ExecQuery(Queries.Task19, out var columnsNames);
-			PrintTaskResult("Task 19", result, columnsNames);
-		}
-		
-		/// <summary>
-		/// Function to execute task's query #20
-		/// </summary>
-		public void Task20()
-		{
-			var result = _db.ExecQuery(Queries.Task20, out var columnsNames);
-			PrintTaskResult("Task 20", result, columnsNames);
-		}
-		
-		/// <summary>
-		/// Function to execute task's query #21
-		/// </summary>
-		public void Task21()
-		{
-			var result = _db.ExecQuery(Queries.Task21, out var columnsNames);
-			PrintTaskResult("Task 21", result, columnsNames);
-		}
-		
-		/// <summary>
-		/// Function to execute task's query #22
-		/// </summary>
-		public void Task22()
-		{
-			var result = _db.ExecQuery(Queries.Task22, out var columnsNames);
-			PrintTaskResult("Task 22", result, columnsNames);
-		}
-		
-		/// <summary>
-		/// Function to execute task's query #23
-		/// </summary>
-		public void Task23()
-		{
-			var result = _db.ExecQuery(Queries.Task23, out var columnsNames);
-			PrintTaskResult("Task 23", result, columnsNames);
-		}
-		
-		/// <summary>
-		/// Function to execute task's query #24
-		/// </summary>
-		public void Task24()
-		{
-			var result = _db.ExecQuery(Queries.Task24, out var columnsNames);
-			PrintTaskResult("Task 24", result, columnsNames);
-		}
-		
-		/// <summary>
-		/// Function to execute task's query #25
-		/// </summary>
-		public void Task25()
-		{
-			var result = _db.ExecQuery(Queries.Task25, out var columnsNames);
-			PrintTaskResult("Task 25", result, columnsNames);
-		}
-		
-		/// <summary>
-		/// Function to execute task's query #26
-		/// </summary>
-		public void Task26()
-		{
-			var result = _db.ExecQuery(Queries.Task26, out var columnsNames);
-			PrintTaskResult("Task 26", result, columnsNames);
-		}
-		
-		/// <summary>
-		/// Function to execute task's query #27
-		/// </summary>
-		public void Task27()
-		{
-			var result = _db.ExecQuery(Queries.Task27, out var columnsNames);
-			PrintTaskResult("Task 27", result, columnsNames);
-		}
-		
-		/// <summary>
-		/// Function to execute task's query #28
-		/// </summary>
-		public void Task28()
-		{
-			var result = _db.ExecQuery(Queries.Task28, out var columnsNames);
-			PrintTaskResult("Task 28", result, columnsNames);
 		}
 	}
 }

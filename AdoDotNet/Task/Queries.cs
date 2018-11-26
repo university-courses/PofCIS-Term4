@@ -1,83 +1,103 @@
-﻿namespace AdoDotNet.Task
+﻿using System.Collections.Generic;
+
+namespace AdoDotNet.Task
 {
 	/// <summary>
 	/// Contains task queries.
 	/// </summary>
 	public static class Queries
 	{
-		/// <summary>
-		/// Query 19: show the list of french customers’ names who have made more than one order
-		/// </summary>
-		public const string Task19 =
-@"SELECT DISTINCT C.ContactName, result.orders_count
+		public static readonly List<string> Data = new List<string>
+		{
+// Query 18: show the list of french customers’ names who have made more than one order (use grouping).
+@"SELECT DISTINCT C.ContactName
 FROM Customers C
 JOIN (
 	SELECT O.CustomerID, Count(*) AS orders_count
 	FROM Orders O
 	GROUP BY O.CustomerID
-) AS result ON result.CustomerID = C.CustomerID AND C.Country = 'France' AND result.orders_count > 1;";
+) AS result ON result.CustomerID = C.CustomerID AND C.Country = 'France' AND result.orders_count > 1;",
 
-		/// <summary>
-		/// Query 20: show the list of customers’ names who used to order the ‘Tofu’ product.
-		/// </summary>
-		public const string Task20 =
-@"";
+// Query 19: show the list of french customers’ names who have made more than one order
+@"SELECT DISTINCT C.ContactName
+FROM Customers C
+JOIN (
+	SELECT O.CustomerID, Count(*) AS orders_count
+	FROM Orders O
+	GROUP BY O.CustomerID
+) AS result ON result.CustomerID = C.CustomerID AND C.Country = 'France' AND result.orders_count > 1;",
 
-		/// <summary>
-		/// Query 21: show the list of customers’ names who used to order the ‘Tofu’ product,
-		/// along with the total amount of the product they have ordered
-		/// and with the total sum for ordered product calculated.
-		/// </summary>
-		public const string Task21 =
-@"";
+// Query 20: show the list of customers’ names who used to order the ‘Tofu’ product.		
+@"SELECT C.ContactName
+FROM Customers C
+JOIN Orders O ON O.CustomerID = C.CustomerID
+JOIN ""Order Details Extended"" Ode ON Ode.OrderID = O.OrderID
+WHERE Ode.ProductName = 'Tofu';",
 
-		/// <summary>
-		/// Query 22: show the list of french customers’ names who used to order non-french products (use left join).
-		/// </summary>
-		public const string Task22 = 
-@"";
+// Query 21: show the list of customers’ names who used to order the ‘Tofu’ product,
+// along with the total amount of the product they have ordered
+// and with the total sum for ordered product calculated.			
+@"SELECT C.ContactName, Ode.Quantity, Ode.ExtendedPrice AS TotalPrice
+FROM Customers C
+JOIN Orders O ON O.CustomerID = C.CustomerID
+JOIN ""Order Details Extended"" Ode ON Ode.OrderID = O.OrderID
+WHERE Ode.ProductName = 'Tofu';",
+			
+// Query 22: show the list of french customers’ names who used to order non-french products (use left join).
+@"SELECT DISTINCT C.ContactName
+FROM Customers C
+LEFT JOIN Orders O ON C.CustomerID = O.CustomerID " +
+"LEFT JOIN \"Order Details\" OD ON OD.OrderID = O.OrderID " +
+@"LEFT JOIN Products P ON P.ProductID = OD.ProductID
+LEFT  JOIN Suppliers S ON P.SupplierID = S.SupplierID
+WHERE C.Country = 'France' AND S.Country <> 'France';",
 
-		/// <summary>
-		/// Query 23: show the list of french customers’ names who used to order non-french products.
-		/// </summary>
-		public const string Task23 = 
-@"";
+// Query 23: show the list of french customers’ names who used to order non-french products.
+@"SELECT DISTINCT C.ContactName
+FROM Customers C
+JOIN Orders O ON C.CustomerID = O.CustomerID 
+JOIN ""Order Details"" OD ON OD.OrderID = O.OrderID
+JOIN Products P ON P.ProductID = OD.ProductID
+JOIN Suppliers S ON P.SupplierID = S.SupplierID
+WHERE C.Country = 'France' AND S.Country <> 'France';",
 
-		/// <summary>
-		/// Query 24: show the list of french customers’ names who used to order french products.
-		/// </summary>
-		public const string Task24 = 
-@"";
+// Query 24: show the list of french customers’ names who used to order french products.
+@"SELECT DISTINCT C.ContactName
+FROM Customers C
+JOIN Orders O ON C.CustomerID = O.CustomerID
+JOIN ""Order Details"" OD ON OD.OrderID = O.OrderID
+JOIN Products P ON P.ProductID = OD.ProductID
+JOIN Suppliers S ON P.SupplierID = S.SupplierID
+WHERE C.Country = 'France' AND S.Country = 'France';",
 
-		/// <summary>
-		/// Query 25: show the total ordering sum calculated for each country of customer.
-		/// </summary>
-		public const string Task25 = 
-@"";
+// Query 25: show the total ordering sum calculated for each country of customer.
+@"SELECT O.ShipCountry, Sum(Ode.ExtendedPrice) AS TotalPriceSum
+FROM Orders O 
+JOIN ""Order Details Extended"" Ode ON Ode.OrderID = O.OrderID
+GROUP BY O.ShipCountry;",
 
-		/// <summary>
-		/// Query 26: show the total ordering sums calculated for each customer’s country
-		/// for domestic and non-domestic products separately
-		/// (e.g.: “France – French products ordered – Non-french products ordered” and so on for each country).
-		/// </summary>
-		public const string Task26 = 
-@"";
+// Query 26: show the total ordering sums calculated for each customer’s country
+// for domestic and non-domestic products separately
+// (e.g.: “France – French products ordered – Non-french products ordered” and so on for each country).
+@"SELECT C.Country, 
+		SUM(CASE WHEN ShipCountry = C.Country THEN TotalPrice ELSE 0 END) as DomesticTotal, 
+		SUM(CASE WHEN ShipCountry != C.Country THEN TotalPrice ELSE 0 END) as NonDomesticTotal 
+FROM (
+	SELECT CustomerID, TotalPrice, ShipCountry
+	FROM (
+			SELECT OrderID, SUM(UnitPrice * Quantity) as TotalPrice FROM ""Order Details""
+			GROUP BY OrderID
+	) AS Details
+	JOIN Orders AS O ON Details.OrderID = O.OrderID
+) AS Totals
+JOIN Customers AS C ON Totals.CustomerID = C.CustomerID
+GROUP BY C.Country",
 
-		/// <summary>
-		/// Query 27: show the list of product categories along with total ordering sums calculated
-		/// for the orders made for the products of each category, during the year 1997.
-		/// </summary>
-		public const string Task27 =
-@"";
-
-		/// <summary>
-		/// Query 28: show the list of product names along with unit prices and the history of unit prices
-		/// taken from the orders (show ‘Product name – Unit price – Historical price’).
-		/// The duplicate records should be eliminated.
-		/// If no orders were made for a certain product, then the result for this product should look like
-		/// ‘Product name – Unit price – NULL’. Sort the list by the product name.
-		/// </summary>
-		public const string Task28 = 
-@"";
+// Query 27: show the list of product categories along with total ordering sums calculated
+// for the orders made for the products of each category, during the year 1997.
+@"SELECT Psf.CategoryName, Sum(Psf.ProductSales) AS TotalOrderingSum
+FROM ""Product Sales For 1997"" Psf
+GROUP BY Psf.CategoryName;",
+		};
 	}
 }
