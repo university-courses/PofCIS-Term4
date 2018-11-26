@@ -116,14 +116,5 @@ namespace AdoDotNet.Task
 				Console.WriteLine(exc.Message);
 			}
 		}
-
-		public void ExampleQuery(string query)
-		{
-			var result = _db.ExecQuery(query, out var columnsNames);
-			PrintTaskResult("Example Query", result, columnsNames);
-		}
 	}
 }
-
-
-
