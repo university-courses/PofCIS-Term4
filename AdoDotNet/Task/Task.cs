@@ -23,7 +23,7 @@ namespace AdoDotNet.Task
 		/// </summary>
 		public Task()
 		{
-			_db = new Db("Persist Security Info=False;Integrated Security=true;Initial Catalog=Northwind;server=(local)");
+			_db = new Db("Integrated Security=true; Initial Catalog=Northwind; server=YURIYLISOVSKIY");
 		}
 
 		/// <summary>
