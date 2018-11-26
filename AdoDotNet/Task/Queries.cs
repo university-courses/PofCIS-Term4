@@ -45,13 +45,31 @@ JOIN Orders O ON O.CustomerID = C.CustomerID " +
 @"WHERE Ode.ProductName = 'Tofu';",
 
 // Query 22: show the list of french customers’ names who used to order non-french products (use left join).
-@"",
+@"SELECT DISTINCT C.ContactName
+FROM Customers C
+LEFT JOIN Orders O ON C.CustomerID = O.CustomerID
+LEFT JOIN OrderDetails OD ON OD.OrderID = O.OrderID
+LEFT JOIN Products P ON P.ProductID = OD.ProductID
+LEFT  JOIN Suppliers S ON P.SupplierID = S.SupplierID" +
+"HAVING C.Country = \"France\" AND S.Country <> \"France\"",
 
 // Query 23: show the list of french customers’ names who used to order non-french products.
-@"",
+@"SELECT DISTINCT C.ContactName
+FROM Customers C
+JOIN Orders O ON C.CustomerID = O.CustomerID
+JOIN OrderDetails OD ON OD.OrderID = O.OrderID
+JOIN Products P ON P.ProductID = OD.ProductID
+JOIN Suppliers S ON P.SupplierID = S.SupplierID" +
+"HAVING C.Country = \"France\" AND S.Country <> \"France\"",
 
 // Query 24: show the list of french customers’ names who used to order french products.
-@"",
+@"SELECT DISTINCT C.ContactName
+FROM Customers C
+JOIN Orders O ON C.CustomerID = O.CustomerID
+JOIN OrderDetails OD ON OD.OrderID = O.OrderID
+JOIN Products P ON P.ProductID = OD.ProductID
+JOIN Suppliers S ON P.SupplierID = S.SupplierID" +
+"HAVING C.Country = \"France\" AND S.Country = \"France\"",
 
 // Query 25: show the total ordering sum calculated for each country of customer.
 @"SELECT O.ShipCountry, Sum(Ode.ExtendedPrice) AS TotalPriceSum
@@ -62,7 +80,18 @@ FROM Orders O " +
 // Query 26: show the total ordering sums calculated for each customer’s country
 // for domestic and non-domestic products separately
 // (e.g.: “France – French products ordered – Non-french products ordered” and so on for each country).
-@"",
+@"SELECT DISTINCT C.Country, SUM(O.UnitPrice) AS CustomersCountry, SUM(ONF.UnitPrice) AS NotCustomersCountry 
+FROM Customers C
+JOIN Orders O ON C.CustomerID = O.CustomerID
+JOIN OrderDetails OD ON OD.OrderID = O.OrderID
+JOIN Products P ON P.ProductID = OD.ProductID
+JOIN Suppliers S ON P.SupplierID = S.SupplierID" +
+"HAVING C.Country = \"France\" AND S.Country = \"France\""+
+@"JOIN Orders ONF ON C.CustomerID = ONF.CustomerID 
+JOIN OrderDetails ODNF ON ODNF.OrderID = ONF.OrderID
+JOIN Products PNF ON PNF.ProductID = ODNF.ProductID
+JOIN Suppliers SNF ON PNF.SupplierID = SNF.SupplierID" +
+"HAVING C.Country <> SNF.Country ",
 
 // Query 27: show the list of product categories along with total ordering sums calculated
 // for the orders made for the products of each category, during the year 1997.
