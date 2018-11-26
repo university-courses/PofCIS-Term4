@@ -9,6 +9,16 @@ namespace AdoDotNet.Task
 	{
 		public static readonly List<string> Data = new List<string>
 		{
+//Query 18: show the list of french customers’ names who have made more than one order
+//(use grouping).
+@"SELECT DISTINCT C.ContactName
+FROM Customers C
+JOIN (
+	SELECT O.CustomerID, Count(*) AS orders_count
+	FROM Orders O
+	GROUP BY O.CustomerID
+) AS result ON result.CustomerID = C.CustomerID AND C.Country = 'France' AND result.orders_count > 1;",
+
 // Query 19: show the list of french customers’ names who have made more than one order
 @"SELECT DISTINCT C.ContactName
 FROM Customers C
@@ -59,13 +69,6 @@ FROM Orders O " +
 @"SELECT Psf.CategoryName, Sum(Psf.ProductSales) AS TotalOrderingSum " +
 "FROM \"Product Sales For 1997\" Psf " +
 "GROUP BY Psf.CategoryName;",
-
-// Query 28: show the list of product names along with unit prices and the history of unit prices
-// taken from the orders (show ‘Product name – Unit price – Historical price’).
-// The duplicate records should be eliminated.
-// If no orders were made for a certain product, then the result for this product should look like
-// ‘Product name – Unit price – NULL’. Sort the list by the product name.
-@""
 		};
 	}
 }

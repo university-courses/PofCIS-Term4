@@ -78,7 +78,7 @@ namespace AdoDotNet.Task
 		}
 		
 		/// <summary>
-		/// Function to execute all task's queries (19-28, see their descriptions in <see cref="Queries"/>).
+		/// Function to execute all task's queries (18-27, see their descriptions in <see cref="Queries"/>).
 		/// </summary>
 		public void ExecuteTask()
 		{
@@ -91,7 +91,7 @@ namespace AdoDotNet.Task
 				Console.WriteLine(exc.Message);
 			}
 
-			var taskNumber = 19;
+			var taskNumber = 18;
 			foreach (var query in Queries.Data)
 			{
 				try
