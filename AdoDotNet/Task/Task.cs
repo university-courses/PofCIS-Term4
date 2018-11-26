@@ -161,21 +161,31 @@ namespace AdoDotNet.Task
 		 */
 		
 		// Query 26: show the total ordering sums calculated for each customer’s country
-// for domestic and non-domestic products separately
-// (e.g.: “France – French products ordered – Non-french products ordered” and so on for each country).
-		///Use Union!
+		// for domestic and non-domestic products separately
+		// (e.g.: “France – French products ordered – Non-french products ordered”
+		// and so on for each country).
+		///Use Union?!
 		/*
-		@"SELECT O.ShipCountry, Sum(Ode.ExtendedPrice) AS TotalPriceSum
-		FROM Orders O " +
-		"JOIN \"Order Details Extended\" Ode ON Ode.OrderID = O.OrderID " +
-		"GROUP BY O.ShipCountry;",
+		  @"SELECT DISTINCT C.Country, SUM(O.UnitPrice) AS CustomersCountry, SUM(ONF.UnitPrice) AS NotCustomersCountry 
+			FROM Customers C
+			JOIN Orders O ON C.CustomerID = O.CustomerID
+			JOIN OrderDetails OD ON OD.OrderID = O.OrderID
+			JOIN Products P ON P.ProductID = OD.ProductID
+			JOIN Suppliers S ON P.SupplierID = S.SupplierID" +
+		   "HAVING C.Country = \"France\" AND S.Country = \"France\"+
+		   "JOIN Orders ONF ON C.CustomerID = ONF.CustomerID
+			JOIN OrderDetails ODNF ON ODNF.OrderID = ONF.OrderID
+			JOIN Products PNF ON PNF.ProductID = ODNF.ProductID
+			JOIN Suppliers SNF ON PNF.SupplierID = SNF.SupplierID" +
+			"HAVING C.Country <> SNF.Country ",
 		*/
 		
 		// Query 28: show the list of product names along with unit prices and the history of unit prices
-// taken from the orders (show ‘Product name – Unit price – Historical price’).
-// The duplicate records should be eliminated.
-// If no orders were made for a certain product, then the result for this product should look like
-// ‘Product name – Unit price – NULL’. Sort the list by the product name.
+		// taken from the orders (show ‘Product name – Unit price – Historical price’).
+		// The duplicate records should be eliminated.
+		// If no orders were made for a certain product, then the result for this product should look like
+		// ‘Product name – Unit price – NULL’. Sort the list by the product name.
+		
 		/*
 		@""
 		*/
