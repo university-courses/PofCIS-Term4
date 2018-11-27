@@ -85,13 +85,14 @@ GROUP BY O.ShipCountry;",
 FROM (
 	SELECT CustomerID, TotalPrice, ShipCountry
 	FROM (
-			SELECT OrderID, SUM(UnitPrice * Quantity) as TotalPrice FROM ""Order Details""
+			SELECT OrderID, SUM(UnitPrice * Quantity) as TotalPrice
+			FROM ""Order Details""
 			GROUP BY OrderID
 	) AS Details
 	JOIN Orders AS O ON Details.OrderID = O.OrderID
 ) AS Totals
 JOIN Customers AS C ON Totals.CustomerID = C.CustomerID
-GROUP BY C.Country",
+GROUP BY C.Country;",
 
 // Query 27: show the list of product categories along with total ordering sums calculated
 // for the orders made for the products of each category, during the year 1997.
