@@ -75,7 +75,7 @@ namespace CargoDelivery.BL
 		/// <exception cref="InvalidDataException">Throws if email field contains errors.</exception>
 		private void ValidateEmail()
 		{
-			var text = _emailInput.Text.Trim(); 
+			var text = _emailInput.Text.Trim();
 			if (text.Length < 1)
 			{
 				throw new InvalidDataException("Field 'Email' can't be empty!");

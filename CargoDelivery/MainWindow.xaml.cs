@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Collections.Generic;
@@ -31,11 +30,6 @@ namespace CargoDelivery
 		private readonly Validator _validator;
 
 		/// <summary>
-		/// An object for storage connection.
-		/// </summary>
-		private readonly OrdersStorage _storage;
-
-		/// <summary>
 		/// Parameterless constructor of application's main window.
 		/// </summary>
 		public MainWindow()
@@ -43,18 +37,9 @@ namespace CargoDelivery
 			InitializeComponent();
 			EditOrderButton.IsEnabled = false;
 			DeletOrderButton.IsEnabled = false;
-			try
-			{
-				_storage = new OrdersStorage("storage.xml");
-				_storage.CreateIfNotExists();
-				var ordersList = _storage.RetrieveAllIds();
-				_nextId = ordersList.Count != 0 ? ordersList.Keys.Last() + 1 : 0;
-			}
-			catch (NullReferenceException e)
-			{
-				Util.Error("Storage fatal error", e.Message);
-				Application.Current.Shutdown();
-			}
+
+			// TODO: retrieve last order's id and set _nextId = last order's id
+			_nextId = 0;
 
 			_validator = new Validator(
 				new List<TextBox>
@@ -85,7 +70,8 @@ namespace CargoDelivery
 		/// <param name="e">Arguments that the implementor of this event may find useful.</param>
 		private void ExploreOrders(object sender, RoutedEventArgs e)
 		{
-			var orders = _storage.RetrieveAllIds();
+			// TODO: get orders' data as Dictonary <id (long), owner (string)>
+			var orders = new Dictionary<long, string>();
 			if (orders.Count > 0)
 			{
 				OrdersList.ItemsSource = orders;
@@ -115,7 +101,7 @@ namespace CargoDelivery
 				if (OrdersList.SelectedItems.Count == 1)
 				{
 					var selectedItem = (dynamic)OrdersList.SelectedItems[0];
-					_order = _storage.Retrieve(selectedItem.Key);
+					_order = null;	// TODO: get order by id
 					DataContext = _order;
 				}
 			}
@@ -161,12 +147,14 @@ namespace CargoDelivery
 				if (_order.Id == -1)
 				{
 					_order.Id = _nextId++;
-					_storage.Add(_order);
+					
+					// TODO: save order to database
+					
 					ResetOrderInstance();
 				}
 				else
 				{
-					_storage.Update(_order.Id, _order);
+					// TODO: update order in database
 				}
 
 				Util.Info("Cargo Delivery", "An order was saved successfully!");
@@ -226,11 +214,16 @@ namespace CargoDelivery
 				}
 
 				var selectedItem = (dynamic)OrdersList.SelectedItems[0];
-				_storage.Remove(selectedItem.Key);
+				
+				// TODO: delete order by key - 'selectedItem.Key'
+				
 				OrdersList.SelectedItem = null;
 				EditOrderButton.IsEnabled = false;
 				DeletOrderButton.IsEnabled = false;
-				var orders = _storage.RetrieveAllIds();
+
+				// TODO: get orders' data as Dictonary <id (long), owner (string)>
+				var orders = new Dictionary<long, string>();
+				
 				if (orders.Count < 1)
 				{
 					OrdersExplorer.IsOpen = false;
