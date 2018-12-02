@@ -1,30 +1,35 @@
-﻿using CargoDelivery.Classes.OrderData;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+using CargoDelivery.Classes.OrderData;
 
 namespace CargoDelivery.Classes
 {
 	/// <summary>
 	/// Represents an order.
 	/// </summary>
+	[Table("Orders")]
 	public class Order
 	{
 		/// <summary>
 		/// Holds an id of the order.
 		/// </summary>
-		public long Id { get; set; }
+		[Key]
+		public int Id { get; set; }
 		
 		/// <summary>
 		/// Contains client personal information.
 		/// </summary>
-		public ClientData ClientData { get; set; }
+		public virtual ClientData ClientData { get; set; }
 		
 		/// <summary>
 		/// Represents shop data.
 		/// </summary>
-		public ShopData ShopData { get; set; }
+		public virtual ShopData ShopData { get; set; }
 		
 		/// <summary>
 		/// Holds an information about ordered goods.
 		/// </summary>
-		public GoodsData GoodsData { get; set; }
+		public virtual GoodsData GoodsData { get; set; }
 	}
 }

@@ -17,7 +17,7 @@ namespace CargoDelivery
 		/// <summary>
 		/// Holds an id number of the next order.
 		/// </summary>
-		private long _nextId;
+		private int _nextId;
 
 		/// <summary>
 		/// Contains information of current creating/editing order.
