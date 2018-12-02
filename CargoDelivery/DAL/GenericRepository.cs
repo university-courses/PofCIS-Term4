@@ -4,9 +4,9 @@ using System.Data.Entity;
 using System.Linq.Expressions;
 using System.Collections.Generic;
 
-using CargoDelivery.Database.Interfaces;
+using CargoDelivery.DAL.Interfaces;
 
-namespace CargoDelivery.Database
+namespace CargoDelivery.DAL
 {
 	public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
 	{
@@ -64,6 +64,11 @@ namespace CargoDelivery.Database
 		{
 			DbSet.Attach(entityToUpdate);
 			Context.Entry(entityToUpdate).State = EntityState.Modified;
+		}
+
+		public virtual void Save()
+		{
+			Context.SaveChanges();
 		}
 	}
 }

@@ -3,7 +3,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Collections.Generic;
 
-namespace CargoDelivery.Database.Interfaces
+namespace CargoDelivery.DAL.Interfaces
 {
 	public interface IGenericRepository<TEntity> where TEntity : class
 	{
@@ -16,5 +16,6 @@ namespace CargoDelivery.Database.Interfaces
 		void Delete(object id);
 		void Delete(TEntity entityToDelete);
 		void Update(TEntity entityToUpdate);
+		void Save();
 	}
 }

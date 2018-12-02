@@ -76,9 +76,11 @@
     <Compile Include="Classes\OrderData\ClientData.cs" />
     <Compile Include="Classes\OrderData\GoodsData.cs" />
     <Compile Include="Classes\OrderData\ShopData.cs" />
-    <Compile Include="Database\GenericRepository.cs" />
-    <Compile Include="Database\Interfaces\IGenericRepository.cs" />
-    <Compile Include="Database\OrderContext.cs" />
+    <Compile Include="DAL\GenericRepository.cs" />
+    <Compile Include="DAL\Interfaces\IGenericRepository.cs" />
+    <Compile Include="DAL\Interfaces\IUnitOfWork.cs" />
+    <Compile Include="DAL\OrderContext.cs" />
+    <Compile Include="DAL\UnitOfWork.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

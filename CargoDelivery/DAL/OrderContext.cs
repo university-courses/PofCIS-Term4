@@ -3,7 +3,7 @@
 using CargoDelivery.Classes;
 using CargoDelivery.Classes.OrderData;
 
-namespace CargoDelivery.Database
+namespace CargoDelivery.DAL
 {
 	public class OrderContext : DbContext
 	{
