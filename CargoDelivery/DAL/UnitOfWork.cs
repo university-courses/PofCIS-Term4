@@ -6,9 +6,13 @@ using CargoDelivery.DAL.Interfaces;
 namespace CargoDelivery.DAL
 {
 	public class UnitOfWork : IUnitOfWork, IDisposable
-	{
+	{	
 		public OrderContext Context { get; }
 		public GenericRepository<Order> Orders { get; }
+		
+		/// <summary>
+		/// A variable which shows whether an item is disposed or not.
+		/// </summary>
 		private bool _disposed;
 
 		public UnitOfWork()
