@@ -2,11 +2,14 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Collections.Generic;
+using System.Data.Common;
+using System.Data.Entity.Infrastructure;
 using System.Windows.Media.Effects;
+
+using log4net;
 
 using CargoDelivery.BL;
 using CargoDelivery.Classes;
-using log4net;
 
 namespace CargoDelivery
 {
@@ -77,22 +80,35 @@ namespace CargoDelivery
 		/// <param name="e">Arguments that the implementor of this event may find useful.</param>
 		private void ExploreOrders(object sender, RoutedEventArgs e)
 		{
-			// TODO: get orders' data as Dictonary <id (long), owner (string)>
-			var orders = new Dictionary<long, string>();
-			if (orders.Count > 0)
+			try
 			{
-				OrdersList.ItemsSource = orders;
-				OrdersExplorer.IsOpen = true;
-				ResetOrderInstance();
-				WindowMain.IsEnabled = false;
-				EditOrderButton.IsEnabled = false;
-				DeletOrderButton.IsEnabled = false;
-				Opacity = 0.5;
-				Effect = new BlurEffect();
+				// TODO: get orders' data as Dictonary <id (long), owner (string)>
+				var orders = new Dictionary<long, string>();
+				if (orders.Count > 0)
+				{
+					OrdersList.ItemsSource = orders;
+					OrdersExplorer.IsOpen = true;
+					ResetOrderInstance();
+					WindowMain.IsEnabled = false;
+					EditOrderButton.IsEnabled = false;
+					DeletOrderButton.IsEnabled = false;
+					Opacity = 0.5;
+					Effect = new BlurEffect();
+				}
+				else
+				{
+					Util.Info("Explore orders", "Orders database is empty!");
+				}
 			}
-			else
+			catch (DbException exc)
 			{
-				Util.Info("Explore orders", "Orders database is empty!");
+				Logger.Error($"Error occurred while retrieving orders from the database.\nError: {exc}");
+				Util.Error("Exploring orders error", exc.Message);
+			}
+			catch (Exception exc)
+			{
+				Logger.Error($"Unknown error occurred while exploring orders.\nError: {exc}");
+				Util.Error("Exploring orders error", exc.Message);
 			}
 		}
 
@@ -111,19 +127,20 @@ namespace CargoDelivery
 					_order = null;	// TODO: get order by id
 					DataContext = _order;
 				}
+				
+				OrdersList.SelectedItem = null;
+				OrdersExplorer.IsOpen = false;
+				EditOrderButton.IsEnabled = false;
+				DeletOrderButton.IsEnabled = false;
+				WindowMain.IsEnabled = true;
+				Opacity = 1;
+				Effect = null;
 			}
 			catch (Exception exc)
 			{
+				Logger.Error($"Error occurred while setting order for editing.\nError: {exc}");
 				Util.Error("Can't set order for editing", exc.Message);
 			}
-
-			OrdersList.SelectedItem = null;
-			OrdersExplorer.IsOpen = false;
-			EditOrderButton.IsEnabled = false;
-			DeletOrderButton.IsEnabled = false;
-			WindowMain.IsEnabled = true;
-			Opacity = 1;
-			Effect = null;
 		}
 
 		/// <summary>
@@ -154,9 +171,9 @@ namespace CargoDelivery
 				if (_order.Id == -1)
 				{
 					_order.Id = _nextId++;
-					
+
 					// TODO: save order to database
-					
+
 					ResetOrderInstance();
 				}
 				else
@@ -166,9 +183,15 @@ namespace CargoDelivery
 
 				Util.Info("Cargo Delivery", "An order was saved successfully!");
 			}
+			catch (DbUpdateException exc)
+			{
+				Logger.Error($"Error occurred while updating the databse.\nError: {exc}");
+				Util.Error("Order saving error", exc.Message);
+			}
 			catch (Exception exc)
 			{
-				Util.Error("Order error", exc.Message);
+				Logger.Error($"Error occurred while order saving or updating.\nError: {exc}");
+				Util.Error("Order saving error", exc.Message);
 			}
 		}
 
@@ -220,17 +243,17 @@ namespace CargoDelivery
 					return;
 				}
 
-				var selectedItem = (dynamic)OrdersList.SelectedItems[0];
-				
+				var selectedItem = (dynamic) OrdersList.SelectedItems[0];
+
 				// TODO: delete order by key - 'selectedItem.Key'
-				
+
 				OrdersList.SelectedItem = null;
 				EditOrderButton.IsEnabled = false;
 				DeletOrderButton.IsEnabled = false;
 
 				// TODO: get orders' data as Dictonary <id (long), owner (string)>
 				var orders = new Dictionary<long, string>();
-				
+
 				if (orders.Count < 1)
 				{
 					OrdersExplorer.IsOpen = false;
@@ -243,8 +266,14 @@ namespace CargoDelivery
 					OrdersList.ItemsSource = orders;
 				}
 			}
+			catch (DbUpdateException exc)
+			{
+				Logger.Error($"Error occurred while deleting from the databse.\nError: {exc}");
+				Util.Error("Order deleting error", exc.Message);
+			}
 			catch (Exception exc)
 			{
+				Logger.Error($"Error occurred while deleting an order.\nError: {exc}");
 				Util.Error("Order deleting error", exc.Message);
 			}
 		}

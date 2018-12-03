@@ -4,7 +4,9 @@ using CargoDelivery.Classes;
 using CargoDelivery.Classes.OrderData;
 
 namespace CargoDelivery.DAL
-{       /// <summary>
+{
+	/// <inheritdoc />
+	/// <summary>
 	/// Represents an order.
 	/// </summary>
 	public class OrderContext : DbContext
@@ -33,9 +35,12 @@ namespace CargoDelivery.DAL
 		/// </summary>
 		public DbSet<Address> Addresses { get; set; }
 
+		/// <inheritdoc />
+		/// <summary>
+		/// Parameterless OrderContext constructor.
+		/// </summary>
 		public OrderContext() : base("CargoDeliveryDb")
 		{
-			
 		}
 	}
 }

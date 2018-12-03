@@ -5,43 +5,64 @@ using CargoDelivery.DAL.Interfaces;
 
 namespace CargoDelivery.DAL
 {
+	/// <summary>
+	/// Is used to manage repositories. 
+	/// </summary>
 	public class UnitOfWork : IUnitOfWork, IDisposable
-	{	
-		public OrderContext Context { get; }
+	{
+		/// <summary>
+		/// Contains order context instance.
+		/// </summary>
+		private readonly OrderContext _context;
+		
+		/// <inheritdoc />
+		/// <summary>
+		/// Orders field is used to manage table 'Orders' in the database.
+		/// </summary>
 		public GenericRepository<Order> Orders { get; }
 		
 		/// <summary>
-		/// A variable which shows whether an item is disposed or not.
+		/// A variable which shows whether context is disposed or not.
 		/// </summary>
 		private bool _disposed;
 
 		/// <summary>
-		/// Default constructor is used for xml serialization/deserialization. 
+		/// Default constructor that instantiates UnitOfWork object. 
 		/// </summary>
 		public UnitOfWork()
 		{
-			Context = new OrderContext();
-			Orders = new GenericRepository<Order>(Context);
+			_context = new OrderContext();
+			Orders = new GenericRepository<Order>(_context);
 		}
 		
+		/// <summary>
+		/// Saves context changes.
+		/// </summary>
 		public void Save()
 		{
-			Context.SaveChanges();
+			Orders.Save();
 		}
 
+		/// <summary>
+		/// Disposes context using disposing parameter.
+		/// </summary>
+		/// <param name="disposing">Sets disposing state.</param>
 		protected virtual void Dispose(bool disposing)
 		{
 			if (!_disposed)
 			{
 				if (disposing)
 				{
-					Context.Dispose();
+					_context.Dispose();
 				}
 			}
 
 			_disposed = true;
 		}
 		
+		/// <summary>
+		/// Implements Dispose method.
+		/// </summary>
 		public void Dispose()
 		{
 			Dispose(true);
