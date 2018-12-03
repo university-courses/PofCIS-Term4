@@ -6,6 +6,7 @@ using System.Windows.Media.Effects;
 
 using CargoDelivery.BL;
 using CargoDelivery.Classes;
+using log4net;
 
 namespace CargoDelivery
 {
@@ -28,6 +29,12 @@ namespace CargoDelivery
 		/// Validator instance.
 		/// </summary>
 		private readonly Validator _validator;
+
+		/// <summary>
+		/// Logger instance.
+		/// </summary>
+		private static readonly ILog Logger =
+			LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
 		/// <summary>
 		/// Parameterless constructor of application's main window.
