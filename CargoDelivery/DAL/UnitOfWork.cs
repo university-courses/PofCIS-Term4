@@ -15,6 +15,9 @@ namespace CargoDelivery.DAL
 		/// </summary>
 		private bool _disposed;
 
+		/// <summary>
+		/// Default constructor is used for xml serialization/deserialization. 
+		/// </summary>
 		public UnitOfWork()
 		{
 			Context = new OrderContext();
