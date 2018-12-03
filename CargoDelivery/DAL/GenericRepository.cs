@@ -13,6 +13,10 @@ namespace CargoDelivery.DAL
 		internal readonly DbContext Context;
 		internal readonly DbSet<TEntity> DbSet;
 
+		/// <summary>
+		/// Constructor to set data from parameter.
+		/// </summary>
+		/// <param ="context">Allows you to query the database via c # code</param>
 		public GenericRepository(DbContext context)
 		{
 			Context = context;
