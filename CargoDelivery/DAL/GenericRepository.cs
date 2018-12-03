@@ -52,7 +52,6 @@ namespace CargoDelivery.DAL
 
 			query = includeProperties.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries)
 				.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
-
 			return orderBy?.Invoke(query).ToList() ?? query.ToList();
 		}
 

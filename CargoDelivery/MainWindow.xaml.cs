@@ -1,14 +1,16 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
+using System.Data.Common;
 using System.Windows.Controls;
 using System.Collections.Generic;
-using System.Data.Common;
-using System.Data.Entity.Infrastructure;
 using System.Windows.Media.Effects;
+using System.Data.Entity.Infrastructure;
 
 using log4net;
 
 using CargoDelivery.BL;
+using CargoDelivery.DAL;
 using CargoDelivery.Classes;
 
 namespace CargoDelivery
@@ -18,11 +20,6 @@ namespace CargoDelivery
 	/// </summary>
 	public partial class MainWindow
 	{
-		/// <summary>
-		/// Holds an id number of the next order.
-		/// </summary>
-		private int _nextId;
-
 		/// <summary>
 		/// Contains information of current creating/editing order.
 		/// </summary>
@@ -34,10 +31,19 @@ namespace CargoDelivery
 		private readonly Validator _validator;
 
 		/// <summary>
+		/// Sign if new order is creating or editing an existent.
+		/// </summary>
+		private bool _isEditing;
+		
+		/// <summary>
 		/// Logger instance.
 		/// </summary>
-		private static readonly ILog Logger =
-			LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+		private static readonly ILog Logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+		/// <summary>
+		/// Unit of work instance object to manage database tables.
+		/// </summary>
+		private static readonly UnitOfWork UnitOfWorkInstance = new UnitOfWork();
 
 		/// <summary>
 		/// Parameterless constructor of application's main window.
@@ -47,10 +53,7 @@ namespace CargoDelivery
 			InitializeComponent();
 			EditOrderButton.IsEnabled = false;
 			DeletOrderButton.IsEnabled = false;
-
-			// TODO: retrieve last order's id and set _nextId = last order's id
-			_nextId = 0;
-
+			_isEditing = false;
 			_validator = new Validator(
 				new List<TextBox>
 				{
@@ -82,11 +85,11 @@ namespace CargoDelivery
 		{
 			try
 			{
-				// TODO: get orders' data as Dictonary <id (long), owner (string)>
-				var orders = new Dictionary<long, string>();
-				if (orders.Count > 0)
+				var ordersDict = UnitOfWorkInstance.GetOrders().ToDictionary(order => order.Id,
+					order => $"{order.ClientData.FirstName} {order.ClientData.LastName}");
+				if (ordersDict.Count > 0)
 				{
-					OrdersList.ItemsSource = orders;
+					OrdersList.ItemsSource = ordersDict;
 					OrdersExplorer.IsOpen = true;
 					ResetOrderInstance();
 					WindowMain.IsEnabled = false;
@@ -97,16 +100,18 @@ namespace CargoDelivery
 				}
 				else
 				{
-					Util.Info("Explore orders", "Orders database is empty!");
+					Util.Info("Explore orders", "Orders table is empty!");
 				}
 			}
 			catch (DbException exc)
 			{
+				Cancel(sender, e);
 				Logger.Error($"Error occurred while retrieving orders from the database.\nError: {exc}");
 				Util.Error("Exploring orders error", exc.Message);
 			}
 			catch (Exception exc)
 			{
+				Cancel(sender, e);
 				Logger.Error($"Unknown error occurred while exploring orders.\nError: {exc}");
 				Util.Error("Exploring orders error", exc.Message);
 			}
@@ -124,7 +129,7 @@ namespace CargoDelivery
 				if (OrdersList.SelectedItems.Count == 1)
 				{
 					var selectedItem = (dynamic)OrdersList.SelectedItems[0];
-					_order = null;	// TODO: get order by id
+					_order = UnitOfWorkInstance.Orders.GetById(selectedItem.Key);
 					DataContext = _order;
 				}
 				
@@ -135,6 +140,7 @@ namespace CargoDelivery
 				WindowMain.IsEnabled = true;
 				Opacity = 1;
 				Effect = null;
+				_isEditing = true;
 			}
 			catch (Exception exc)
 			{
@@ -168,20 +174,21 @@ namespace CargoDelivery
 			try
 			{
 				_validator.Validate();
-				if (_order.Id == -1)
+				if (_isEditing)
 				{
-					_order.Id = _nextId++;
-
-					// TODO: save order to database
-
-					ResetOrderInstance();
+					UnitOfWorkInstance.Orders.Update(_order);
 				}
 				else
 				{
-					// TODO: update order in database
+					UnitOfWorkInstance.Orders.Insert(_order);	
 				}
-
+				UnitOfWorkInstance.Save();
 				Util.Info("Cargo Delivery", "An order was saved successfully!");
+			}
+			catch (InvalidCastException exc)
+			{
+				Logger.Error($"Error occurred while vaidating inputs.\nError: {exc}");
+				Util.Error("Order saving error", exc.Message);
 			}
 			catch (DbUpdateException exc)
 			{
@@ -226,6 +233,7 @@ namespace CargoDelivery
 		/// <param name="e">Arguments that the implementor of this event may find useful.</param>
 		private void NewOrder(object sender, RoutedEventArgs e)
 		{
+			_isEditing = false;
 			ResetOrderInstance();
 		}
 
@@ -244,16 +252,13 @@ namespace CargoDelivery
 				}
 
 				var selectedItem = (dynamic) OrdersList.SelectedItems[0];
-
-				// TODO: delete order by key - 'selectedItem.Key'
-
+				UnitOfWorkInstance.Orders.Delete(selectedItem.Key);
+				UnitOfWorkInstance.Save();
 				OrdersList.SelectedItem = null;
 				EditOrderButton.IsEnabled = false;
 				DeletOrderButton.IsEnabled = false;
-
-				// TODO: get orders' data as Dictonary <id (long), owner (string)>
-				var orders = new Dictionary<long, string>();
-
+				var orders = UnitOfWorkInstance.GetOrders().ToDictionary(order => order.Id,
+					order => $"{order.ClientData.FirstName} {order.ClientData.LastName}");
 				if (orders.Count < 1)
 				{
 					OrdersExplorer.IsOpen = false;
@@ -268,13 +273,15 @@ namespace CargoDelivery
 			}
 			catch (DbUpdateException exc)
 			{
+				Cancel(sender, e);
 				Logger.Error($"Error occurred while deleting from the databse.\nError: {exc}");
 				Util.Error("Order deleting error", exc.Message);
 			}
 			catch (Exception exc)
 			{
+				Cancel(sender, e);
 				Logger.Error($"Error occurred while deleting an order.\nError: {exc}");
-				Util.Error("Order deleting error", exc.Message);
+				Util.Error("Order deleting error", exc.ToString());
 			}
 		}
 
@@ -283,7 +290,7 @@ namespace CargoDelivery
 		/// </summary>
 		private void ResetOrderInstance()
 		{
-			_order = new Order { Id = -1 };
+			_order = new Order();
 			DataContext = _order;
 		}
 	}

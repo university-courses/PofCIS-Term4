@@ -19,7 +19,7 @@ namespace CargoDelivery.Classes.OrderData
 		/// Code a code of goods.
 		/// </summary>
 		[Required]
-		public uint Code { get; set; }
+		public int Code { get; set; }
 		
 		/// <summary>
 		/// Weight of goods.

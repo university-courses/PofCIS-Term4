@@ -42,6 +42,6 @@ namespace CargoDelivery.Classes.OrderData
 		/// <summary>
 		/// Client's address.
 		/// </summary>
-		public virtual Address Address { get; set; }
+		public virtual Address Address { get; set; } = new Address();
 	}
 }

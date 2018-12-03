@@ -31,6 +31,6 @@ namespace CargoDelivery.Classes.OrderData
 		/// A number of building.
 		/// </summary>
 		[Required]
-		public uint BuildingNumber { get; set; }
+		public int BuildingNumber { get; set; }
 	}
 }

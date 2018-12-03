@@ -24,6 +24,6 @@ namespace CargoDelivery.Classes.OrderData
 		/// <summary>
 		/// An address of the shop.
 		/// </summary>
-		public virtual Address Address { get; set; }
+		public virtual Address Address { get; set; } = new Address();
 	}
 }

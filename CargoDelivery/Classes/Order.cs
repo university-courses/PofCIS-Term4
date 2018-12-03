@@ -20,16 +20,16 @@ namespace CargoDelivery.Classes
 		/// <summary>
 		/// Contains client personal information.
 		/// </summary>
-		public virtual ClientData ClientData { get; set; }
-		
+		public virtual ClientData ClientData { get; set; } = new ClientData();
+
 		/// <summary>
 		/// Represents shop data.
 		/// </summary>
-		public virtual ShopData ShopData { get; set; }
-		
+		public virtual ShopData ShopData { get; set; } = new ShopData();
+
 		/// <summary>
 		/// Holds an information about ordered goods.
 		/// </summary>
-		public virtual GoodsData GoodsData { get; set; }
+		public virtual GoodsData GoodsData { get; set; } = new GoodsData();
 	}
 }

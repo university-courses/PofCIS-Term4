@@ -11,6 +11,7 @@ namespace CargoDelivery.DAL.Interfaces
 			Func<IQueryable<TEntity>,
 			IOrderedQueryable<TEntity>> orderBy = null,
 			string includeProperties = "");
+
 		TEntity GetById(object id);
 		void Insert(TEntity entity);
 		void Delete(object id);
