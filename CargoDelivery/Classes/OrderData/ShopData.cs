@@ -18,7 +18,7 @@ namespace CargoDelivery.Classes.OrderData
 		/// <summary>
 		/// A name of the shop.
 		/// </summary>
-		[Required]
+		[Required, MaxLength(256)]
 		public string Name { get; set; }
 		
 		/// <summary>

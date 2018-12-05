@@ -252,7 +252,7 @@ namespace CargoDelivery
 				}
 
 				var selectedItem = (dynamic) OrdersList.SelectedItems[0];
-				UnitOfWorkInstance.Orders.Delete(selectedItem.Key);
+				UnitOfWorkInstance.DeleteOrder(selectedItem.Key);
 				UnitOfWorkInstance.Save();
 				OrdersList.SelectedItem = null;
 				EditOrderButton.IsEnabled = false;

@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Runtime.Remoting.Contexts;
+using System.Collections.Generic;
+
 using CargoDelivery.Classes;
-using CargoDelivery.Classes.OrderData;
 using CargoDelivery.DAL.Interfaces;
+using CargoDelivery.Classes.OrderData;
 
 namespace CargoDelivery.DAL
 {
@@ -61,19 +61,31 @@ namespace CargoDelivery.DAL
 			Addresses = new GenericRepository<Address>(_context);
 		}
 		
+		/// <summary>
+		/// Retrieves all orders from database.
+		/// </summary>
+		/// <returns>Orders list.</returns>
 		public IEnumerable<Order> GetOrders()
 		{
-			var result = new List<Order>();
-			foreach (var entity in _context.Orders
+			return _context.Orders
 				.Include(g => g.GoodsData)
 				.Include(s => s.ShopData).Include(shop => shop.ShopData.Address)
-				.Include(c => c.ClientData).Include(client => client.ClientData.Address)
-			)
-			{
-				result.Add(entity);
-			}
+				.Include(c => c.ClientData).Include(client => client.ClientData.Address);
+		}
 
-			return result;
+		/// <summary>
+		/// Deletes order from database completely.
+		/// </summary>
+		/// <param name="id">Order id.</param>
+		public void DeleteOrder(int id)
+		{
+			var order = Orders.GetById(id);
+			Addresses.Delete(order.ClientData.Address);
+			Addresses.Delete(order.ShopData.Address);
+			Goods.Delete(order.GoodsData);
+			Clients.Delete(order.ClientData);
+			Shops.Delete(order.ShopData);
+			Orders.Delete(order);
 		}
 		
 		/// <summary>

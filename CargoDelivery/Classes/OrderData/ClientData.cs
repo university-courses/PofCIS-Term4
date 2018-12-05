@@ -18,25 +18,25 @@ namespace CargoDelivery.Classes.OrderData
 		/// <summary>
 		/// The first name of a client.
 		/// </summary>
-		[Required]
+		[Required, MaxLength(256)]
 		public string FirstName { get; set; }
 		
 		/// <summary>
 		/// The second name of a client.
 		/// </summary>
-		[Required]
+		[Required, MaxLength(256)]
 		public string LastName { get; set; }
 		
 		/// <summary>
 		/// An email of the client.
 		/// </summary>
-		[Required]
+		[Required, MaxLength(256)]
 		public string Email { get; set; }
 		
 		/// <summary>
 		/// Client's phone number.
 		/// </summary>
-		[Required]
+		[Required, MaxLength(13)]
 		public string PhoneNumber { get; set; }
 		
 		/// <summary>

@@ -18,13 +18,13 @@ namespace CargoDelivery.Classes.OrderData
 		/// <summary>
 		/// A name of the city.
 		/// </summary>
-		[Required]
+		[Required, MaxLength(256)]
 		public string City { get; set; }
 		
 		/// <summary>
 		/// A name of the street.
 		/// </summary>
-		[Required]
+		[Required, MaxLength(256)]
 		public string Street { get; set; }
 		
 		/// <summary>
