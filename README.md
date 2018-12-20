@@ -8,7 +8,7 @@
 5) Весь код повинен бути покритий юніт тестами.
 
 ### Docs
-[Task 1 CS documentation](https://university-courses.github.io/PofCIS-Term4/task1-cs/index.html)
+[Task 1 CS documentation](https://university-courses.github.io/PofCIS-Term5/task1-cs/annotated.html)
 
 #### Team 1:
 * [Angela Seleman](https://github.com/selemanka)
