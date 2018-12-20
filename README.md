@@ -7,9 +7,11 @@
 4) Використання Linq.
 5) Весь код повинен бути покритий юніт тестами.
 
+### Docs
+[Task 1 CS documentation](https://university-courses.github.io/PofCIS-Term4/task1-cs/index.html)
+
 #### Team 1:
 * [Angela Seleman](https://github.com/selemanka)
 * [Dana Hrechyn](https://github.com/danahrechyn123)
 * [Olena Shipka](https://github.com/oshipka)
 * [Yuriy Lisovskiy](https://github.com/YuriyLisovskiy)
-
