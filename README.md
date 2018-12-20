@@ -9,7 +9,7 @@
 Варіант 10.  «Послуги по перевезенню вантажу» (для клієнта-замовника)
 
 ### Docs
-[Task 3 WPF Service documentation](https://university-courses.github.io/PofCIS-Term4/task3-wpf-service/index.html)
+[Task 3 WPF Service documentation](https://university-courses.github.io/PofCIS-Term5/task3-wpf-service/annotated.html)
 
 #### Team 1:
 * [Angela Seleman](https://github.com/selemanka)
