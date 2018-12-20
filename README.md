@@ -20,7 +20,7 @@
 27.	*Show the list of product categories along with total ordering sums calculated for the orders made for the products of each category, during the year 1997.
 
 ### Docs
-[Task ADO.NET documentation](https://lnupmi11.github.io/PofCIS_Team1/task4-ado-dotnet/index.html)
+[Task ADO.NET documentation](https://university-courses.github.io/PofCIS-Term4/task4-ado-dotnet/index.html)
 
 #### Team 1:
 * [Angela Seleman](https://github.com/selemanka)
