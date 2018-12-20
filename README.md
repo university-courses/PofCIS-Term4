@@ -5,7 +5,7 @@
 4.	Юніт тести і xml документація, обробка виняткових ситуацій.
 
 ### Docs
-[Task 5 Entity Framework documentation](https://university-courses.github.io/PofCIS-Term4/task5-entity-framework/index.html)
+[Task 5 Entity Framework documentation](https://university-courses.github.io/PofCIS-Term5/task5-entity-framework/annotated.html)
 
 #### Team 1:
 * [Angela Seleman](https://github.com/selemanka)
