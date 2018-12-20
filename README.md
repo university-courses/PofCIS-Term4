@@ -11,7 +11,7 @@
 Варіант 5: шестикутник.
 
 ### Docs
-[Task 2 WPF Shapes documentation](https://university-courses.github.io/PofCIS-Term4/task2-wpf-shapes/index.html)
+[Task 2 WPF Shapes documentation](https://university-courses.github.io/PofCIS-Term5/task2-wpf-shapes/annotated.html)
 
 #### Team 1:
 * [Angela Seleman](https://github.com/selemanka)
